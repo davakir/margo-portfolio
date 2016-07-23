@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Маргарита Евстюнина - Фотограф - Галерея{% endblock %}
+
+{% block body %}
+	<section class="gallery">
+		<article class="album">
+			<div class="album-icon">
+				<img src="{{ asset('img/background-square.jpg') }}" alt="Wedding album">
+			</div>
+			<div class="album-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+		</article>
+		<article class="album">
+			<div class="album-icon">
+				<img src="{{ asset('img/hair.jpg') }}" alt="Other album">
+			</div>
+			<div class="album-description">Libero ratione, veniam, debitis, fugit pariatur aperiam explicabo.</div>
+		</article>
+		<article class="album">
+			<div class="album-icon">
+				<img src="{{ asset('img/background2.jpg') }}" alt="Style album">
+			</div>
+			<div class="album-description">Soluta reiciendis voluptate, similique officiis.</div>
+		</article>
+	</section>
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/index.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

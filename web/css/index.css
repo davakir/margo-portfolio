@@ -1,0 +1,76 @@
+@import url("footer.css");
+@import url("menu.css");
+@import url("carousel.css");
+@import url("albums.css");
+@import url("contacts.css");
+@import url("about.css");
+@import url("service.css");
+
+/*Base styles*/
+
+::selection {
+	color: #FBE3C9;
+	background: #8D7E78;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6, a {
+	text-transform: uppercase;
+}
+
+body {
+	background-color: #25272c;
+	color: #f2ece4;
+	font-family: "Roboto Condensed", Helvetica, Arial, sans-serif;
+	font-size: 20px;
+}
+
+a {
+	text-decoration: none;
+}
+
+section.about, section.contacts, section.service {
+	width: 70%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+section {
+	text-align: center;
+	font-weight: 300;
+}
+
+section.about:after, section.contacts:after, .service article:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+article .title {
+	color: #FC8F8D;
+	margin-bottom: 20px;
+}
+
+@media screen and (min-width: 721px) and (max-width: 1080px) {
+	body {
+		font-size: 16px;
+	}
+	
+	section.about, section.contacts, section.service {
+		width: 85%;
+	}
+	
+	article .title h1 {
+		font-size: 22px;
+	}
+}
+
+@media screen and (max-width: 720px) {
+	section.about, section.contacts, section.service {
+		width: 100%;
+	}
+}

@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Маргарита Евстюнина - Фотограф - Контакты{% endblock %}
+
+{% block body %}
+	<section class="contacts">
+		<article class="left-side">
+			<div class="title">
+				<h1>Контактная информация</h1>
+			</div>
+			<p>Для уточнения деталей Вы можете связаться со мной одним из следующих способов:</p>
+			<p><span class="glyphicon glyphicon-envelope"></span>&nbsp;&nbsp;e-mail:
+				<samp>opportunities013@mail.ru</samp></p>
+			<p><span class="glyphicon glyphicon-phone-alt"></span>&nbsp;&nbsp;Телефон: <samp>+7(964)599-42-21</samp>​
+			</p>
+		</article>
+		<article class="right-side">
+			<div class="title">
+				<h1>Обратная связь</h1>
+			</div>
+			<form action="" method="POST">
+				<table class="feedback-form">
+					<tr>
+						<td class="labels"><label for="first_name">Имя:</label></td>
+						<td class="fields"><input type="text" id="first_name" placeholder="Ваше Имя"/></td>
+					</tr>
+					<tr>
+						<td class="labels"><label for="last_name">Фамилия:</label></td>
+						<td class="fields"><input type="text" id="last_name" placeholder="Ваша Фамилия"/></td>
+					</tr>
+					<tr>
+						<td class="labels"><label for="phone">Контактный телефон:</label></td>
+						<td class="fields"><input type="tel" id="phone" placeholder="+71234567890"/></td>
+					</tr>
+					<tr>
+						<td class="labels"><label for="e-mail">E-mail:</label></td>
+						<td class="fields"><input type="email" id="e-mail" placeholder="example@gmail.com"></td>
+					</tr>
+					<tr>
+						<td class="labels"><label for="message">Ваши комментарии:</label></td>
+						<td class="fields">
+							<textarea id="message" placeholder="Оставьте свое сообщение здесь..."></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<input type="submit" value="Отправить"/>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</article>
+	</section>
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/index.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

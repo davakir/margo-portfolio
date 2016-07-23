@@ -1,0 +1,118 @@
+/*For big screens*/
+
+@media screen and (min-width: 1081px) {
+	.more-link a {
+		color: inherit;
+	}
+
+	.right-side {
+		width: 55%;
+		float: right;
+		text-align: left;
+		padding-left: 30px;
+		box-sizing: border-box;
+	}
+
+	.left-side img{
+		width: 95%;
+		height: auto;
+	}
+	.post {
+		margin-bottom: 20px;
+	}
+
+	.post:after {
+		content: "";
+		clear: both;
+		display: table;
+	}
+
+	.post-icon {
+		float: left;
+		width: 30%;
+	}
+
+	.post-icon img {
+		width: 100%;
+		height: auto;
+	}
+
+	.post-description {
+		float: left;
+		width: 65%;
+		line-height: 1em;
+		margin-left: 5%;
+	}
+
+	.post-description h3 {
+		font-size: 22px;
+		margin: 0;
+	}
+
+	.left-side {
+		width: 45%;
+		height: 100%;
+		float: left;
+		border-right: 2px dashed #31333a;
+		text-align: left;
+		padding-right: 30px;
+		box-sizing: border-box;
+	}
+
+
+	.left-side .photo, .left-side .photo-description {
+		margin-bottom: 20px;
+	}
+}
+
+/*@media for smartphones*/
+
+@media screen and (max-width: 1080px) and (min-width: 360px) {
+	.left-side, .right-side {
+		float: none;
+		width: 100%;
+		text-align: left;
+		padding: 10px;
+		box-sizing: border-box;
+	}
+
+	.left-side .photo>img{
+		width: 95%;
+		height: auto;
+		margin-bottom: 15px;
+	}
+
+	.post {
+		margin-bottom: 20px;
+	}
+
+	.post-icon {
+		float: left;
+		width: 30%;
+		margin-right: 10px;
+		margin-bottom: 10px;
+	}
+
+	.post-icon img {
+		width: 100%;
+		height: auto;
+	}
+
+	.post-description {
+		width: 100%;
+		line-height: 1em;
+	}
+
+	.post-description h3 {
+		font-size: 18px;
+		margin: 0;
+	}
+
+	.more-link a {
+		color: inherit;
+	}
+
+	.more-link h2 {
+		font-size: 20px;
+	}
+}

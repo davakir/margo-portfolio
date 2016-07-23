@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Маргарита Евстюнина - Фотограф - Обо мне{% endblock %}
+
+{% block body %}
+	<section class="about">
+		<article class="left-side">
+			<div class="title">
+				<h1>Обо мне</h1>
+			</div>
+			<div class="photo">
+				<img src="{{ asset('img/margo2.jpg') }}" alt="My favorite photo">
+			</div>
+			<div class="photo-description">
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab architecto at cumque cupiditate
+					dolorem dolores, doloribus eum harum ipsam modi nemo, nisi odit quod reiciendis repellat ut
+					vero!</p>
+			</div>
+			<div class="more-link">
+				<a href=""><h2>Читать далее &gt;</h2></a>
+			</div>
+		</article>
+		<article class="right-side">
+			<div class="title">
+				<h1>События</h1>
+			</div>
+			<div class="post">
+				<div class="post-icon">
+					<img src="{{ asset('img/background.jpg') }}" alt="Свадебная фотосессия">
+				</div>
+				<div class="post-description">
+					<h3>Lorem ipsum dolor sit.</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias quo ratione reiciendis
+						molestias ex qui fuga repudiandae quisquam nisi voluptates? Eius cum sapiente voluptas
+						ratione voluptatibus repudiandae magnam incidunt commodi.</p>
+				</div>
+			</div>
+			<div class="post">
+				<div class="post-icon">
+					<img src="{{ asset('img/cat.jpg') }}" alt="Свадебная фотосессия">
+				</div>
+				<div class="post-description">
+					<h3>Lorem ipsum dolor sit.</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias quo ratione reiciendis
+						molestias ex qui fuga repudiandae quisquam nisi voluptates? Eius cum sapiente voluptas
+						ratione voluptatibus repudiandae magnam incidunt commodi.</p>
+				</div>
+			</div>
+			<div class="more-link">
+				<a href=""><h2>Больше событий &gt;</h2></a>
+			</div>
+		</article>
+	</section>
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/index.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

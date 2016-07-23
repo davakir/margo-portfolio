@@ -1,0 +1,49 @@
+/*For big screens*/
+
+.inside-list {
+	padding-left: 30px;
+	list-style-type: disc;
+	font-weight: 300;
+	color: #fff;
+}
+
+@media screen and (min-width: 1081px) {
+	section.service {
+		text-align: left;
+		box-sizing: border-box;
+		padding: 0 30px;
+	}
+
+	.service .title {
+		text-align: center;
+	}
+
+	article .photoset-type {
+		width: 50%;
+		box-sizing: border-box;
+		padding: 15px 20px;
+		text-align: left;
+		height: 450px;
+	}
+
+	.top-left, .bottom-left {
+		float: left;
+	}
+
+	.top-right, .bottom-right {
+		float: right;
+	}
+}
+
+/*For smartphones*/
+
+@media screen and (max-width: 1080px) and (min-width: 360px) {
+		.photoset-type {
+			text-align: left;
+			padding: 10px;
+		}
+
+		.photoset-type h2 {
+			font-size: 20px;
+		}
+}
