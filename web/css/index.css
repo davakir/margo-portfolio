@@ -23,8 +23,8 @@ h1, h2, h3, h4, h5, h6, a {
 }
 
 body {
-	background-color: #25272c;
-	color: #f2ece4;
+	background-color: #25272c !important;
+	color: #f2ece4 !important;
 	font-family: "Roboto Condensed", Helvetica, Arial, sans-serif;
 	font-size: 20px;
 }
