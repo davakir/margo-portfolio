@@ -1,6 +1,6 @@
 {
-    "name": "daryakiryanova/margoportfolio.sym",
-    "license": "proprietary",
+    "name": "davakir/margo-portfolio",
+    "license": "free",
     "type": "project",
     "autoload": {
         "psr-4": {
