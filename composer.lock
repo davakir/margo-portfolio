@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "913102c5781517a64b5b877f67bf6c07",
-    "content-hash": "c16ca2e06ab4583beb5351bc099e4844",
+    "hash": "0ffdc63b30531d81952ed6f0ea267623",
+    "content-hash": "fa169071f5726b4e97867d798a31b142",
     "packages": [
         {
             "name": "davakir/yandex-photos",
@@ -13,22 +13,27 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/davakir/yandex-photos",
-                "reference": "a76d00c8b08fa57a30ca29297e399030fbb497b2"
+                "reference": "283ec23ad534b8463376734c4348094d28b5f3c6"
             },
             "require": {
                 "pear/http_request2": "2.3.*"
             },
             "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Yandex\\Photos\\": "lib/"
+                }
+            },
             "license": [
                 "free"
             ],
             "authors": [
                 {
-                    "name": "author's name",
-                    "email": "email@example.com"
+                    "name": "Darya Kiryanova",
+                    "email": "dvkiryanova@gmail.com"
                 }
             ],
-            "time": "2016-07-24 18:18:45"
+            "time": "2016-07-29 20:26:56"
         },
         {
             "name": "doctrine/annotations",
