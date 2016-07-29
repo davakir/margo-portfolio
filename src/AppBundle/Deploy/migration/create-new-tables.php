@@ -29,12 +29,25 @@ $res2 = $connect->query("
 	CREATE TABLE IF NOT EXISTS photos (
 		photo_id SERIAL PRIMARY KEY,
 		ya_photo_id INT NOT NULL,
+		album_id INT NOT NULL,
 		author VARCHAR(50) DEFAULT NULL,
 		title VARCHAR(100) DEFAULT NULL,
 		link VARCHAR(255) DEFAULT NULL
 	)
 ")->execute();
-	
+
+$res3 = $connect->query("
+	CREATE TABLE IF NOT EXISTS mini_photos (
+		photo_id SERIAL PRIMARY KEY,
+		ya_photo_id INT NOT NULL,
+		album_id INT NOT NULL,
+		author VARCHAR(50) DEFAULT NULL,
+		title VARCHAR(100) DEFAULT NULL,
+		link VARCHAR(255) DEFAULT NULL
+	)
+")->execute();
+
 echo "Выполняются запросы в базу\n";
-echo "Результат выполнения: " . var_dump($res1) . "\n";
-echo "Результат выполнения: " . var_dump($res2) . "\n";
+echo "Результат выполнения: " . ($res1 ? 'ok' : 'error occurred') . "\n";
+echo "Результат выполнения: " . ($res2 ? 'ok' : 'error occurred') . "\n";
+echo "Результат выполнения: " . ($res3 ? 'ok' : 'error occurred') . "\n";
