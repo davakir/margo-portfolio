@@ -2,11 +2,12 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Model\Album;
+use AppBundle\Entity\Album;
 use AppBundle\Model\Photo;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Yandex\Photos\YandexPhotos;
 
 class AdminController extends Controller
@@ -39,7 +40,11 @@ class AdminController extends Controller
 		
 		$this->saveData($albums);
 		
-		return $albums;
+		return $this->render(
+			'admin/albums.html.twig',
+			[
+				'albums' => $albums
+			]);
 	}
 	
 	/**
@@ -50,26 +55,29 @@ class AdminController extends Controller
 	{
 		foreach ($data as $album)
 		{
-			$album = new Album();
-			$album->setYaAlbumId($album['album_id']);
-			$album->setAuthor($album['author']);
-			$album->setDescription($album['description']);
-			$album->setTitle($album['title']);
+			$albumModel = new Album();
+			$albumModel->setYaAlbumId($album['album_id']);
+			$albumModel->setAuthor($album['author']);
+			$albumModel->setDescription($album['description']);
+			$albumModel->setTitle($album['title']);
 			foreach ($album['links'] as $link)
 			{
 				switch ($link['rel']) {
 					case 'self':
-						$album->setSelfLink($link['href']);
+						$albumModel->setSelfLink($link['href']);
 						break;
 					case 'cover':
-						$album->setCoverLink($link['href']);
+						$albumModel->setCoverLink($link['href']);
 						break;
 					case 'photos':
-						$album->setPhotosLink($link['href']);
+						$albumModel->setPhotosLink($link['href']);
 				}
 			}
 			
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($albumModel);
 			
+			$em->flush();
 		}
 	}
 	

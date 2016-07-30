@@ -1,0 +1,14 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block body %}
+
+		{% for album in albums %}
+			<ul>
+				<li>{{ album.author }}</li>
+				<li>{{ album.title }}</li>
+				<li>{{ album.description }}</li>
+			</ul>
+			
+		{% endfor %}
+
+{% endblock %}
