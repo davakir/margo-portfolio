@@ -8,8 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Модель фотографии для работы с БД
  *
  * @ORM\Entity
- * @ORM\Table(name="photos")
- *
+ * @ORM\Table(name="mini_photos")
  */
 class Photo
 {

@@ -2,12 +2,11 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Album;
-use AppBundle\Model\Photo;
+use Service\Dao\DaoAlbums;
+use Service\Dao\DaoPhotos;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Yandex\Photos\YandexPhotos;
 
 class AdminController extends Controller
@@ -30,55 +29,53 @@ class AdminController extends Controller
 	{
 		if (!isset($_POST['ya_login']))
 		{
-			return "Не задан логин пользователя";
+			return "User login was not set";
 		}
 		
 		$login = $_POST['ya_login'];
 		
 		$client = new YandexPhotos($login);
+		
+		// get all user albums
 		$albums = $client->getAlbums();
 		
-		$this->saveData($albums);
+		// get photos information for each album
+		$photosInfo = [];
+		foreach ($albums as $album)
+		{
+			$photosInfo[$album['album_id']] = $client->getPhotosForAlbum($album['album_id']);
+		}
+		
+		// get photos full info
+		$photos = [];
+		foreach ($photosInfo as $albumId => $pictures)
+		{
+			foreach ($pictures as $pic)
+			{
+				$photos[] = [
+					'album_id' => $albumId,
+					'data' => $client->getPhoto($pic['photo_id'], 'orig')
+				];
+			}
+		}
+		
+		// save albums
+		(new DaoAlbums())->saveAlbums($albums);
 		
 		return $this->render(
 			'admin/albums.html.twig',
 			[
-				'albums' => $albums
+				'albums' => $albums,
+				'photos' => $photos
 			]);
 	}
 	
 	/**
-	 * Сохранение полученных данных в БД из Яндекса
-	 * @param array $data
+	 * @param int $albumId
 	 */
-	protected function saveData(array $data)
+	protected function savePhotos(int $albumId)
 	{
-		foreach ($data as $album)
-		{
-			$albumModel = new Album();
-			$albumModel->setYaAlbumId($album['album_id']);
-			$albumModel->setAuthor($album['author']);
-			$albumModel->setDescription($album['description']);
-			$albumModel->setTitle($album['title']);
-			foreach ($album['links'] as $link)
-			{
-				switch ($link['rel']) {
-					case 'self':
-						$albumModel->setSelfLink($link['href']);
-						break;
-					case 'cover':
-						$albumModel->setCoverLink($link['href']);
-						break;
-					case 'photos':
-						$albumModel->setPhotosLink($link['href']);
-				}
-			}
-			
-			$em = $this->getDoctrine()->getManager();
-			$em->persist($albumModel);
-			
-			$em->flush();
-		}
+		
 	}
 	
 	/**

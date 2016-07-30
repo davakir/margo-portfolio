@@ -2,38 +2,42 @@
 
 namespace Service\Dao;
 
-use Db\PostgreSql;
+use AppBundle\Entity\Album;
 
 class DaoAlbums
 {
 	/**
-	 * Коннект к базе
-	 * @var null
+	 * Сохранение полученных данных в БД из Яндекса
+	 * @param array $data
 	 */
-	protected $connect = null;
-	
-	public function __construct()
+	public function saveAlbums(array $data)
 	{
-		$this->connect = (new PostgreSql())->connect();
-	}
-	
-	public function getAllAlbums()
-	{
-		$query = $this->connect->prepare("
-			SELECT * FROM albums WHERE toShow = 1
-		");
-		
-		$query->execute();
-	}
-	
-	public function getAlbum($albumId)
-	{
-		$query = $this->connect->prepare("
-			SELECT * FROM albums WHERE to_show = 1 AND album_id = :albumId
-		");
-		
-		$query->bindParam(':albumId', $albumId);
-		
-		$query->execute();
+		foreach ($data as $album)
+		{
+			$albumModel = new Album();
+			$albumModel->setYaAlbumId($album['album_id']);
+			$albumModel->setAuthor($album['author']);
+			$albumModel->setDescription($album['description']);
+			$albumModel->setTitle($album['title']);
+			
+			foreach ($album['links'] as $rel => $href)
+			{
+				switch ($rel) {
+					case 'self_link':
+						$albumModel->setSelfLink($href);
+						break;
+					case 'cover_link':
+						$albumModel->setCoverLink($href);
+						break;
+					case 'photos_link':
+						$albumModel->setPhotosLink($href);
+				}
+			}
+			
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($albumModel);
+			
+			$em->flush();
+		}
 	}
 }

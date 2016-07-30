@@ -77,46 +77,6 @@ class Album
 	}
 	
 	/**
-	 * @return mixed
-	 */
-	public function getPhotosLink()
-	{
-		return $this->photos_link;
-	}
-	
-	/**
-	 * @param mixed $photos_link
-	 */
-	public function setPhotosLink($photos_link)
-	{
-		$this->photos_link = $photos_link;
-	}
-	
-	/**
-	 * @return mixed
-	 */
-	public function getCoverLink()
-	{
-		return $this->cover_link;
-	}
-	
-	/**
-	 * @param mixed $cover_link
-	 */
-	public function setCoverLink($cover_link)
-	{
-		$this->cover_link = $cover_link;
-	}
-	
-	/**
-	 * @param mixed $album_id
-	 */
-	public function setAlbumId($album_id)
-	{
-		$this->album_id = $album_id;
-	}
-	
-	/**
 	 * @param mixed $author
 	 */
 	public function setAuthor($author)
@@ -141,10 +101,51 @@ class Album
 	}
 	
 	/**
-	 * @param mixed $self_link
+	 * @return mixed
+	 */
+	public function getPhotosLink()
+	{
+		return $this->photos_link;
+	}
+	
+	/**
+	 * @param string $photos_link
+	 */
+	public function setPhotosLink($photos_link)
+	{
+		$this->photos_link = $photos_link;
+	}
+	
+	/**
+	 * @return mixed
+	 */
+	public function getCoverLink()
+	{
+		return $this->cover_link;
+	}
+	
+	/**
+	 * @param string $cover_link
+	 */
+	public function setCoverLink($cover_link)
+	{
+		$this->cover_link = $cover_link;
+	}
+	
+	/**
+	 * @param string $self_link
 	 */
 	public function setSelfLink($self_link)
 	{
 		$this->self_link = $self_link;
 	}
+	
+	/**
+	 * @return mixed
+	 */
+	public function getSelfLink()
+	{
+		return $this->self_link;
+	}
+	
 }
