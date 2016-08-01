@@ -7,6 +7,7 @@ use Service\Dao\DaoPhotos;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Yandex\Photos\YandexPhotos;
 
 class AdminController extends Controller
@@ -23,16 +24,16 @@ class AdminController extends Controller
 	 * Обрабатывает POST-запрос
 	 *
 	 * Получаем альбомы пользователя из Яндекс.Фоток
-	 * @Route("/admin/albums/get", name="albums")
+	 * @Route("/admin/albums", name="albums")
 	 */
-	public function getDataFromYandex()
+	public function getDataFromYandex(Request $request)
 	{
-		if (!isset($_POST['ya_login']))
+        $login = $request->request->get("ya_login");
+
+		if ($login == null)
 		{
-			return "User login was not set";
+			return new Response("User login was not set", Response::HTTP_BAD_REQUEST);
 		}
-		
-		$login = $_POST['ya_login'];
 		
 		$client = new YandexPhotos($login);
 		
@@ -40,35 +41,59 @@ class AdminController extends Controller
 		$albums = $client->getAlbums();
 		
 		// get photos information for each album
-		$photosInfo = [];
-		foreach ($albums as $album)
-		{
-			$photosInfo[$album['album_id']] = $client->getPhotosForAlbum($album['album_id']);
-		}
-		
-		// get photos full info
-		$photos = [];
-		foreach ($photosInfo as $albumId => $pictures)
-		{
-			foreach ($pictures as $pic)
-			{
-				$photos[] = [
-					'album_id' => $albumId,
-					'data' => $client->getPhoto($pic['photo_id'], 'orig')
-				];
-			}
-		}
+//		$photosInfo = [];
+//		foreach ($albums as $album)
+//		{
+//			$photosInfo[$album['album_id']] = $client->getPhotosForAlbum($album['album_id']);
+//		}
+//
+//		// get photos full info
+//		$photos = [];
+//		foreach ($photosInfo as $albumId => $pictures)
+//		{
+//			foreach ($pictures as $pic)
+//			{
+//				$photos[] = [
+//					'album_id' => $albumId,
+//					'data' => $client->getPhoto($pic['photo_id'], 'orig')
+//				];
+//			}
+//		}
 		
 		// save albums
-		(new DaoAlbums())->saveAlbums($albums);
+//		(new DaoAlbums())->saveAlbums($albums);
 		
 		return $this->render(
 			'admin/albums.html.twig',
 			[
 				'albums' => $albums,
-				'photos' => $photos
+//				'photos' => $photos
 			]);
 	}
+
+    /**
+     * @param Request $request
+     * @return Response
+     *
+     * @Route("/admin/album/{album_id}/photos", name="photos")
+     */
+	public function getPhotos($album_id, Request $request)
+    {
+        $login = $request->request->get("ya_login");
+
+        if ($login == null || $album_id == null)
+        {
+            return new Response("User login was not set", Response::HTTP_BAD_REQUEST);
+        }
+
+        $client = new YandexPhotos($login);
+        $photos = $client->getPhotosForAlbum($album_id);
+
+        return $this->render(
+            'admin/photos.html.twig',
+            ['photos' => $photos]
+        );
+    }
 	
 	/**
 	 * @param int $albumId
