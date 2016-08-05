@@ -2,8 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use Service\Dao\DaoAlbums;
-use Service\Dao\DaoPhotos;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,16 +27,25 @@ class AdminController extends Controller
 	public function getDataFromYandex(Request $request)
 	{
         $login = $request->request->get("ya_login");
-
+		
 		if ($login == null)
 		{
-			return new Response("User login was not set", Response::HTTP_BAD_REQUEST);
+			return new Response("User login was not set bla " . $_POST['ya_login'], Response::HTTP_BAD_REQUEST);
 		}
 		
 		$client = new YandexPhotos($login);
 		
 		// get all user albums
 		$albums = $client->getAlbums();
+		
+		// get true cover links for albums and set as cover_link
+		foreach ($albums as &$album)
+		{
+			$id = explode('/', rtrim($album['links']['cover_link'], '/'));
+			$cover_id = array_pop($id);
+			$cover = $client->getPhoto($cover_id, 'XXS');
+			$album['links']['cover_link'] = $cover['link'];
+		}
 		
 		// get photos information for each album
 //		$photosInfo = [];
@@ -61,8 +68,8 @@ class AdminController extends Controller
 //		}
 		
 		// save albums
-//		(new DaoAlbums())->saveAlbums($albums);
-		
+		($this->get('dao.albums'))->saveAlbums($albums);
+
 		return $this->render(
 			'admin/albums.html.twig',
 			[

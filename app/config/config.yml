@@ -58,6 +58,12 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+#        default_entity_manager: default
+#            entity_managers:
+#                default:
+#                    connection: default
+#                        mappings:
+#                            AppBundle:  ~
 
 # Swiftmailer Configuration
 swiftmailer:

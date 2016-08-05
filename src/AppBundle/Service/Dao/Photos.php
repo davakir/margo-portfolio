@@ -1,10 +1,10 @@
 <?php
 
-namespace Service\Dao;
+namespace AppBundle\Service\Dao;
 
 use AppBundle\Entity\Photo;
 
-class DaoPhotos
+class Photos
 {
 	
 }

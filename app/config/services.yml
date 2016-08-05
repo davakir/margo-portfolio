@@ -1,9 +1,9 @@
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/book/service_container.html
-parameters:
-#    parameter_name: value
-
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    dao.albums:
+        class: AppBundle\Service\Dao\Albums
+        arguments: ['@doctrine.orm.default_entity_manager']
+    dao.photos:
+        class: AppBundle\Service\Dao\Photos
+#        arguments: ['%entity.manager%']

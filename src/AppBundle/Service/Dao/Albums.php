@@ -1,20 +1,42 @@
 <?php
 
-namespace Service\Dao;
+namespace AppBundle\Service\Dao;
 
+use Doctrine;
+use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Album;
 
-class DaoAlbums
+class Albums
 {
+	protected $em;
+
+	public function __construct(EntityManager $em)
+	{
+		$this->em = $em;
+	}
+	
 	/**
-	 * Сохранение полученных данных в БД из Яндекса
+	 * Сохранение/обновление полученных из Яндекса данных в БД
 	 * @param array $data
 	 */
 	public function saveAlbums(array $data)
 	{
 		foreach ($data as $album)
 		{
-			$albumModel = new Album();
+			$albumModel = $this->em
+				->getRepository('AppBundle:Album')
+				->findOneBy(array(
+					'ya_album_id' => $album['album_id']
+				));
+			
+			// to select update or insert
+			$tmp = $albumModel;
+			
+			if (!$tmp)
+			{
+				$albumModel = new Album();
+			}
+			
 			$albumModel->setYaAlbumId($album['album_id']);
 			$albumModel->setAuthor($album['author']);
 			$albumModel->setDescription($album['description']);
@@ -34,10 +56,12 @@ class DaoAlbums
 				}
 			}
 			
-			$em = $this->getDoctrine()->getManager();
-			$em->persist($albumModel);
+			if (!$tmp)
+			{
+				$this->em->persist($albumModel);
+			}
 			
-			$em->flush();
+			$this->em->flush();
 		}
 	}
 }
