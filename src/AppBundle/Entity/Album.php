@@ -14,15 +14,15 @@ use Doctrine\ORM\Mapping as ORM;
 class Album
 {
 	/**
-	 * @ORM\Column(type="integer")
+	 * @ORM\Column(type="integer", name="album_id")
 	 * @ORM\Id
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
-	private $album_id;
+	private $albumId;
 	/**
-	 * @ORM\Column(type="integer")
+	 * @ORM\Column(type="integer", name="ya_album_id")
 	 */
-	private $ya_album_id;
+	private $yaAlbumId;
 	/**
 	 * @ORM\Column(type="string", length=50)
 	 */
@@ -36,44 +36,44 @@ class Album
 	 */
 	private $description;
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", name="self_link", length=255)
 	 */
-	private $self_link;
+	private $selfLink;
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", name="edit_link", length=255)
 	 */
-	private $edit_link;
+	private $editLink;
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", name="photos_link", length=255)
 	 */
-	private $photos_link;
+	private $photosLink;
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", name="cover_link", length=255)
 	 */
-	private $cover_link;
+	private $coverLink;
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", name="ymapsml_link", length=255)
 	 */
-	private $ymapsml_link;
+	private $ymapsmlLink;
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", name="alternate_link", length=255)
 	 */
-	private $alternate_link;
+	private $alternateLink;
 	
 	/**
 	 * @return mixed
 	 */
 	public function getYaAlbumId()
 	{
-		return $this->ya_album_id;
+		return $this->yaAlbumId;
 	}
 	
 	/**
-	 * @param mixed $ya_album_id
+	 * @param mixed $yaAlbumId
 	 */
-	public function setYaAlbumId($ya_album_id)
+	public function setYaAlbumId($yaAlbumId)
 	{
-		$this->ya_album_id = $ya_album_id;
+		$this->yaAlbumId = $yaAlbumId;
 	}
 	
 	/**
@@ -105,15 +105,15 @@ class Album
 	 */
 	public function getPhotosLink()
 	{
-		return $this->photos_link;
+		return $this->photosLink;
 	}
 	
 	/**
-	 * @param string $photos_link
+	 * @param string $photosLink
 	 */
-	public function setPhotosLink($photos_link)
+	public function setPhotosLink($photosLink)
 	{
-		$this->photos_link = $photos_link;
+		$this->photosLink = $photosLink;
 	}
 	
 	/**
@@ -121,23 +121,23 @@ class Album
 	 */
 	public function getCoverLink()
 	{
-		return $this->cover_link;
+		return $this->coverLink;
 	}
 	
 	/**
-	 * @param string $cover_link
+	 * @param string $coverLink
 	 */
-	public function setCoverLink($cover_link)
+	public function setCoverLink($coverLink)
 	{
-		$this->cover_link = $cover_link;
+		$this->coverLink = $coverLink;
 	}
 	
 	/**
-	 * @param string $self_link
+	 * @param string $selfLink
 	 */
-	public function setSelfLink($self_link)
+	public function setSelfLink($selfLink)
 	{
-		$this->self_link = $self_link;
+		$this->selfLink = $selfLink;
 	}
 	
 	/**
@@ -145,7 +145,6 @@ class Album
 	 */
 	public function getSelfLink()
 	{
-		return $this->self_link;
+		return $this->selfLink;
 	}
-	
 }

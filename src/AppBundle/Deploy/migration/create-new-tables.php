@@ -12,7 +12,7 @@ $connect = (new PostgreSql())->connect();
 $res1 = $connect->query("
 	CREATE TABLE IF NOT EXISTS albums (
 		album_id SERIAL PRIMARY KEY,
-		ya_album_id INT NOT NULL,
+		ya_album_id INT UNIQUE NOT NULL,
 		author VARCHAR(50) DEFAULT NULL,
 		title VARCHAR(100) DEFAULT NULL,
 		description VARCHAR(255) DEFAULT NULL,
@@ -28,10 +28,9 @@ $res1 = $connect->query("
 $res2 = $connect->query("
 	CREATE TABLE IF NOT EXISTS photos (
 		photo_id SERIAL PRIMARY KEY,
-		ya_photo_id INT NOT NULL,
+		ya_photo_id INT UNIQUE NOT NULL,
 		album_id INT NOT NULL,
 		author VARCHAR(50) DEFAULT NULL,
-		title VARCHAR(100) DEFAULT NULL,
 		link VARCHAR(255) DEFAULT NULL
 	)
 ")->execute();
@@ -39,10 +38,9 @@ $res2 = $connect->query("
 $res3 = $connect->query("
 	CREATE TABLE IF NOT EXISTS mini_photos (
 		photo_id SERIAL PRIMARY KEY,
-		ya_photo_id INT NOT NULL,
+		ya_photo_id INT UNIQUE NOT NULL,
 		album_id INT NOT NULL,
 		author VARCHAR(50) DEFAULT NULL,
-		title VARCHAR(100) DEFAULT NULL,
 		link VARCHAR(255) DEFAULT NULL
 	)
 ")->execute();

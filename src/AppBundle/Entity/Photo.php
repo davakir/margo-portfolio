@@ -14,23 +14,23 @@ use Doctrine\ORM\Mapping as ORM;
 class Photo
 {
 	/**
-	 * @ORM\Column(type="integer")
+	 * @ORM\Column(type="integer", name="photo_id")
 	 * @ORM\Id
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
-	private $photo_id;
+	private $photoId;
 	/**
-	 * @ORM\Column(type="integer")
+	 * @ORM\Column(type="integer", name="ya_photo_id")
 	 */
-	private $ya_photo_id;
+	private $yaPhotoId;
+	/**
+	 * @ORM\Column(type="integer", name="album_id")
+	 */
+	private $albumId;
 	/**
 	 * @ORM\Column(type="string", length=50)
 	 */
 	private $author;
-	/**
-	 * @ORM\Column(type="string", length=100)
-	 */
-	private $title;
 	/**
 	 * @ORM\Column(type="string", length=255)
 	 */
@@ -41,15 +41,31 @@ class Photo
 	 */
 	public function getYaPhotoId()
 	{
-		return $this->ya_photo_id;
+		return $this->yaPhotoId;
 	}
 	
 	/**
-	 * @param mixed $ya_photo_id
+	 * @param mixed $yaPhotoId
 	 */
-	public function setYaPhotoId($ya_photo_id)
+	public function setYaPhotoId($yaPhotoId)
 	{
-		$this->ya_photo_id = $ya_photo_id;
+		$this->yaPhotoId = $yaPhotoId;
+	}
+	
+	/**
+	 * @param mixed $albumId
+	 */
+	public function setAlbumId($albumId)
+	{
+		$this->albumId = $albumId;
+	}
+	
+	/**
+	 * @return mixed
+	 */
+	public function setAuthor()
+	{
+		return $this->author;
 	}
 	
 	/**

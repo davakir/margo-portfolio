@@ -26,10 +26,10 @@ class Albums
 			$albumModel = $this->em
 				->getRepository('AppBundle:Album')
 				->findOneBy(array(
-					'ya_album_id' => $album['album_id']
+					'yaAlbumId' => $album['album_id']
 				));
 			
-			// to select update or insert
+			// to select update|insert
 			$tmp = $albumModel;
 			
 			if (!$tmp)
@@ -60,8 +60,8 @@ class Albums
 			{
 				$this->em->persist($albumModel);
 			}
-			
-			$this->em->flush();
 		}
+		
+		$this->em->flush();
 	}
 }

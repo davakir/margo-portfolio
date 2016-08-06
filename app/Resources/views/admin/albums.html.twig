@@ -3,16 +3,20 @@
 		<td>
 			<div class="media" id="album-{{ album.album_id }}"
 				 data-toggle="collapse" data-target="#album-{{ album.album_id }}-photos">
-				<a class="media-left" href="{{ album.links.cover_link }}">
+				<div class="media-left" href="{{ album.links.cover_link }}">
 					<img class="media-heading" src="{{ album.links.cover_link }}" alt="Обложка альбома" width="75" height="75">
-				</a>
+				</div>
 				<div class="media-body">
 					<h4 class="media-heading">{{ album.title }}</h4>
 					{{ album.description }}
 					<h6 class="media-bottom">
-						Author:
+						Автор:
 						<small class="text-muted">{{ album.author }}</small>
 					</h6>
+				</div>
+				<div class="col-xs-12 col-sm-3 pull-right">
+					<label for="al-{{ album.album_id }}">Сохранить</label>
+					<input type="checkbox" id="al-{{ album.album_id }}" checked>
 				</div>
 			</div>
 

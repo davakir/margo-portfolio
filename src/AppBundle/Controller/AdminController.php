@@ -24,13 +24,13 @@ class AdminController extends Controller
 	 * Получаем альбомы пользователя из Яндекс.Фоток
 	 * @Route("/admin/albums", name="albums")
 	 */
-	public function getDataFromYandex(Request $request)
+	public function getAlbums(Request $request)
 	{
         $login = $request->request->get("ya_login");
 		
 		if ($login == null)
 		{
-			return new Response("User login was not set bla " . $_POST['ya_login'], Response::HTTP_BAD_REQUEST);
+			return new Response("User login was not set", Response::HTTP_BAD_REQUEST);
 		}
 		
 		$client = new YandexPhotos($login);
@@ -47,75 +47,47 @@ class AdminController extends Controller
 			$album['links']['cover_link'] = $cover['link'];
 		}
 		
-		// get photos information for each album
-//		$photosInfo = [];
-//		foreach ($albums as $album)
-//		{
-//			$photosInfo[$album['album_id']] = $client->getPhotosForAlbum($album['album_id']);
-//		}
-//
-//		// get photos full info
-//		$photos = [];
-//		foreach ($photosInfo as $albumId => $pictures)
-//		{
-//			foreach ($pictures as $pic)
-//			{
-//				$photos[] = [
-//					'album_id' => $albumId,
-//					'data' => $client->getPhoto($pic['photo_id'], 'orig')
-//				];
-//			}
-//		}
-		
 		// save albums
 		($this->get('dao.albums'))->saveAlbums($albums);
 
 		return $this->render(
 			'admin/albums.html.twig',
-			[
-				'albums' => $albums,
-//				'photos' => $photos
-			]);
+			['albums' => $albums]);
 	}
 
     /**
      * @param Request $request
      * @return Response
      *
-     * @Route("/admin/album/{album_id}/photos", name="photos")
+     * @Route("/admin/album/{albumId}/photos", name="photos")
      */
-	public function getPhotos($album_id, Request $request)
+	public function getPhotos($albumId, Request $request)
     {
         $login = $request->request->get("ya_login");
 
-        if ($login == null || $album_id == null)
+        if ($login == null || $albumId == null)
         {
             return new Response("User login was not set", Response::HTTP_BAD_REQUEST);
         }
 
         $client = new YandexPhotos($login);
-        $photos = $client->getPhotosForAlbum($album_id);
-
+        $photosId = $client->getPhotosForAlbum($albumId);
+	    
+	    $photos = [];
+	    $miniPhotos = [];
+	    foreach ($photosId as $id)
+	    {
+			$photos[] = $client->getPhoto($id);
+		    $miniPhotos[] = $client->getPhoto($id, 'XXS');
+	    }
+	    
+	    // save albums
+	    ($this->get('dao.photos'))->savePhotos($albumId, $photos);
+	    ($this->get('dao.photos'))->saveMiniPhotos($albumId, $miniPhotos);
+	    
         return $this->render(
             'admin/photos.html.twig',
-            ['photos' => $photos]
+            ['photos' => $miniPhotos]
         );
     }
-	
-	/**
-	 * @param int $albumId
-	 */
-	protected function savePhotos(int $albumId)
-	{
-		
-	}
-	
-	/**
-	 * Обновляются только те данные, которые могут меняться через UI
-	 * @param array $data
-	 */
-	public function updateAlbumsForSave(array $data)
-	{
-		
-	}
 }

@@ -6,4 +6,4 @@ services:
         arguments: ['@doctrine.orm.default_entity_manager']
     dao.photos:
         class: AppBundle\Service\Dao\Photos
-#        arguments: ['%entity.manager%']
+        arguments: ['@doctrine.orm.default_entity_manager']
