@@ -12,7 +12,12 @@
 
             <div class="card-block">
                 <h6 class="card-title">{{ photo.title }}</h6>
-                <p class="card-text">{{ photo.photo_id }}</p>
+                <p class="card-text">
+	                <label for="ph-{{ photo.photo_id }}">
+		                <input type="checkbox" id="ph-{{ photo.photo_id }}">
+		                Сохранить
+	                </label>
+                </p>
             </div>
         </div>
     </div>

@@ -40,35 +40,9 @@ class AdminController extends Controller
 		// get all user albums
 		$albums = $client->getAlbums();
 		
-		// get photos information for each album
-//		$photosInfo = [];
-//		foreach ($albums as $album)
-//		{
-//			$photosInfo[$album['album_id']] = $client->getPhotosForAlbum($album['album_id']);
-//		}
-//
-//		// get photos full info
-//		$photos = [];
-//		foreach ($photosInfo as $albumId => $pictures)
-//		{
-//			foreach ($pictures as $pic)
-//			{
-//				$photos[] = [
-//					'album_id' => $albumId,
-//					'data' => $client->getPhoto($pic['photo_id'], 'orig')
-//				];
-//			}
-//		}
-		
-		// save albums
-//		(new DaoAlbums())->saveAlbums($albums);
-		
 		return $this->render(
 			'admin/albums.html.twig',
-			[
-				'albums' => $albums,
-//				'photos' => $photos
-			]);
+			['albums' => $albums]);
 	}
 
     /**
@@ -94,21 +68,4 @@ class AdminController extends Controller
             ['photos' => $photos]
         );
     }
-	
-	/**
-	 * @param int $albumId
-	 */
-	protected function savePhotos(int $albumId)
-	{
-		
-	}
-	
-	/**
-	 * Обновляются только те данные, которые могут меняться через UI
-	 * @param array $data
-	 */
-	public function updateAlbumsForSave(array $data)
-	{
-		
-	}
 }
