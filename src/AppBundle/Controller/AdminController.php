@@ -11,6 +11,12 @@ use Yandex\Photos\YandexPhotos;
 class AdminController extends Controller
 {
 	/**
+	 * User login for authorization
+	 * @var string
+	 */
+	protected static $login = '';
+	
+	/**
 	 * @Route("/admin", name="admin")
 	 */
 	public function indexAction(Request $request)
@@ -26,14 +32,17 @@ class AdminController extends Controller
 	 */
 	public function getAlbums(Request $request)
 	{
-        $login = $request->request->get("ya_login");
+		if (!self::$login)
+		{
+			self::$login = $request->request->get("ya_login");
+		}
 		
-		if ($login == null)
+		if (self::$login == null)
 		{
 			return new Response("User login was not set", Response::HTTP_BAD_REQUEST);
 		}
 		
-		$client = new YandexPhotos($login);
+		$client = new YandexPhotos(self::$login);
 		
 		// get all user albums
 		$albums = $client->getAlbums();
@@ -63,14 +72,17 @@ class AdminController extends Controller
      */
 	public function getPhotos($albumId, Request $request)
     {
-        $login = $request->request->get("ya_login");
+    	if (!self::$login)
+	    {
+		    self::$login = $request->request->get("ya_login");
+	    }
 
-        if ($login == null || $albumId == null)
+        if (self::$login == null || $albumId == null)
         {
             return new Response("User login was not set", Response::HTTP_BAD_REQUEST);
         }
 
-        $client = new YandexPhotos($login);
+        $client = new YandexPhotos(self::$login);
         $photosId = $client->getPhotosForAlbum($albumId);
 	    
 	    $photos = [];
@@ -78,7 +90,7 @@ class AdminController extends Controller
 	    foreach ($photosId as $id)
 	    {
 			$photos[] = $client->getPhoto($id);
-		    $miniPhotos[] = $client->getPhoto($id, 'XXS');
+		    $miniPhotos[] = $client->getPhoto($id, 'XS');
 	    }
 	    
 	    // save albums

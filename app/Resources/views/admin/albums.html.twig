@@ -1,31 +1,37 @@
 {% for album in albums %}
-	<tr>
-		<td>
-			<div class="media" id="album-{{ album.album_id }}"
-				 data-toggle="collapse" data-target="#album-{{ album.album_id }}-photos">
-				<div class="media-left" href="{{ album.links.cover_link }}">
-					<img class="media-heading" src="{{ album.links.cover_link }}" alt="Обложка альбома" width="75" height="75">
-				</div>
-				<div class="media-body">
-					<h4 class="media-heading">{{ album.title }}</h4>
-					{{ album.description }}
-					<h6 class="media-bottom">
-						Автор:
-						<small class="text-muted">{{ album.author }}</small>
-					</h6>
-				</div>
-				<div class="col-xs-12 col-sm-3 pull-right">
-					<label for="al-{{ album.album_id }}">Сохранить</label>
-					<input type="checkbox" id="al-{{ album.album_id }}" checked>
-				</div>
-			</div>
+	<div class="media album" id="album-{{ album.album_id }}">
+		<div class="media-left v-a-mid" href="{{ album.links.cover_link }}">
+			<img class="media-heading" src="{{ album.links.cover_link }}" alt="Обложка альбома" width="75" height="75">
+		</div>
+		<div class="media-body">
+			<h4 class="media-heading">{{ album.title }}</h4>
+			{{ album.description }}
+			<h6 class="media-bottom">
+				Автор:
+				<small class="text-muted">{{ album.author }}</small>
+			</h6>
+		</div>
+		<div class="media-right v-a-mid t-a-cen">
+			<input type="button"
+					class="btn btn-warning show-hide"
+					id="album-{{ album.album_id }}-photos-btn"
+					data-toggle="collapse"
+					data-target="#album-{{ album.album_id }}-photos" value="Показать/скрыть фотографии"/>
+			<input type="checkbox" class="select-album" id="al-{{ album.album_id }}" checked
+			       onclick="checkBtnEnabled({{ album.album_id }}, this.checked)">
+			<label for="al-{{ album.album_id }}">Выбрать альбом</label>
+		</div>
+	</div>
+	
+	<div class="collapse m-t-1" id="album-{{ album.album_id }}-photos"
+		 data-album-id="{{ album.album_id }}">
+		<div class="container">
 
-			<div class="collapse m-t-1" id="album-{{ album.album_id }}-photos"
-				 data-album-id="{{ album.album_id }}">
-				<div class="container">
-
-				</div>
-			</div>
-		</td>
-	</tr>
+		</div>
+	</div>
+	
 {% endfor %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+{% endblock %}
