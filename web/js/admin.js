@@ -14,8 +14,13 @@ $(document).ready(function() {
 
                 albums.find('.collapse')
                     .on('show.bs.collapse', function(event) {
-	                    fader.css('display', 'block');
-                        retrievePhotos($(event.target));
+                    	var target = $(event.target);
+
+	                    if (target.find('.row').length == 0)
+	                    {
+		                    fader.css('display', 'block');
+		                    retrievePhotos(target);
+	                    }
                     });
 	            
 	            $('.save-form').css('display', 'block');
