@@ -31,11 +31,10 @@ class PostgreSql extends AbstractClient
 	 * формирует переменную dsn для последующего создания подключения к БД.
 	 *
 	 * PostgreSql constructor.
-	 * @param string $host
 	 */
-	public function __construct($host)
+	public function __construct()
 	{
-		$this->dbConfig = getConf($host);
+		$this->dbConfig = getConf('localhost');
 		$this->dsn = $this->dbConfig['db_driver'] .
 			':dbname=' . $this->dbConfig['db_name'] .
 			';host=' . $this->dbConfig['db_host'] .
