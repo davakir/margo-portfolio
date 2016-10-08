@@ -34,6 +34,10 @@ class MiniPhoto
 	 * @ORM\Column(type="string", length=255)
 	 */
 	private $link;
+	/**
+	 * @ORM\Column(type="boolean", name="is_neccessary")
+	 */
+	private $isNeccessary;
 	
 	/**
 	 * @return mixed
@@ -89,5 +93,21 @@ class MiniPhoto
 	public function setLink($link)
 	{
 		$this->link = $link;
+	}
+	
+	/**
+	 * @return mixed
+	 */
+	public function getIsNeccessary()
+	{
+		return $this->isNeccessary;
+	}
+	
+	/**
+	 * @param mixed $isNeccessary
+	 */
+	public function setIsNeccessary($isNeccessary)
+	{
+		$this->isNeccessary = $isNeccessary;
 	}
 }

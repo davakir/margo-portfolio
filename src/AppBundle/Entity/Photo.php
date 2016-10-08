@@ -35,6 +35,10 @@ class Photo
 	 * @ORM\Column(type="string", length=255)
 	 */
 	private $link;
+	/**
+	 * @ORM\Column(type="boolean", name="is_neccessary")
+	 */
+	private $isNeccessary;
 	
 	/**
 	 * @return mixed
@@ -61,11 +65,11 @@ class Photo
 	}
 	
 	/**
-	 * @return mixed
+	 * @param mixed $author
 	 */
-	public function setAuthor()
+	public function setAuthor($author)
 	{
-		return $this->author;
+		$this->author = $author;
 	}
 	
 	/**
@@ -82,5 +86,21 @@ class Photo
 	public function setLink($link)
 	{
 		$this->link = $link;
+	}
+	
+	/**
+	 * @return mixed
+	 */
+	public function getIsNeccessary()
+	{
+		return $this->isNeccessary;
+	}
+	
+	/**
+	 * @param mixed $isNeccessary
+	 */
+	public function setIsNeccessary($isNeccessary)
+	{
+		$this->isNeccessary = $isNeccessary;
 	}
 }
