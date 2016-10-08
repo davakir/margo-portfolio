@@ -31,10 +31,11 @@ class PostgreSql extends AbstractClient
 	 * формирует переменную dsn для последующего создания подключения к БД.
 	 *
 	 * PostgreSql constructor.
+	 * @param string $host
 	 */
-	public function __construct()
+	public function __construct($host)
 	{
-		$this->dbConfig = getConf('heroku');
+		$this->dbConfig = getConf($host);
 		$this->dsn = $this->dbConfig['db_driver'] .
 			':dbname=' . $this->dbConfig['db_name'] .
 			';host=' . $this->dbConfig['db_host'] .

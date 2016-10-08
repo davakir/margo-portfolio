@@ -121,7 +121,7 @@ class Albums
 		}
 	}
 	
-	public function updateAlbums()
+	public function updateAlbums(array $albums)
 	{
 		
 	}

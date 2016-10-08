@@ -7,7 +7,7 @@ define('VIEWS_PATH',  __DIR__ . '/../../view');
 use Service\Db\PostgreSql\PostgreSql;
 require_once SERVICE_PATH . '/Db/PostgreSql/PostgreSql.php';
 
-$connect = (new PostgreSql())->connect();
+$connect = (new PostgreSql('localhost'))->connect();
 	
 $res1 = $connect->query("
 	CREATE TABLE IF NOT EXISTS albums (
