@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Маргарита Евстюнина - Фотограф - Главная{% endblock %}
+
+{% block body %}
+	<section class="main">
+		<div class="carousel">
+			<div class="transform stop">
+				<img class="transformice" data-order="1" src="{{ asset('img/outgoing.jpg') }}"/>
+				<img class="transformice" data-order="2" src="{{ asset('img/fall.jpg') }}"/>
+				<img class="transformice" data-order="3" src="{{ asset('img/background2.jpg') }}"/>
+			</div>
+			<div class="transform stop">
+				<img class="transformice" data-order="1" src="{{ asset('img/fall.jpg') }}"/>
+				<img class="transformice" data-order="2" src="{{ asset('img/hair.jpg') }}"/>
+				<img class="transformice" data-order="3" src="{{ asset('img/outgoing.jpg') }}"/>
+			</div>
+			<div class="transform stop">
+				<img class="transformice" data-order="1" src="{{ asset('img/background2.jpg') }}"/>
+				<img class="transformice" data-order="2" src="{{ asset('img/nature.jpg') }}"/>
+				<img class="transformice" data-order="3" src="{{ asset('img/fall.jpg') }}"/>
+			</div>
+			<div class="transform stop">
+				<img class="transformice" data-order="1" src="{{ asset('img/nature.jpg') }}"/>
+				<img class="transformice" data-order="2" src="{{ asset('img/outgoing.jpg') }}"/>
+				<img class="transformice" data-order="3" src="{{ asset('img/hair.jpg') }}"/>
+			</div>
+			<div class="transform stop">
+				<img class="transformice" data-order="1" src="{{ asset('img/fall.jpg') }}"/>
+				<img class="transformice" data-order="2" src="{{ asset('img/hair.jpg') }}"/>
+				<img class="transformice" data-order="3" src="{{ asset('img/outgoing.jpg') }}"/>
+			</div>
+			<div class="transform stop">
+				<img class="transformice" data-order="1" src="{{ asset('img/background2.jpg') }}"/>
+				<img class="transformice" data-order="2" src="{{ asset('img/nature.jpg') }}"/>
+				<img class="transformice" data-order="3" src="{{ asset('img/fall.jpg') }}"/>
+			</div>
+		</div>
+	</section>
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('js/gallery.js') }}"></script>
+{% endblock %}

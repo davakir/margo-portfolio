@@ -1,0 +1,32 @@
+<div class="alert alert-warning" role="alert">
+	<strong>Внимание!</strong>
+	Уважаемый пользователь, все твои изменения должны быть сохранены в нашем сервисе.
+	Поэтому после всех изменений не забудь нажать кнопку
+	<strong>Сохранить</strong> внизу страницы.
+</div>
+
+<form action="/admin/albums/get" method="post" id="get-albums">
+	<div class="input-group">
+		<input type="text" class="form-control" id="ya_login" name="ya_login"
+		       placeholder="Введите логин от Яндекса...">
+		<span class="input-group-btn">
+			<button class="btn btn-info" type="submit">Загрузить данные из Яндекс.Фоток</button>
+		</span>
+	</div>
+</form>
+
+<div id="albums" class="m-t-2">
+
+</div>
+
+<form action="/admin/albums/save" method="post" id="save-form" class="m-t-2">
+	<div class="input-group m-t-2">
+		<span class="input-group-btn">
+			<button class="btn btn-success save-form" type="submit">Сохранить</button>
+		</span>
+	</div>
+</form>
+
+<div class="alert alert-success success-saved-mes" role="alert">
+	<strong>Готово!</strong> Изменения успешно сохранены.
+</div>
