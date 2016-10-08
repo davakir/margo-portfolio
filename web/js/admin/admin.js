@@ -81,7 +81,6 @@ $(document).ready(function() {
 			success: function(data) {
 				if (data.result === true)
 				{
-					console.log(data.result);
 					// $('.success-saved-mes').css('display', 'block');
 				}
 			}
