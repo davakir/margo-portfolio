@@ -37,15 +37,10 @@ class AdminController extends Controller
 	 */
 	public function renderAndSaveAlbums(Request $request)
 	{
-		if (!self::$_login)
-		{
-			self::$_login = $request->request->get("ya_login");
-		}
+        self:$_login = $request->request->get("ya_login");
 		
 		if (self::$_login == null)
-		{
 			return new Response("User login was not set", Response::HTTP_BAD_REQUEST);
-		}
 		
 		$client = new YandexPhotos(self::$_login);
 		
@@ -80,15 +75,13 @@ class AdminController extends Controller
      */
 	public function renderAndSavePhotos($albumId, Request $request)
     {
-	    if (!self::$_login)
-	    {
-		    self::$_login = $request->request->get("ya_login");
-	    }
-	    if (self::$_login == null || $albumId == null)
-	    {
-		    return new Response("User login was not set", Response::HTTP_BAD_REQUEST);
-	    }
-	
+        self::$_login = $request->request->get("ya_login");
+
+        if (self::$_login == null || $albumId == null)
+        {
+            return new Response("User login was not set", Response::HTTP_BAD_REQUEST);
+        }
+
         $client = new YandexPhotos(self::$_login);
         $photosId = $client->getPhotosForAlbum($albumId);
 	    

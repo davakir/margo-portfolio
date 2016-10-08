@@ -2,13 +2,9 @@
  * Created by maxim-kiryanov on 30.07.16.
  */
 $(document).ready(function() {
-<<<<<<< Updated upstream
-    var form = $("#photos form");
-=======
     var formGetAlbums = $('#photos form#get-albums'),
 	    formSaveData = $('#photos form#save-form'),
 	    fader = $('.fader');
->>>>>>> Stashed changes
 
     formGetAlbums.submit(function(event) {
         $.post(
@@ -16,21 +12,27 @@ $(document).ready(function() {
 	        formGetAlbums.serialize()
         )
             .done(function(data) {
-                var tbody = $('#albums tbody');
+                var albums = $('#albums');
 
-<<<<<<< Updated upstream
-                tbody.html(data);
-
-                tbody.find('.collapse')
-=======
                 albums.html(data);
-                albums.find('.collapse')
->>>>>>> Stashed changes
-                    .on('show.bs.collapse', function(event) {
-                        retrievePhotos($(event.target));
-                    });
-            });
 
+                albums.find('.collapse')
+                    .on('show.bs.collapse', function(event) {
+                    	var target = $(event.target);
+
+	                    if (target.find('.row').length == 0)
+	                    {
+		                    fader.css('display', 'block');
+		                    retrievePhotos(target);
+	                    }
+                    });
+	            
+	            $('.save-form').css('display', 'block');
+	
+	            fader.css('display', 'none');
+            });
+	
+	    fader.css('display', 'block');
         event.preventDefault();
     });
 	
@@ -99,22 +101,20 @@ $(document).ready(function() {
         $.post(url, query)
             .done(function(data) {
                 target.children().html(data);
+	            fader.css('display', 'none');
             });
     };
 
-    var getAlbumId = function(value) {
+    function getAlbumId(value) {
         return value.substring("album-".length, value.length - "-photos".length);
     }
-<<<<<<< Updated upstream
-});
-=======
 });
 
 function checkBtnEnabled(album_id, checked)
 {
 	var showHideBtn = document.getElementById('album-'+ album_id +'-photos-btn'),
 		albumPhotos = document.getElementById('album-'+ album_id +'-photos');
-	
+
 	if (checked == 1)
 	{
 		showHideBtn.setAttribute('data-toggle', 'collapse');
@@ -127,4 +127,3 @@ function checkBtnEnabled(album_id, checked)
 		showHideBtn.setAttribute('disabled', 'true');
 	}
 }
->>>>>>> Stashed changes
