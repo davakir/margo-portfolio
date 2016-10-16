@@ -1,11 +1,12 @@
 <?php
 
-define('DEPLOY_PATH', __DIR__ . '/../');
-define('SERVICE_PATH',  __DIR__ . '/../../service');
-define('VIEWS_PATH',  __DIR__ . '/../../view');
-
 use Service\Db\PostgreSql\PostgreSql;
+
 require_once SERVICE_PATH . '/Db/PostgreSql/PostgreSql.php';
+
+define('DEPLOY_PATH', __DIR__ . '/../');
+define('SERVICE_PATH',  __DIR__ . '/../../Service');
+define('VIEWS_PATH',  __DIR__ . '/../../view');
 
 $connect = (new PostgreSql())->connect();
 	

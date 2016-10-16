@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'default/index.html.twig' %}
 
 {% block title %}Маргарита Евстюнина - Фотограф - Контакты{% endblock %}
 
@@ -18,28 +18,30 @@
 			<div class="title">
 				<h1>Обратная связь</h1>
 			</div>
-			<form action="" method="POST">
+			<form action="/feedback/send" id="feedback" method="POST">
 				<table class="feedback-form">
 					<tr>
-						<td class="labels"><label for="first_name">Имя:</label></td>
-						<td class="fields"><input type="text" id="first_name" placeholder="Ваше Имя"/></td>
-					</tr>
-					<tr>
-						<td class="labels"><label for="last_name">Фамилия:</label></td>
-						<td class="fields"><input type="text" id="last_name" placeholder="Ваша Фамилия"/></td>
+						<td class="labels"><label for="first-name">Имя:</label></td>
+						<td class="fields">
+							<input type="text" id="first-name" name="name" placeholder="Ваше Имя"/>
+						</td>
 					</tr>
 					<tr>
 						<td class="labels"><label for="phone">Контактный телефон:</label></td>
-						<td class="fields"><input type="tel" id="phone" placeholder="+71234567890"/></td>
+						<td class="fields">
+							<input type="tel" id="phone" name="phone" placeholder="+71234567890"/>
+						</td>
 					</tr>
 					<tr>
 						<td class="labels"><label for="e-mail">E-mail:</label></td>
-						<td class="fields"><input type="email" id="e-mail" placeholder="example@gmail.com"></td>
+						<td class="fields">
+							<input type="email" id="e-mail" name="email" placeholder="example@gmail.com">
+						</td>
 					</tr>
 					<tr>
 						<td class="labels"><label for="message">Ваши комментарии:</label></td>
 						<td class="fields">
-							<textarea id="message" placeholder="Оставьте свое сообщение здесь..."></textarea>
+							<textarea id="message" name="message" placeholder="Оставьте свое сообщение здесь..."></textarea>
 						</td>
 					</tr>
 					<tr>

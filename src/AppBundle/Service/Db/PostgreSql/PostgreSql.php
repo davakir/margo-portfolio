@@ -3,8 +3,8 @@
 namespace Service\Db\PostgreSql;
 
 use Service\Db\AbstractClient;
+
 require_once DEPLOY_PATH . '/db-conf.php';
-require_once SERVICE_PATH . '/Db/AbstractClient.php';
 
 class PostgreSql extends AbstractClient
 {
