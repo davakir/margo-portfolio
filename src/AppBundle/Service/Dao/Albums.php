@@ -121,8 +121,23 @@ class Albums
 		}
 	}
 	
-	public function updateAlbums(array $albums)
+	/**
+	 * @param array $albums
+	 */
+	public function updateAlbumsVisibility(array $albums)
 	{
+		// получаю из базы данные по альбомам (если они есть)
+		$albumsData = $this->em->getRepository('AppBundle:Album')
+			->findBy([
+				'yaAlbumId' => $albums
+			]);
 		
+		foreach ($albumsData as $album)
+		{
+			$album->setIsNeccessary(false);
+			$this->em->merge($album);
+		}
+		
+		$this->em->flush();
 	}
 }

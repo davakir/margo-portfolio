@@ -48,9 +48,7 @@ $(document).ready(function() {
 			
 			// если не выбран - ставим в список на удаление видимости
 			if (checkAlbums[i].checked === false)
-			{
 				unselectedAlbums.push(albumId.match(/\d+/g)[0]);
-			}
 			else
 			{
 				// иначе проверяем фотографии альбома, выбраны ли они пользователем
@@ -58,9 +56,7 @@ $(document).ready(function() {
 				{
 					$.each(albumPhotos, function(index, value) {
 						if (albumPhotos[index].checked === false)
-						{
 							unselectedPhotos.push(albumPhotos[index].id.substr(3));
-						}
 					});
 				}
 			}
@@ -81,7 +77,7 @@ $(document).ready(function() {
 			success: function(data) {
 				if (data.result === true)
 				{
-					// $('.success-saved-mes').css('display', 'block');
+					$('.success-saved-mes').css('display', 'block');
 				}
 			}
 		});
@@ -93,7 +89,7 @@ $(document).ready(function() {
     var retrievePhotos = function(target) {
         var url = '/admin/album/' + target.attr('data-album-id') + '/photos';
         var query = $.param({
-            'ya_login': form.children('#ya_login').val(),
+            'ya_login': formGetAlbums.find('input').val(),
             'album_id': target.attr('data-album-id')
         });
 
@@ -108,21 +104,3 @@ $(document).ready(function() {
         return value.substring("album-".length, value.length - "-photos".length);
     }
 });
-
-function checkBtnEnabled(album_id, checked)
-{
-	var showHideBtn = document.getElementById('album-'+ album_id +'-photos-btn'),
-		albumPhotos = document.getElementById('album-'+ album_id +'-photos');
-
-	if (checked == 1)
-	{
-		showHideBtn.setAttribute('data-toggle', 'collapse');
-		showHideBtn.removeAttribute('disabled');
-	}
-	else
-	{
-		albumPhotos.style.display = 'none';
-		showHideBtn.setAttribute('data-toggle', 'false');
-		showHideBtn.setAttribute('disabled', 'true');
-	}
-}

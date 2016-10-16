@@ -59,7 +59,10 @@ class Album
 	 * @ORM\Column(type="string", name="alternate_link", length=255)
 	 */
 	private $alternateLink;
-	
+	/**
+	 * @ORM\Column(type="boolean", name="is_neccessary")
+	 */
+	private $isNeccessary;
 	/**
 	 * @return mixed
 	 */
@@ -67,7 +70,6 @@ class Album
 	{
 		return $this->yaAlbumId;
 	}
-	
 	/**
 	 * @param mixed $yaAlbumId
 	 */
@@ -75,7 +77,6 @@ class Album
 	{
 		$this->yaAlbumId = $yaAlbumId;
 	}
-	
 	/**
 	 * @param mixed $author
 	 */
@@ -83,7 +84,6 @@ class Album
 	{
 		$this->author = $author;
 	}
-	
 	/**
 	 * @param mixed $title
 	 */
@@ -91,7 +91,6 @@ class Album
 	{
 		$this->title = $title;
 	}
-	
 	/**
 	 * @param mixed $description
 	 */
@@ -99,7 +98,6 @@ class Album
 	{
 		$this->description = $description;
 	}
-	
 	/**
 	 * @return mixed
 	 */
@@ -107,7 +105,6 @@ class Album
 	{
 		return $this->photosLink;
 	}
-	
 	/**
 	 * @param string $photosLink
 	 */
@@ -115,7 +112,6 @@ class Album
 	{
 		$this->photosLink = $photosLink;
 	}
-	
 	/**
 	 * @return mixed
 	 */
@@ -123,7 +119,6 @@ class Album
 	{
 		return $this->coverLink;
 	}
-	
 	/**
 	 * @param string $coverLink
 	 */
@@ -131,7 +126,6 @@ class Album
 	{
 		$this->coverLink = $coverLink;
 	}
-	
 	/**
 	 * @param string $selfLink
 	 */
@@ -139,12 +133,25 @@ class Album
 	{
 		$this->selfLink = $selfLink;
 	}
-	
 	/**
 	 * @return mixed
 	 */
 	public function getSelfLink()
 	{
 		return $this->selfLink;
+	}
+	/**
+	 * @return mixed
+	 */
+	public function getIsNeccessary()
+	{
+		return $this->isNeccessary;
+	}
+	/**
+	 * @param mixed $isNeccessary
+	 */
+	public function setIsNeccessary($isNeccessary)
+	{
+		$this->isNeccessary = $isNeccessary;
 	}
 }

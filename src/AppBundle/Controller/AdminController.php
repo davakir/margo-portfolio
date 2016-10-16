@@ -37,7 +37,7 @@ class AdminController extends Controller
 	 */
 	public function renderAndSaveAlbums(Request $request)
 	{
-        self:$_login = $request->request->get("ya_login");
+        self::$_login = $request->request->get("ya_login");
 		
 		if (self::$_login == null)
 			return new Response("User login was not set", Response::HTTP_BAD_REQUEST);
@@ -60,7 +60,7 @@ class AdminController extends Controller
 		($this->get('dao.albums'))->saveAlbums($albums);
 
 		return $this->render(
-			'admin/albums.html.twig',
+			'admin/panel-content/photos/albums.html.twig',
 			['albums' => $albums]);
 	}
 
@@ -99,7 +99,7 @@ class AdminController extends Controller
 	    ($this->get('dao.photos'))->saveNewPhotos($miniPhotos, $albumId, 'mini_photos');
 	    
         return $this->render(
-            'admin/photos.html.twig',
+            'admin/panel-content/photos/photos.html.twig',
             ['photos' => $miniPhotos]
         );
     }
@@ -107,12 +107,19 @@ class AdminController extends Controller
 	/**
 	 * @Route("/admin/albums/save", name="save_albums")
 	 * @param Request $request
-	 * @return JsonEncoder
+	 * @return Response
 	 */
     public function saveData(Request $request)
     {
 	    try {
-		    ($this->get('dao.albums'))->updateAlbums($request->request->get('albumsForUpdate'));
+	    	$albums = $request->request->get('albumsForUpdate');
+		    $photos = $request->request->get('photosForUpdate');
+		    if (!empty($albums))
+			    ($this->get('dao.albums'))->updateAlbumsVisibility($albums);
+		    
+		    if (!empty($photos))
+			    ($this->get('dao.photos'))->updatePhotosVisibility($photos);
+		    	
 		    $result = true;
 	    }
 	    catch (\Exception $e) {
@@ -124,6 +131,6 @@ class AdminController extends Controller
 	    ];
 	    
 	    $encoder = new JsonEncoder();
-	    return $encoder->encode($result, 'json');
+	    return new Response($encoder->encode($result, 'json'), 200, array('Content-Type' => 'application/json'));
     }
 }

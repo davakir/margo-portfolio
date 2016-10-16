@@ -81,8 +81,33 @@ class Photos
 		}
 	}
 	
-	public function updatePhotosVisibility()
+	/**
+	 * @param array $photos
+	 */
+	public function updatePhotosVisibility(array $photos)
 	{
+		// получаю из базы данные по альбомам (если они есть)
+		$photosData = $this->em->getRepository('AppBundle:Photo')
+			->findBy([
+				'yaPhotoId' => $photos
+			]);
 		
+		$miniPhotosData = $this->em->getRepository('AppBundle:MiniPhoto')
+			->findBy([
+				'yaPhotoId' => $photos
+			]);
+		
+		foreach ($photosData as $photo)
+		{
+			$photo->setIsNeccessary(false);
+			$this->em->merge($photo);
+		}
+		$this->em->flush();
+		foreach ($miniPhotosData as $photo)
+		{
+			$photo->setIsNeccessary(false);
+			$this->em->merge($photo);
+		}
+		$this->em->flush();
 	}
 }
