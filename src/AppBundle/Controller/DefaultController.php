@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use AppBundle\Service\Mail\Mail;
 
 class DefaultController extends Controller
@@ -73,25 +74,32 @@ class DefaultController extends Controller
 	/**
 	 * @Route("/feedback/send", name="feedback")
 	 * @param Request $request
+	 * @return Response
 	 */
 	public function feedbackSend(Request $request)
 	{
-		$data = $request->get('data');
-		
+		$encoder = new JsonEncoder();
 		
 		try {
 			$mail = new Mail();
-			
-			$mail->addPoint("name", $data["name"]);
-			$mail->addPoint("phone", $data["phone"]);
-			$mail->addPoint("email", $data["email"]);
-			$mail->addPoint("message", $data["message"]);
+			$mail->addPoint('name', $request->get('name'));
+			$mail->addPoint('phone', $request->get('phone'));
+			$mail->addPoint('email', $request->get('email'));
+			$mail->addPoint('message', $request->get('message'));
 			
 			$send = $mail->send();
-			echo json_encode(array("status" => "OK", "send" => $send));
+			
+			$result = ['success' => true, 'send' => $send];
+			
+			return new Response($encoder->encode($result, 'json'), 200, array('Content-Type' => 'application/json'));
 		}
 		catch (\Exception $e) {
-			echo json_encode(array("status" => "Error"));
+			$logger = $this->get('logger');
+			$logger->error($e);
+			
+			$result = ['success' => false, 'data' => $e];
+			
+			return new Response($encoder->encode($result, 'json'), 200, array('Content-Type' => 'application/json'));
 		}
 	}
 }
