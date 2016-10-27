@@ -58,6 +58,14 @@ input[type="submit"] {
 		border: none;
 }
 
+#form-success {
+	display: none;
+}
+
+#form-fail {
+	display: none;
+}
+
 @media screen and (max-width: 1080px) and (min-width: 360px)  {
 	td.labels, td.fields {
 		display: table-row;
