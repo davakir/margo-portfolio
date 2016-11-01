@@ -1,10 +1,9 @@
 <?php
 
-namespace Service\Db\PostgreSql;
+namespace AppBundle\Service\Db\PostgreSql;
 
-use Service\Db\AbstractClient;
-
-require_once DEPLOY_PATH . '/db-conf.php';
+use AppBundle\Deploy\DbConfiguration;
+use AppBundle\Service\Db\AbstractClient;
 
 class PostgreSql extends AbstractClient
 {
@@ -34,7 +33,7 @@ class PostgreSql extends AbstractClient
 	 */
 	public function __construct()
 	{
-		$this->dbConfig = getConf('localhost');
+		$this->dbConfig = (new DbConfiguration())->getConf('localhost');
 		$this->dsn = $this->dbConfig['db_driver'] .
 			':dbname=' . $this->dbConfig['db_name'] .
 			';host=' . $this->dbConfig['db_host'] .
