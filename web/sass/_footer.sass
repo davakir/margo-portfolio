@@ -1,0 +1,42 @@
+html, body 
+	height: 100%
+
+/*For footer positioning*/
+.wrapper
+	position: relative
+	min-height: 100%
+
+.content 
+	padding-bottom: 90px
+
+footer 
+	width: 100%
+	box-sizing: border-box
+	position: absolute
+	bottom: 0
+	left: 0
+	height: 80px
+	text-align: center
+	padding: 20px
+
+.social-btn 
+	width: 40px
+	height: 40px
+	display: inline-block
+	margin: 5px
+	background: url(../img/social-sprite.png) no-repeat
+	border-radius: 5px
+	&:hover
+		cursor: pointer
+	&.social-vk
+		background-position: -882px -1365px
+		&:hover
+			background-position: -882px -600px
+	&.social-fb
+		background-position: -1150px -1185px
+		&:hover
+			background-position: -1150px -420px
+	&.social-tw
+		background-position: -882px -1275px
+		&:hover
+			background-position: -882px -510px
