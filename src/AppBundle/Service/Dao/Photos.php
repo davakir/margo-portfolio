@@ -9,11 +9,48 @@ use AppBundle\Entity\MiniPhoto;
 
 class Photos
 {
-	protected $em;
+	/**
+	 * @var EntityManager
+	 */
+	private $_em;
 	
+	/**
+	 * @var int
+	 */
+	private $_batchSize = 30;
+	
+	/**
+	 * Photos constructor.
+	 * @param EntityManager $em
+	 */
 	public function __construct(EntityManager $em)
 	{
-		$this->em = $em;
+		$this->_em = $em;
+	}
+	
+	/**
+	 * Возвращает фотографии для переданного альбома
+	 * @param int $albumId
+	 * @param string $model
+	 * @return array
+	 */
+	public function getPhotos($albumId, $model)
+	{
+		$appBundle = ($model == 'photos') ? 'AppBundle:Photo' : 'AppBundle:MiniPhoto';
+		
+		$data = $this->_em->getRepository($appBundle)
+			->findBy([
+				'albumId' => $albumId
+			]);
+		
+		/**
+		 * @var $photo Photo
+		 */
+		foreach ($data as $key => $photo)
+			if (!$photo->getIsNeccessary())
+				unset($data[$key]);
+		
+		return $data;
 	}
 	
 	/**
@@ -35,21 +72,21 @@ class Photos
 		$appBundle = ($model == 'photos') ? 'AppBundle:Photo' : 'AppBundle:MiniPhoto';
 		
 		// получаю из базы данные по фотографиям (если они есть)
-		$photos = $this->em->getRepository($appBundle)
+		$photos = $this->_em->getRepository($appBundle)
 			->findBy([
 				'yaPhotoId' => array_column($data, 'photo_id')
 			]);
 		
-		// удаляю из набора данных фотографии, которые уже есть в базе
+		/**
+		 * Удаляю из набора данных фотографии, которые уже есть в базе
+		 * @var $photo Photo
+		 */
 		foreach ($photos as $photo)
 		{
 			foreach ($data as $key => $ph)
 			{
 				if ($ph['photo_id'] == $photo->getYaPhotoId())
-				{
 					unset($data[$key]);
-				}
-				
 				break;
 			}
 		}
@@ -57,7 +94,6 @@ class Photos
 		// выполняем вставку, если есть что вставлять
 		if (!empty($data))
 		{
-			$batchSize = 30;
 			foreach ($data as $key => $photo)
 			{
 				$photoModel = ($model == 'photos') ? new Photo() : new MiniPhoto();
@@ -68,46 +104,49 @@ class Photos
 				$photoModel->setLink($photo['link']);
 				$photoModel->setIsNeccessary('true');
 				
-				$this->em->persist($photoModel);
+				$this->_em->persist($photoModel);
 				
-				if (($key % $batchSize) == 0)
+				if (($key % $this->_batchSize) == 0)
 				{
-					$this->em->flush();
-					$this->em->clear();
+					$this->_em->flush();
+					$this->_em->clear();
 				}
 			}
 			
-			$this->em->flush();
+			$this->_em->flush();
 		}
 	}
 	
 	/**
+	 * Обновление параметра видимости у фотографий (нормальных и мини-версий)
 	 * @param array $photos
 	 */
 	public function updatePhotosVisibility(array $photos)
 	{
-		// получаю из базы данные по альбомам (если они есть)
-		$photosData = $this->em->getRepository('AppBundle:Photo')
-			->findBy([
-				'yaPhotoId' => $photos
-			]);
+		$photosData = $this->_em->getRepository('AppBundle:Photo')
+			->findBy(['yaPhotoId' => $photos]);
 		
-		$miniPhotosData = $this->em->getRepository('AppBundle:MiniPhoto')
-			->findBy([
-				'yaPhotoId' => $photos
-			]);
+		$miniPhotosData = $this->_em->getRepository('AppBundle:MiniPhoto')
+			->findBy(['yaPhotoId' => $photos]);
 		
+		/**
+		 * @var $photo Photo
+		 */
 		foreach ($photosData as $photo)
 		{
 			$photo->setIsNeccessary(false);
-			$this->em->merge($photo);
+			$this->_em->merge($photo);
 		}
-		$this->em->flush();
+		$this->_em->flush();
+		
+		/**
+		 * @var $photo MiniPhoto
+		 */
 		foreach ($miniPhotosData as $photo)
 		{
 			$photo->setIsNeccessary(false);
-			$this->em->merge($photo);
+			$this->_em->merge($photo);
 		}
-		$this->em->flush();
+		$this->_em->flush();
 	}
 }

@@ -38,7 +38,9 @@ class DefaultController extends Controller
 	 */
 	public function galleryAction(Request $request)
 	{
-		return $this->render('default/gallery.html.twig');
+		$albums = ($this->get('dao.albums'))->getAlbums();
+		
+		return $this->render('default/gallery.html.twig', $albums);
 	}
 	
 	/**
@@ -76,7 +78,7 @@ class DefaultController extends Controller
 	 * @param Request $request
 	 * @return Response
 	 */
-	public function feedbackSend(Request $request)
+	public function sendFeedbackAction(Request $request)
 	{
 		$encoder = new JsonEncoder();
 		
@@ -101,5 +103,18 @@ class DefaultController extends Controller
 			
 			return new Response($encoder->encode($result, 'json'), 200, array('Content-Type' => 'application/json'));
 		}
+	}
+	
+	/**
+	 * @Route("/gallery/album/{albumId}")
+	 * @param int $albumId
+	 * @param Request $request
+	 * @return Response
+	 */
+	public function getAlbumPhotosAction($albumId, Request $request)
+	{
+		$photos = ($this->get('dao.photos'))->getPhotos($albumId);
+		
+		return $this->render('default/photos.html.twig', $photos);
 	}
 }

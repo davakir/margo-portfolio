@@ -8,8 +8,15 @@ use AppBundle\Entity\Album;
 
 class Albums
 {
+	/**
+	 * @var EntityManager
+	 */
 	protected $em;
-
+	
+	/**
+	 * Albums constructor.
+	 * @param EntityManager $em
+	 */
 	public function __construct(EntityManager $em)
 	{
 		$this->em = $em;
@@ -28,10 +35,11 @@ class Albums
 			]);
 		
 		$savedAlbumIds = [];
+		/**
+		 * @var $album Album
+		 */
 		foreach ($albums as $album)
-		{
 			$savedAlbumIds[] = $album->getYaAlbumId();
-		}
 		
 		// выбираю альбомы для обновления
 		$dataToUpdate = [];
@@ -47,7 +55,9 @@ class Albums
 		// выполняем обновление, если есть ранее сохраненные альбомы
 		if (!empty($dataToUpdate))
 		{
-			// цикл по альбомам из базы
+			/**
+			 * @var $album Album
+			 */
 			foreach ($albums as $album)
 			{
 				// ищем нужные данные для обновления
@@ -128,10 +138,11 @@ class Albums
 	{
 		// получаю из базы данные по альбомам (если они есть)
 		$albumsData = $this->em->getRepository('AppBundle:Album')
-			->findBy([
-				'yaAlbumId' => $albums
-			]);
+			->findBy(['yaAlbumId' => $albums]);
 		
+		/**
+		 * @var $album Album
+		 */
 		foreach ($albumsData as $album)
 		{
 			$album->setIsNeccessary(false);
@@ -139,5 +150,32 @@ class Albums
 		}
 		
 		$this->em->flush();
+	}
+	
+	/**
+	 * Возвращает список всех доступных для отображения альбомов из базы
+	 * @return array
+	 */
+	public function getAlbums()
+	{
+		$albums = $this->em->getRepository('AppBundle:Album')->findAll();
+		
+		/**
+		 * @var $album Album
+		 */
+		foreach ($albums as $key => $album)
+			if (!$album->getIsNeccessary())
+				unset($album[$key]);
+	}
+	
+	/**
+	 * Возвращает информацию об одном альбоме
+	 * @param $albumId
+	 * @return array
+	 */
+	public function getAlbum($albumId)
+	{
+		return $this->em->getRepository('AppBundle:Album')
+			->findBy(['yaAlbumId' => $albumId]);
 	}
 }
