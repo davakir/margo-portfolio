@@ -17,4 +17,4 @@
 .idea/*
 composer.lock
 .DS_Store
-.sass-cache/
+.sass-cache
