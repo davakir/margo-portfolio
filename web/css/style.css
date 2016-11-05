@@ -183,6 +183,24 @@ footer {
     .social-btn.social-tw:hover {
       background-position: -882px -510px; }
 
+.fl-left {
+  float: left; }
+
+.fl-right {
+  float: right; }
+
+.mt-10 {
+  margin-top: 10px; }
+
+.mt-20 {
+  margin-top: 20px; }
+
+.mb-10 {
+  margin-bottom: 10px; }
+
+.mb-20 {
+  margin-bottom: 20px; }
+
 ::selection {
   color: #FBE3C9;
   background: #8D7E78; }
