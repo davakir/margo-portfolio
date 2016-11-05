@@ -22,16 +22,6 @@ class DefaultController extends Controller
     }
 	
 	/**
-	 * @Route("/home", name="homepage")
-	 * @param Request $request
-	 * @return Response
-	 */
-	public function homeAction(Request $request)
-	{
-		return $this->render('default/home.html.twig');
-	}
-	
-	/**
 	 * @Route("/gallery", name="gallery")
 	 * @param Request $request
 	 * @return Response
@@ -40,7 +30,9 @@ class DefaultController extends Controller
 	{
 		$albums = ($this->get('dao.albums'))->getAlbums();
 		
-		return $this->render('default/gallery.html.twig', $albums);
+		return $this->render('default/gallery.html.twig', [
+			'albums' => $albums ? $albums : []
+		]);
 	}
 	
 	/**
@@ -115,6 +107,8 @@ class DefaultController extends Controller
 	{
 		$photos = ($this->get('dao.photos'))->getPhotos($albumId);
 		
-		return $this->render('default/photos.html.twig', $photos);
+		return $this->render('default/photos.html.twig', [
+			'photos' => $photos
+		]);
 	}
 }

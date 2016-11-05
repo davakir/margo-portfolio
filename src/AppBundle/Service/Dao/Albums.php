@@ -165,7 +165,7 @@ class Albums
 		 */
 		foreach ($albums as $key => $album)
 			if (!$album->getIsNeccessary())
-				unset($album[$key]);
+				unset($albums[$key]);
 	}
 	
 	/**
