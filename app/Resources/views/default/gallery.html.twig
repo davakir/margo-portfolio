@@ -4,14 +4,16 @@
 
 {% block body %}
 	<section class="gallery">
-		{% for album in albums %}
-			<article class="album">
-				<div class="album-icon">
-					<img src="{{ album.cover_link }}" alt="{{ album.title }}">
-				</div>
-				<div class="album-description">{{ album.description }}</div>
-			</article>
-		{% endfor %}
+		{% if albums %}
+			{% for album in albums %}
+				<article class="album">
+					<div class="album-icon">
+						<img src="{{ album.cover_link }}" alt="{{ album.title }}">
+					</div>
+					<div class="album-description">{{ album.description }}</div>
+				</article>
+			{% endfor %}
+		{% endif %}
 	</section>
 {% endblock %}
 

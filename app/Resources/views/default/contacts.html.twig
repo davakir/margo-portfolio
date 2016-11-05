@@ -4,7 +4,7 @@
 
 {% block body %}
 	<section class="contacts">
-		<div class="left-side">
+		<div class="left-side fl-left">
 			<div class="title">
 				<h1>Контактная информация</h1>
 			</div>
@@ -19,7 +19,7 @@
 				<samp>+7(964)599-42-21</samp>​
 			</p>
 		</div>
-		<div class="right-side">
+		<div class="right-side fl-right">
 			<div class="title">
 				<h1>Обратная связь</h1>
 			</div>
@@ -68,10 +68,9 @@
 {% endblock %}
 
 {% block stylesheets %}
-
+	<link rel="stylesheet" href="{{ asset('css/contacts.css') }}">
 {% endblock %}
 
 {% block javascripts %}
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 	<script src="{{ asset('js/site/formHandlers.js') }}"></script>
 {% endblock %}
