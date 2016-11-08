@@ -66,6 +66,13 @@ class Album
 	/**
 	 * @return mixed
 	 */
+	public function getAlbumId()
+	{
+		return $this->albumId;
+	}
+	/**
+	 * @return mixed
+	 */
 	public function getYaAlbumId()
 	{
 		return $this->yaAlbumId;
@@ -78,6 +85,13 @@ class Album
 		$this->yaAlbumId = $yaAlbumId;
 	}
 	/**
+	 * @return mixed
+	 */
+	public function getAuthor()
+	{
+		return $this->author;
+	}
+	/**
 	 * @param mixed $author
 	 */
 	public function setAuthor($author)
@@ -85,11 +99,25 @@ class Album
 		$this->author = $author;
 	}
 	/**
+	 * @return mixed
+	 */
+	public function getTitle()
+	{
+		return $this->title;
+	}
+	/**
 	 * @param mixed $title
 	 */
 	public function setTitle($title)
 	{
 		$this->title = $title;
+	}
+	/**
+	 * @return mixed
+	 */
+	public function getDescription()
+	{
+		return $this->description;
 	}
 	/**
 	 * @param mixed $description
@@ -139,6 +167,48 @@ class Album
 	public function getSelfLink()
 	{
 		return $this->selfLink;
+	}
+	/**
+	 * @return mixed
+	 */
+	public function getEditLink()
+	{
+		return $this->editLink;
+	}
+	/**
+	 * @param mixed $editLink
+	 */
+	public function setEditLink($editLink)
+	{
+		$this->editLink = $editLink;
+	}
+	/**
+	 * @return mixed
+	 */
+	public function getYmapsmlLink()
+	{
+		return $this->ymapsmlLink;
+	}
+	/**
+	 * @param mixed $ymapsmlLink
+	 */
+	public function setYmapsmlLink($ymapsmlLink)
+	{
+		$this->ymapsmlLink = $ymapsmlLink;
+	}
+	/**
+	 * @return mixed
+	 */
+	public function getAlternateLink()
+	{
+		return $this->alternateLink;
+	}
+	/**
+	 * @param mixed $alternateLink
+	 */
+	public function setAlternateLink($alternateLink)
+	{
+		$this->alternateLink = $alternateLink;
 	}
 	/**
 	 * @return mixed

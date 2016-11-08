@@ -7,9 +7,9 @@
 		{% if albums %}
 			{% for album in albums %}
 				<article class="album">
-					<div class="album-icon">
-						<img src="{{ album.cover_link }}" alt="{{ album.title }}">
-					</div>
+					<a class="album-icon" href="/gallery/album/{{ album.yaAlbumId }}">
+						<img src="{{ album.coverLink }}" alt="{{ album.title }}">
+					</a>
 					<div class="album-description">{{ album.description }}</div>
 				</article>
 			{% endfor %}
@@ -18,7 +18,8 @@
 {% endblock %}
 
 {% block stylesheets %}
-
+	<link rel="stylesheet" href="{{ asset('css/gallery.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 {% endblock %}
 
 {% block javascripts %}

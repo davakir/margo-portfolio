@@ -34,11 +34,11 @@ class Photos
 	 * @param string $model
 	 * @return array
 	 */
-	public function getPhotos($albumId, $model)
+	public function getPhotos($albumId, $model = 'mini_photo')
 	{
 		$appBundle = ($model == 'photos') ? 'AppBundle:Photo' : 'AppBundle:MiniPhoto';
 		
-		$data = $this->_em->getRepository($appBundle)
+		$photos = $this->_em->getRepository($appBundle)
 			->findBy([
 				'albumId' => $albumId
 			]);
@@ -46,11 +46,11 @@ class Photos
 		/**
 		 * @var $photo Photo
 		 */
-		foreach ($data as $key => $photo)
+		foreach ($photos as $key => $photo)
 			if (!$photo->getIsNeccessary())
-				unset($data[$key]);
+				unset($photos[$key]);
 		
-		return $data;
+		return $photos;
 	}
 	
 	/**

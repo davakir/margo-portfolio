@@ -109,6 +109,7 @@ class Albums
 				$albumModel->setAuthor($album['author']);
 				$albumModel->setDescription($album['description']);
 				$albumModel->setTitle($album['title']);
+				$albumModel->setIsNeccessary('true');
 				
 				foreach ($album['links'] as $rel => $href)
 				{
@@ -166,6 +167,8 @@ class Albums
 		foreach ($albums as $key => $album)
 			if (!$album->getIsNeccessary())
 				unset($albums[$key]);
+		
+		return $albums;
 	}
 	
 	/**

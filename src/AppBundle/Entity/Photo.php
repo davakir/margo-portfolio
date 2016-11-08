@@ -43,6 +43,22 @@ class Photo
 	/**
 	 * @return mixed
 	 */
+	public function getPhotoId()
+	{
+		return $this->photoId;
+	}
+	
+	/**
+	 * @param mixed $photoId
+	 */
+	public function setPhotoId($photoId)
+	{
+		$this->photoId = $photoId;
+	}
+	
+	/**
+	 * @return mixed
+	 */
 	public function getYaPhotoId()
 	{
 		return $this->yaPhotoId;
@@ -57,11 +73,27 @@ class Photo
 	}
 	
 	/**
+	 * @return mixed
+	 */
+	public function getAlbumId()
+	{
+		return $this->albumId;
+	}
+	
+	/**
 	 * @param mixed $albumId
 	 */
 	public function setAlbumId($albumId)
 	{
 		$this->albumId = $albumId;
+	}
+	
+	/**
+	 * @return mixed
+	 */
+	public function getAuthor()
+	{
+		return $this->author;
 	}
 	
 	/**

@@ -48,6 +48,14 @@ class MiniPhoto
 	}
 	
 	/**
+	 * @param mixed $photoId
+	 */
+	public function setPhotoId($photoId)
+	{
+		$this->photoId = $photoId;
+	}
+	
+	/**
 	 * @return mixed
 	 */
 	public function getYaPhotoId()
@@ -64,11 +72,11 @@ class MiniPhoto
 	}
 	
 	/**
-	 * @param mixed $author
+	 * @return mixed
 	 */
-	public function setAuthor($author)
+	public function getAlbumId()
 	{
-		$this->author = $author;
+		return $this->albumId;
 	}
 	
 	/**
@@ -77,6 +85,22 @@ class MiniPhoto
 	public function setAlbumId($albumId)
 	{
 		$this->albumId = $albumId;
+	}
+	
+	/**
+	 * @return mixed
+	 */
+	public function getAuthor()
+	{
+		return $this->author;
+	}
+	
+	/**
+	 * @param mixed $author
+	 */
+	public function setAuthor($author)
+	{
+		$this->author = $author;
 	}
 	
 	/**

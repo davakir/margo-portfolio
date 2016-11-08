@@ -31,7 +31,7 @@ class DefaultController extends Controller
 		$albums = ($this->get('dao.albums'))->getAlbums();
 		
 		return $this->render('default/gallery.html.twig', [
-			'albums' => $albums ? $albums : []
+			'albums' => !empty($albums) ? $albums : []
 		]);
 	}
 	
