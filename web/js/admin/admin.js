@@ -30,6 +30,7 @@ $(document).ready(function() {
 	            $('.save-form').css('display', 'block');
 	
 	            fader.css('display', 'none');
+	            // $('#ya_login').attr('disabled', 'disabled');
             });
 	
 	    fader.css('display', 'block');
@@ -68,8 +69,9 @@ $(document).ready(function() {
 			method: formSaveData.attr('method'),
 			data:
 			{
-				albumsForUpdate: unselectedAlbums,
-				photosForUpdate: unselectedPhotos
+				unselectedAlbums: unselectedAlbums,
+				unselectedPhotos: unselectedPhotos,
+				login: $('#ya_login').val()
 			},
 			beforeSend: function(e) {
 				$('.success-saved-mes').css('display', 'none');

@@ -1,0 +1,141 @@
+
+
+nav, .home, .menu
+	@include border-box
+
+.home
+	span:first-child
+		color: $text-color
+	span:last-child
+		color: $light-green
+	a:hover
+		text-decoration: none
+	&:hover
+		background-color: #489E96
+
+.menu-item a:hover
+	color: #489E96 
+	text-decoration: none 
+
+/*For big screens (default styles)*/
+
+@media screen and (min-width: 1081px)
+	nav
+		width: 75%
+		height: 150px
+		margin: 30px auto 40px auto
+		background-color: $dark-grey
+		text-transform: uppercase
+		&:after
+			@include clearfix
+		span
+			display: block
+	
+	.home
+		width: 200px
+		height: 150px
+		float: left
+		background-color: $dark-green
+		font-weight: 400
+		font-size: 24px
+		line-height: 20px
+		a
+			display: block
+			padding: 35px 30px
+	
+	.menu
+		width: 60%
+		float: right
+		margin: 50px 0
+		font-size: 1em
+	
+	.menu-item
+		display: inline-block
+		margin-right: 20px
+		text-align: center
+		a
+			color: $text-color
+			display: block
+		.glyphicon
+			display: block
+			font-size: 24px
+			color: inherit
+
+/*For tablets*/
+
+@media screen and (min-width: 721px) and (max-width: 1080px)   
+	nav
+		width: 85%
+		height: 130px
+		margin: 30px auto 40px auto
+		background-color: $dark-grey
+		text-transform: uppercase
+		&:after
+			@include clearfix
+		span
+			display: block
+	
+	.home
+		width: 200px
+		height: 130px
+		float: left
+		background-color: $dark-green
+		font-weight: 400
+		font-size: 24px
+		line-height: 20px
+		a
+			display: block
+			padding: 25px 30px
+	 
+	.menu
+		width: 60%
+		float: right
+		margin: 40px 0
+		font-size: 1em
+	
+	.menu-item
+		display: inline-block
+		margin-right: 20px
+		text-align: center
+		a
+			color: $text-color
+			display: block
+		.glyphicon
+			display: block
+			font-size: 24px
+			color: inherit
+
+/*For smartphones*/
+
+@media screen and (max-width: 720px)
+	.menu, .home
+		float: none
+	
+	nav
+		width: 100%
+		max-width: 540px
+		background-color: $dark-grey
+		text-transform: uppercase
+		text-align: center
+		@include center
+	
+	.home
+		width: 100%
+		background-color: $dark-green
+		font-weight: 400
+		font-size: 24px
+		line-height: 20px
+		a
+			display: block
+			padding: 15px 30px
+	 
+	.menu-item
+		display: block
+		border-bottom: 1px solid #444
+		a
+			color: $text-color
+			display: block
+			padding: 10px
+		.glyphicon
+			display: none
+	 

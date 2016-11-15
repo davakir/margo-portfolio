@@ -1,6 +1,6 @@
 <?php
 
-namespace Service\Db;
+namespace AppBundle\Service\Db;
 
 abstract class AbstractClient
 {

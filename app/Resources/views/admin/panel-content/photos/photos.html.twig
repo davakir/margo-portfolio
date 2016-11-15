@@ -1,27 +1,31 @@
 {% for photo in photos %}
-    {% if loop.index % 4 == 1 %}
-        <div class="row">
-    {% endif %}
-    <div class="col-xs-8 col-sm-3">
-        <div class="card text-xs-center">
-            <div class="card-img-top p-t-1">
-                <a href="{{ photo.link }}" target="_blank">
-                    <img src="{{ photo.link }}" alt="Photo" height="100px">
-                </a>
-            </div>
-
-            <div class="card-block">
-                <p class="card-text">
-	                <label for="ph-{{ photo.photo_id }}">
-		                <input type="checkbox" id="ph-{{ photo.photo_id }}" checked>
-		                Выбрать
-	                </label>
-                </p>
-            </div>
-        </div>
-    </div>
-    {% if loop.index % 4 == 0 %}
-        </div>
-    {% endif %}
+	{% if loop.index % 4 == 1 %}
+		<div class="row">
+	{% endif %}
+	<div class="col-xs-8 col-sm-3">
+		<div class="card text-xs-center">
+			<div class="card-img-top p-t-1">
+				<a href="{{ photo.imgHref }}{{ size }}" target="_blank">
+					<img src="{{ photo.imgHref }}{{ size }}" alt="Photo" height="100px">
+				</a>
+			</div>
+			
+			<div class="card-block">
+				<p class="card-text">
+					<label for="ph-{{ photo.photoId }}">
+						<input type="checkbox" id="ph-{{ photo.photoId }}"
+								{% if photo.visible == 1 %}
+									checked
+								{% endif %}
+						>
+						Выбрать
+					</label>
+				</p>
+			</div>
+		</div>
+	</div>
+	{% if loop.index % 4 == 0 %}
+		</div>
+	{% endif %}
 {% endfor %}
 </div>

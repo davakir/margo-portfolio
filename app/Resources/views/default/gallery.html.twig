@@ -4,29 +4,22 @@
 
 {% block body %}
 	<section class="gallery">
-		<article class="album">
-			<div class="album-icon">
-				<img src="{{ asset('img/background-square.jpg') }}" alt="Wedding album">
-			</div>
-			<div class="album-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-		</article>
-		<article class="album">
-			<div class="album-icon">
-				<img src="{{ asset('img/hair.jpg') }}" alt="Other album">
-			</div>
-			<div class="album-description">Libero ratione, veniam, debitis, fugit pariatur aperiam explicabo.</div>
-		</article>
-		<article class="album">
-			<div class="album-icon">
-				<img src="{{ asset('img/background2.jpg') }}" alt="Style album">
-			</div>
-			<div class="album-description">Soluta reiciendis voluptate, similique officiis.</div>
-		</article>
+		{% if albums %}
+			{% for album in albums %}
+				<article class="album">
+					<a class="album-icon" href="/gallery/album/{{ album.yaAlbumId }}">
+						<img src="{{ album.coverLink }}" alt="{{ album.title }}">
+					</a>
+					<div class="album-description">{{ album.description }}</div>
+				</article>
+			{% endfor %}
+		{% endif %}
 	</section>
 {% endblock %}
 
 {% block stylesheets %}
-
+	<link rel="stylesheet" href="{{ asset('css/gallery.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 {% endblock %}
 
 {% block javascripts %}
