@@ -10,6 +10,7 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Yandex\Fotki\FotkiClient;
 use Yandex\Fotki\ImageSizes;
 use Yandex\Fotki\Models\Album as YandexAlbum;
+use AppBundle\Service\Dao\Albums;
 
 class AdminController extends Controller
 {

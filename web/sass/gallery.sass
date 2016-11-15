@@ -1,32 +1,53 @@
-.gallery 
-	text-align: center
+@import "variables"
+@import "mixins"
 
-.album 
+.gallery
+	width: 85%
+	text-align: center
+	@include center
+
+.album
+	position: relative
 	display: inline-block
 	box-sizing: border-box
+	margin-bottom: 5px
 	background-color: #31333a
-	padding: 10px
 
 .album-icon
+	display: block
+	width: 100%
+	margin: auto
+	overflow: hidden
 	img
-		width: 95%
+		width: 100%
 		height: auto
-	&:hover
+	p
+		width: 100%
+		height: 100%
+		color: $text-color
+		text-decoration: none
 		
-
-.album-description 
-	display: inline-block
-	height: 80px
-	vertical-align: bottom
-	margin-top: 20px
-	color: #FBE3C9
+	&:hover
+		p
+			display: block
+			background: rgba(0,0,0,0.5)
+			cursor: pointer
+			transition: all 3s
+	&:before
+		content: ""
+		padding-top: 100%
+		float: left
+	.album-title
+		display: none
+		font-weight: 700
+		font-size: 16px
 
 /* @media for big screens */
 
 @media screen and (min-width: 1081px) 
 	.album
 		width: 300px
-		height: 420px
+		height: auto
 		margin-right: 10px
 
 	.album:last-child
@@ -35,21 +56,16 @@
 /* @media for tablets */
 
 @media screen and (min-width: 721px) and (max-width: 1080px) 
-	.gallery
-		width: 85%
-		margin-left: auto
-		margin-right: auto
-	
 	.album
-		width: 33%
-		margin-bottom: 5px
+		width: 250px
+		height: auto
 
 /* @media for smartphones */
 
 @media screen and (max-width: 720px) 
 	.album
 		display: block
-		width: 80%
+		width: 150px
 		margin-left: auto
 		margin-right: auto
 		margin-bottom: 10px
