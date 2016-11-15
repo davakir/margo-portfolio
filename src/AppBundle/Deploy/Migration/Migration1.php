@@ -18,16 +18,21 @@ class Migration1 extends AbstractMigration
 			CREATE TABLE IF NOT EXISTS albums (
 				album_id SERIAL PRIMARY KEY,
 				ya_album_id INT UNIQUE NOT NULL,
-				author VARCHAR(50) DEFAULT NULL,
-				title VARCHAR(100) DEFAULT NULL,
-				description VARCHAR(255) DEFAULT NULL,
-				self_link VARCHAR(255) DEFAULT NULL,
-				edit_link VARCHAR(255) DEFAULT NULL,
-				photos_link VARCHAR(255) DEFAULT NULL,
-				cover_link VARCHAR(255) DEFAULT NULL,
-				ymapsml_link VARCHAR(255) DEFAULT NULL,
-				alternate_link VARCHAR(255) DEFAULT NULL,
-				is_neccessary boolean DEFAULT TRUE
+				author VARCHAR(255) DEFAULT NULL,
+				title VARCHAR DEFAULT NULL,
+				summary VARCHAR DEFAULT NULL,
+				img_href VARCHAR(3000) DEFAULT NULL,
+				link_self VARCHAR(3000) DEFAULT NULL,
+				link_edit VARCHAR(3000) DEFAULT NULL,
+				link_photos VARCHAR(3000) DEFAULT NULL,
+				link_cover VARCHAR(3000) DEFAULT NULL,
+				link_ymapsml VARCHAR(3000) DEFAULT NULL,
+				link_alternate VARCHAR(3000) DEFAULT NULL,
+				date_edited VARCHAR(255) DEFAULT NULL,
+				date_updated VARCHAR(255) DEFAULT NULL,
+				date_published VARCHAR(255) DEFAULT NULL,
+				image_count INT DEFAULT NULL,
+				visible SMALLINT
 			)
 		")->execute();
 		
@@ -39,21 +44,15 @@ class Migration1 extends AbstractMigration
 				ya_photo_id INT UNIQUE NOT NULL,
 				album_id INT NOT NULL,
 				author VARCHAR(50) DEFAULT NULL,
-				link VARCHAR(255) DEFAULT NULL,
-				is_neccessary boolean DEFAULT TRUE
-			)
-		")->execute();
-		
-		$this->_connect->query('CREATE UNIQUE INDEX IF NOT EXISTS yandex_photo_idx ON photos (ya_photo_id)')->execute();
-		
-		$res3 = $this->_connect->query("
-			CREATE TABLE IF NOT EXISTS mini_photos (
-				photo_id SERIAL PRIMARY KEY,
-				ya_photo_id INT UNIQUE NOT NULL,
-				album_id INT NOT NULL,
-				author VARCHAR(50) DEFAULT NULL,
-				link VARCHAR(255) DEFAULT NULL,
-				is_neccessary boolean DEFAULT TRUE
+				date_created VARCHAR(255) DEFAULT NULL,
+				date_updated VARCHAR(255) DEFAULT NULL,
+				title VARCHAR DEFAULT NULL,
+				summary VARCHAR DEFAULT NULL,
+				hide_original boolean DEFAULT FALSE,
+				access VARCHAR(50) DEFAULT NULL,
+				img_href VARCHAR(3000) DEFAULT NULL,
+				link_album VARCHAR(3000) DEFAULT NULL,
+				visible SMALLINT
 			)
 		")->execute();
 		
@@ -62,6 +61,5 @@ class Migration1 extends AbstractMigration
 		echo "Выполняются запросы в базу\n";
 		echo "Результат выполнения: " . ($res1 ? 'ok' : 'error occurred') . "\n";
 		echo "Результат выполнения: " . ($res2 ? 'ok' : 'error occurred') . "\n";
-		echo "Результат выполнения: " . ($res3 ? 'ok' : 'error occurred') . "\n";
 	}
 }

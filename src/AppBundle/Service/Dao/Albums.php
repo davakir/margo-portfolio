@@ -5,13 +5,18 @@ namespace AppBundle\Service\Dao;
 use Doctrine;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Album;
+use Yandex\Fotki\Models\Album as YandexAlbum;
 
 class Albums
 {
 	/**
 	 * @var EntityManager
 	 */
-	protected $em;
+	protected $_em;
+	/**
+	 * @var string
+	 */
+	private $__entityBundle = 'AppBundle:Album';
 	
 	/**
 	 * Albums constructor.
@@ -19,166 +24,270 @@ class Albums
 	 */
 	public function __construct(EntityManager $em)
 	{
-		$this->em = $em;
+		$this->_em = $em;
 	}
 	
 	/**
-	 * Сохранение/обновление полученных из Яндекса данных в БД
-	 * @param array $data
+	 * Возвращает список всех доступных для отображения альбомов из базы.
+	 *
+	 * @param $user string
+	 * @param $onlyVisible
+	 * @return array
+	 * @throws \Exception
 	 */
-	public function saveAlbums(array $data)
+	public function getAlbums($user, $onlyVisible = false)
 	{
-		// получаю из базы данные по альбомам (если они есть)
-		$albums = $this->em->getRepository('AppBundle:Album')
-			->findBy([
-				'yaAlbumId' => array_column($data, 'album_id')
-			]);
+		$conditions = ['author' => $user];
+		if ($onlyVisible)
+			$conditions['visible'] = true;
 		
+		try
+		{
+			$albums = $this->_em->getRepository($this->__entityBundle)
+				->findBy($conditions);
+		}
+		catch (\Exception $e)
+		{
+			throw new \Exception($e);
+		}
+		
+		return $albums;
+	}
+	
+	/**
+	 * Возвращает информацию об одном альбоме.
+	 *
+	 * @param $albumId
+	 * @return array
+	 * @throws \Exception
+	 */
+	public function getAlbum($albumId)
+	{
+		try
+		{
+			return $this->_em->getRepository($this->__entityBundle)
+				->findBy(['yaAlbumId' => $albumId]);
+		}
+		catch (\Exception $e)
+		{
+			throw new \Exception($e);
+		}
+	}
+	
+	/**
+	 * Сохранение/обновление полученных из Яндекса данных в БД.
+	 *
+	 * @param array $data -- array of YandexAlbums
+	 * @throws \Exception
+	 */
+	public function saveOrUpdateAlbums(array $data)
+	{
+		$ids = $this->__getYaAlbumIds($data);
+		try
+		{
+			$albums = $this->_em->getRepository($this->__entityBundle)
+				->findBy(['yaAlbumId' => $ids]);
+		}
+		catch (\Exception $e)
+		{
+			throw new \Exception($e);
+		}
+		
+		/** @var $album Album */
 		$savedAlbumIds = [];
-		/**
-		 * @var $album Album
-		 */
 		foreach ($albums as $album)
+		{
 			$savedAlbumIds[] = $album->getYaAlbumId();
+		}
 		
-		// выбираю альбомы для обновления
+		/**
+		 * Select data to update
+		 * @var $album YandexAlbum
+		 */
 		$dataToUpdate = [];
 		foreach ($data as $key => $album)
 		{
-			if (in_array($album['album_id'], $savedAlbumIds))
+			if (in_array($album->getId(), $savedAlbumIds))
 			{
 				$dataToUpdate[] = $album;
 				unset($data[$key]);
 			}
 		}
 		
-		// выполняем обновление, если есть ранее сохраненные альбомы
-		if (!empty($dataToUpdate))
-		{
-			/**
-			 * @var $album Album
-			 */
-			foreach ($albums as $album)
-			{
-				// ищем нужные данные для обновления
-				foreach ($dataToUpdate as $key => $item)
-				{
-					if ($album->getYaAlbumId() == $item['album_id'])
-					{
-						$album->setAuthor($item['author']);
-						$album->setDescription($item['description']);
-						$album->setTitle($item['title']);
-						
-						foreach ($item['links'] as $rel => $href)
-						{
-							switch ($rel) {
-								case 'self_link':
-									$album->setSelfLink($href);
-									break;
-								case 'cover_link':
-									$album->setCoverLink($href);
-									break;
-								case 'photos_link':
-									$album->setPhotosLink($href);
-							}
-						}
-						
-						$this->em->merge($album);
-						
-						// после первого совпадения переходим к обновлению
-						// следующего альбома
-						unset($dataToUpdate[$key]);
-						break;
-					}
-				}
-			}
-			
-			$this->em->flush();
-		}
-		
-		// остальное будем вставлять
+		/* The other will be inserted */
 		$dataToInsert = $data;
 		
-		if (!empty($dataToInsert))
+		try
 		{
-			foreach ($dataToInsert as $album)
+			$this->__updateAlbums($albums, $dataToUpdate);
+			$this->__saveAlbums($dataToInsert);
+		}
+		catch (\Exception $e)
+		{
+			throw new \Exception($e);
+		}
+	}
+	
+	/**
+	 * @param $albumIds
+	 * @throws \Exception
+	 */
+	public function setAlbumsVisibility($albumIds)
+	{
+		try
+		{
+			$albums = $this->_em->getRepository($this->__entityBundle)->findAll();
+			
+			/** @var $album Album */
+			foreach ($albums as $album)
 			{
-				$albumModel = new Album();
+				$value = in_array($album->getAlbumId(), $albumIds) ? 0 : 1;
 				
-				$albumModel->setYaAlbumId($album['album_id']);
-				$albumModel->setAuthor($album['author']);
-				$albumModel->setDescription($album['description']);
-				$albumModel->setTitle($album['title']);
-				$albumModel->setIsNeccessary('true');
-				
-				foreach ($album['links'] as $rel => $href)
-				{
-					switch ($rel) {
-						case 'self_link':
-							$albumModel->setSelfLink($href);
-							break;
-						case 'cover_link':
-							$albumModel->setCoverLink($href);
-							break;
-						case 'photos_link':
-							$albumModel->setPhotosLink($href);
-					}
-				}
-				
-				$this->em->persist($albumModel);
+				$album->setVisible($value);
+				$this->_em->merge($album);
 			}
 			
-			$this->em->flush();
+			$this->_em->flush();
 		}
-	}
-	
-	/**
-	 * @param array $albums
-	 */
-	public function updateAlbumsVisibility(array $albums)
-	{
-		// получаю из базы данные по альбомам (если они есть)
-		$albumsData = $this->em->getRepository('AppBundle:Album')
-			->findBy(['yaAlbumId' => $albums]);
-		
-		/**
-		 * @var $album Album
-		 */
-		foreach ($albumsData as $album)
+		catch (\Exception $e)
 		{
-			$album->setIsNeccessary(false);
-			$this->em->merge($album);
+			throw new \Exception($e);
 		}
-		
-		$this->em->flush();
 	}
 	
 	/**
-	 * Возвращает список всех доступных для отображения альбомов из базы
-	 * @return array
-	 */
-	public function getAlbums()
-	{
-		$albums = $this->em->getRepository('AppBundle:Album')->findAll();
-		
-		/**
-		 * @var $album Album
-		 */
-		foreach ($albums as $key => $album)
-			if (!$album->getIsNeccessary())
-				unset($albums[$key]);
-		
-		return $albums;
-	}
-	
-	/**
-	 * Возвращает информацию об одном альбоме
 	 * @param $albumId
+	 * @return integer
+	 */
+	public function getYaAlbumId($albumId)
+	{
+		return $this->_em->getRepository($this->__entityBundle)
+			->findOneBy(['albumId' => $albumId])
+			->getYaAlbumId();
+	}
+	
+	/**
+	 * @param array $albums -- array of YandexAlbums
 	 * @return array
 	 */
-	public function getAlbum($albumId)
+	private function __getYaAlbumIds(array $albums)
 	{
-		return $this->em->getRepository('AppBundle:Album')
-			->findBy(['yaAlbumId' => $albumId]);
+		/**
+		 * @var $album YandexAlbum
+		 */
+		$result = [];
+		foreach ($albums as $album)
+		{
+			$result[] = $album->getId();
+		}
+
+		return $result;
+	}
+	
+	/**
+	 * @param array $data -- array of YandexAlbums
+	 * @throws \Exception
+	 */
+	private function __saveAlbums(array $data)
+	{
+		if (!empty($data))
+		{
+			try
+			{
+				/** @var $yaAlbum YandexAlbum */
+				foreach ($data as $yaAlbum)
+				{
+					$album = $this->__createAlbum($yaAlbum);
+					
+					$this->_em->persist($album);
+				}
+				
+				$this->_em->flush();
+			}
+			catch (\Exception $e)
+			{
+				throw new \Exception($e);
+			}
+		}
+	}
+	
+	/**
+	 * @param array $data -- albums from database
+	 * @param array $dataToUpdate -- array of YandexAlbums
+	 * @throws \Exception
+	 */
+	private function __updateAlbums(array $data, array $dataToUpdate)
+	{
+		if (!empty($data))
+		{
+			try
+			{
+				/** @var $album Album */
+				foreach ($data as $album)
+					/**
+					 * Searching for necessary yaAlbum and update
+					 * @var $yaAlbum YandexAlbum
+					 **/
+					foreach ($dataToUpdate as $key => $yaAlbum)
+						if ($album->getYaAlbumId() == $yaAlbum->getId())
+						{
+							$this->__updateAlbum($album, $yaAlbum);
+							
+							$this->_em->merge($album);
+							
+							unset($dataToUpdate[$key]);
+							break;
+						}
+				
+				$this->_em->flush();
+			}
+			catch (\Exception $e)
+			{
+				throw new \Exception($e);
+			}
+		}
+	}
+	
+	/**
+	 * @param $yaAlbum YandexAlbum
+	 * @return Album
+	 */
+	private function __createAlbum($yaAlbum)
+	{
+		$album = new Album();
+		$album->setYaAlbumId($yaAlbum->getId());
+		$album->setAuthor($yaAlbum->getAuthor());
+		$album->setSummary($yaAlbum->getSummary());
+		$album->setTitle($yaAlbum->getSummary());
+		$album->setImageCount($yaAlbum->getImageCount());
+		$album->setDatePublished($yaAlbum->getDatePublished());
+		$album->setDateUpdated($yaAlbum->getDateUpdated());
+		$album->setImgHref($yaAlbum->getImgHref());
+		$album->setLinkSelf($yaAlbum->getLinkSelf());
+		$album->setLinkPhotos($yaAlbum->getLinkPhotos());
+		$album->setLinkCover($yaAlbum->getLinkCover());
+		$album->setLinkEdit($yaAlbum->getLinkEdit());
+		$album->setVisible(1);
+		
+		return $album;
+	}
+	
+	/**
+	 * @param $album Album
+	 * @param $yaAlbum YandexAlbum
+	 */
+	private function __updateAlbum($album, $yaAlbum)
+	{
+		$album->setAuthor($yaAlbum->getAuthor());
+		$album->setSummary($yaAlbum->getSummary());
+		$album->setTitle($yaAlbum->getSummary());
+		$album->setImageCount($yaAlbum->getImageCount());
+		$album->setDatePublished($yaAlbum->getDatePublished());
+		$album->setDateUpdated($yaAlbum->getDateUpdated());
+		$album->setImgHref($yaAlbum->getImgHref());
+		$album->setLinkSelf($yaAlbum->getLinkSelf());
+		$album->setLinkPhotos($yaAlbum->getLinkPhotos());
+		$album->setLinkCover($yaAlbum->getLinkCover());
+		$album->setLinkEdit($yaAlbum->getLinkEdit());
 	}
 }

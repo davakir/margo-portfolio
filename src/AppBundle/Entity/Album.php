@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  * @ORM\Table(name="albums")
- *
  */
 class Album
 {
@@ -24,45 +23,66 @@ class Album
 	 */
 	private $yaAlbumId;
 	/**
-	 * @ORM\Column(type="string", length=50)
+	 * @ORM\Column(type="string", length=255)
 	 */
 	private $author;
 	/**
-	 * @ORM\Column(type="string", length=100)
+	 * @ORM\Column(type="string")
 	 */
 	private $title;
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string")
 	 */
-	private $description;
+	private $summary;
 	/**
-	 * @ORM\Column(type="string", name="self_link", length=255)
+	 * @ORM\Column(type="string", name="link_self", length=3000)
 	 */
-	private $selfLink;
+	private $linkSelf;
 	/**
-	 * @ORM\Column(type="string", name="edit_link", length=255)
+	 * @ORM\Column(type="string", name="link_edit", length=3000)
 	 */
-	private $editLink;
+	private $linkEdit;
 	/**
-	 * @ORM\Column(type="string", name="photos_link", length=255)
+	 * @ORM\Column(type="string", name="link_photos", length=3000)
 	 */
-	private $photosLink;
+	private $linkPhotos;
 	/**
-	 * @ORM\Column(type="string", name="cover_link", length=255)
+	 * @ORM\Column(type="string", name="link_cover", length=3000)
 	 */
-	private $coverLink;
+	private $linkCover;
 	/**
-	 * @ORM\Column(type="string", name="ymapsml_link", length=255)
+	 * @ORM\Column(type="string", name="link_ymapsml", length=3000)
 	 */
-	private $ymapsmlLink;
+	private $linkYmapsml;
 	/**
-	 * @ORM\Column(type="string", name="alternate_link", length=255)
+	 * @ORM\Column(type="string", name="link_alternate", length=3000)
 	 */
-	private $alternateLink;
+	private $linkAlternate;
 	/**
-	 * @ORM\Column(type="boolean", name="is_neccessary")
+	 * @ORM\Column(type="string", name="img_href", length=3000)
 	 */
-	private $isNeccessary;
+	private $imgHref;
+	/**
+	 * @ORM\Column(type="string", name="date_edited", length=255)
+	 */
+	private $dateEdited;
+	/**
+	 * @ORM\Column(type="string", name="date_updated", length=255)
+	 */
+	private $dateUpdated;
+	/**
+	 * @ORM\Column(type="string", name="date_published", length=255)
+	 */
+	private $datePublished;
+	/**
+	 * @ORM\Column(type="integer", name="image_count")
+	 */
+	private $imageCount;
+	/**
+	 * @ORM\Column(type="integer")
+	 */
+	private $visible;
+	
 	/**
 	 * @return mixed
 	 */
@@ -70,6 +90,15 @@ class Album
 	{
 		return $this->albumId;
 	}
+	
+	/**
+	 * @param mixed $albumId
+	 */
+	public function setAlbumId($albumId)
+	{
+		$this->albumId = $albumId;
+	}
+	
 	/**
 	 * @return mixed
 	 */
@@ -77,6 +106,7 @@ class Album
 	{
 		return $this->yaAlbumId;
 	}
+	
 	/**
 	 * @param mixed $yaAlbumId
 	 */
@@ -84,6 +114,7 @@ class Album
 	{
 		$this->yaAlbumId = $yaAlbumId;
 	}
+	
 	/**
 	 * @return mixed
 	 */
@@ -91,6 +122,7 @@ class Album
 	{
 		return $this->author;
 	}
+	
 	/**
 	 * @param mixed $author
 	 */
@@ -98,6 +130,7 @@ class Album
 	{
 		$this->author = $author;
 	}
+	
 	/**
 	 * @return mixed
 	 */
@@ -105,6 +138,7 @@ class Album
 	{
 		return $this->title;
 	}
+	
 	/**
 	 * @param mixed $title
 	 */
@@ -112,116 +146,212 @@ class Album
 	{
 		$this->title = $title;
 	}
+	
 	/**
 	 * @return mixed
 	 */
-	public function getDescription()
+	public function getSummary()
 	{
-		return $this->description;
+		return $this->summary;
 	}
+	
 	/**
-	 * @param mixed $description
+	 * @param mixed $summary
 	 */
-	public function setDescription($description)
+	public function setSummary($summary)
 	{
-		$this->description = $description;
+		$this->summary = $summary;
 	}
-	/**
-	 * @return mixed
-	 */
-	public function getPhotosLink()
-	{
-		return $this->photosLink;
-	}
-	/**
-	 * @param string $photosLink
-	 */
-	public function setPhotosLink($photosLink)
-	{
-		$this->photosLink = $photosLink;
-	}
+	
 	/**
 	 * @return mixed
 	 */
-	public function getCoverLink()
+	public function getLinkSelf()
 	{
-		return $this->coverLink;
+		return $this->linkSelf;
 	}
+	
 	/**
-	 * @param string $coverLink
+	 * @param mixed $linkSelf
 	 */
-	public function setCoverLink($coverLink)
+	public function setLinkSelf($linkSelf)
 	{
-		$this->coverLink = $coverLink;
+		$this->linkSelf = $linkSelf;
 	}
-	/**
-	 * @param string $selfLink
-	 */
-	public function setSelfLink($selfLink)
-	{
-		$this->selfLink = $selfLink;
-	}
+	
 	/**
 	 * @return mixed
 	 */
-	public function getSelfLink()
+	public function getLinkEdit()
 	{
-		return $this->selfLink;
+		return $this->linkEdit;
 	}
+	
+	/**
+	 * @param mixed $linkEdit
+	 */
+	public function setLinkEdit($linkEdit)
+	{
+		$this->linkEdit = $linkEdit;
+	}
+	
 	/**
 	 * @return mixed
 	 */
-	public function getEditLink()
+	public function getLinkPhotos()
 	{
-		return $this->editLink;
+		return $this->linkPhotos;
 	}
+	
 	/**
-	 * @param mixed $editLink
+	 * @param mixed $linkPhotos
 	 */
-	public function setEditLink($editLink)
+	public function setLinkPhotos($linkPhotos)
 	{
-		$this->editLink = $editLink;
+		$this->linkPhotos = $linkPhotos;
 	}
-	/**
-	 * @return mixed
-	 */
-	public function getYmapsmlLink()
-	{
-		return $this->ymapsmlLink;
-	}
-	/**
-	 * @param mixed $ymapsmlLink
-	 */
-	public function setYmapsmlLink($ymapsmlLink)
-	{
-		$this->ymapsmlLink = $ymapsmlLink;
-	}
+	
 	/**
 	 * @return mixed
 	 */
-	public function getAlternateLink()
+	public function getLinkCover()
 	{
-		return $this->alternateLink;
+		return $this->linkCover;
 	}
+	
 	/**
-	 * @param mixed $alternateLink
+	 * @param mixed $linkCover
 	 */
-	public function setAlternateLink($alternateLink)
+	public function setLinkCover($linkCover)
 	{
-		$this->alternateLink = $alternateLink;
+		$this->linkCover = $linkCover;
 	}
+	
 	/**
 	 * @return mixed
 	 */
-	public function getIsNeccessary()
+	public function getLinkYmapsml()
 	{
-		return $this->isNeccessary;
+		return $this->linkYmapsml;
 	}
+	
 	/**
-	 * @param mixed $isNeccessary
+	 * @param mixed $linkYmapsml
 	 */
-	public function setIsNeccessary($isNeccessary)
+	public function setLinkYmapsml($linkYmapsml)
 	{
-		$this->isNeccessary = $isNeccessary;
+		$this->linkYmapsml = $linkYmapsml;
+	}
+	
+	/**
+	 * @return mixed
+	 */
+	public function getLinkAlternate()
+	{
+		return $this->linkAlternate;
+	}
+	
+	/**
+	 * @param mixed $linkAlternate
+	 */
+	public function setLinkAlternate($linkAlternate)
+	{
+		$this->linkAlternate = $linkAlternate;
+	}
+	
+	/**
+	 * @return mixed
+	 */
+	public function getImgHref()
+	{
+		return $this->imgHref;
+	}
+	
+	/**
+	 * @param mixed $imgHref
+	 */
+	public function setImgHref($imgHref)
+	{
+		$this->imgHref = $imgHref;
+	}
+	
+	/**
+	 * @return mixed
+	 */
+	public function getDateEdited()
+	{
+		return $this->dateEdited;
+	}
+	
+	/**
+	 * @param mixed $dateEdited
+	 */
+	public function setDateEdited($dateEdited)
+	{
+		$this->dateEdited = $dateEdited;
+	}
+	
+	/**
+	 * @return mixed
+	 */
+	public function getDateUpdated()
+	{
+		return $this->dateUpdated;
+	}
+	
+	/**
+	 * @param mixed $dateUpdated
+	 */
+	public function setDateUpdated($dateUpdated)
+	{
+		$this->dateUpdated = $dateUpdated;
+	}
+	
+	/**
+	 * @return mixed
+	 */
+	public function getDatePublished()
+	{
+		return $this->datePublished;
+	}
+	
+	/**
+	 * @param mixed $datePublished
+	 */
+	public function setDatePublished($datePublished)
+	{
+		$this->datePublished = $datePublished;
+	}
+	
+	/**
+	 * @return mixed
+	 */
+	public function getImageCount()
+	{
+		return $this->imageCount;
+	}
+	
+	/**
+	 * @param mixed $imageCount
+	 */
+	public function setImageCount($imageCount)
+	{
+		$this->imageCount = $imageCount;
+	}
+	
+	/**
+	 * @return mixed
+	 */
+	public function getVisible()
+	{
+		return $this->visible;
+	}
+	
+	/**
+	 * @param mixed $visible
+	 */
+	public function setVisible($visible)
+	{
+		$this->visible = $visible;
 	}
 }

@@ -7,6 +7,7 @@ function checkBtnEnabled(album_id, checked)
 	{
 		showHideBtn.setAttribute('data-toggle', 'collapse');
 		showHideBtn.removeAttribute('disabled');
+		albumPhotos.removeAttribute('style');
 	}
 	else
 	{

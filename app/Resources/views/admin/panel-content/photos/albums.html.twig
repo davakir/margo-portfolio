@@ -1,11 +1,11 @@
 {% for album in albums %}
-	<div class="media album" id="album-{{ album.album_id }}">
-		<div class="media-left v-a-mid" href="{{ album.links.cover_link }}">
-			<img class="media-heading" src="{{ album.links.cover_link }}" alt="Обложка альбома" width="75" height="75">
+	<div class="media album" id="album-{{ album.albumId }}">
+		<div class="media-left v-a-mid" href="{{ album.imgHref }}{{ size }}">
+			<img class="media-heading" src="{{ album.imgHref }}{{ size }}" alt="Обложка альбома" width="75" height="75">
 		</div>
 		<div class="media-body">
 			<h4 class="media-heading">{{ album.title }}</h4>
-			{{ album.description }}
+			{{ album.summary }}
 			<h6 class="media-bottom">
 				Автор:
 				<small class="text-muted">{{ album.author }}</small>
@@ -13,23 +13,26 @@
 		</div>
 		<div class="media-right v-a-mid t-a-cen">
 			<input type="button"
-					class="btn btn-warning show-hide"
-					id="album-{{ album.album_id }}-photos-btn"
-					data-toggle="collapse"
-					data-target="#album-{{ album.album_id }}-photos" value="Показать/скрыть фотографии"/>
-			<input type="checkbox" class="select-album" id="al-{{ album.album_id }}" checked
-			       onclick="checkBtnEnabled({{ album.album_id }}, this.checked)">
-			<label for="al-{{ album.album_id }}">Выбрать альбом</label>
+			       class="btn btn-warning show-hide"
+			       id="album-{{ album.albumId }}-photos-btn"
+			       data-toggle="collapse"
+			       data-target="#album-{{ album.albumId }}-photos" value="Показать/скрыть фотографии"/>
+			<input type="checkbox" class="select-album" id="al-{{ album.albumId }}"
+					{% if album.visible == 1 %}
+						checked
+					{% endif %}
+                   onclick="checkBtnEnabled({{ album.albumId }}, this.checked)">
+			<label for="al-{{ album.albumId }}">Выбрать альбом</label>
 		</div>
 	</div>
 	
-	<div class="collapse m-t-1" id="album-{{ album.album_id }}-photos"
-		 data-album-id="{{ album.album_id }}">
+	<div class="collapse m-t-1" id="album-{{ album.albumId }}-photos"
+	     data-album-id="{{ album.albumId }}">
 		<div class="container">
-
+		
 		</div>
 	</div>
-	
+
 {% endfor %}
 
 {% block stylesheets %}
