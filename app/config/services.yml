@@ -7,3 +7,6 @@ services:
     dao.photos:
         class: AppBundle\Service\Dao\Photos
         arguments: ['@doctrine.orm.default_entity_manager']
+    dao.users:
+        class: AppBundle\Service\Dao\Users
+        arguments: ['@doctrine.orm.default_entity_manager']

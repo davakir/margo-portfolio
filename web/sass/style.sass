@@ -18,7 +18,7 @@ h1, h2, h3, h4, h5, h6, a
 
 body 
 	background-color: #25272c !important
-	color: #f2ece4 !important
+	color: $text-color !important
 	font-family: "Roboto Condensed", Helvetica, Arial, sans-serif
 	font-size: 20px
 
@@ -41,6 +41,8 @@ article .title
 	color: #FC8F8D
 	margin-bottom: 20px
 
+/* For tablets */
+	
 @media screen and (min-width: 721px) and (max-width: 1080px)
 	body
 		font-size: 16px
@@ -48,9 +50,14 @@ article .title
 	section.about, section.contacts, section.service
 		width: 85%
 	
-	article .title h1
-		font-size: 22px
+	.title h1
+		font-size: 20px
 
+/* For mobile */
+	
 @media screen and (max-width: 720px)
 	section.about, section.contacts, section.service
 		width: 100%
+		
+	.title h1
+		font-size: 18px

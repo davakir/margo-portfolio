@@ -17,7 +17,7 @@
 			<div class="carousel-inner" role="listbox">
 				{% for photo in photos %}
 					<div class="carousel-item {% if loop.index == 1 %}active{% endif %}">
-						<img src="{{ photo.link }}" alt="photo" width="700" height="350">
+						<img src="{{ photo.imgHref }}{{ size }}" alt="photo" width="700" height="350">
 					</div>
 				{% endfor %}
 			</div>
@@ -35,5 +35,5 @@
 {% endblock %}
 
 {% block stylesheets %}
-
+	
 {% endblock %}
