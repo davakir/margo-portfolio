@@ -66,7 +66,7 @@ class Albums
 		try
 		{
 			return $this->_em->getRepository($this->__entityBundle)
-				->findBy(['yaAlbumId' => $albumId]);
+				->findOneBy(['yaAlbumId' => $albumId]);
 		}
 		catch (\Exception $e)
 		{

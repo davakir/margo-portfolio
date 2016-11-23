@@ -103,18 +103,20 @@ class DefaultController extends Controller
 	}
 	
 	/**
-	 * @Route("/gallery/album/{albumId}")
-	 * @param int $albumId
+	 * @Route("/gallery/album/{yaAlbumId}")
+	 * @param int $yaAlbumId
 	 * @param Request $request
 	 * @return Response
 	 */
-	public function getAlbumPhotosAction($albumId, Request $request)
+	public function getAlbumPhotosAction($yaAlbumId, Request $request)
 	{
-		$photos = ($this->get('dao.photos'))->getPhotos($albumId);
+		$album = ($this->get('dao.albums'))->getAlbum($yaAlbumId);
+		$photos = ($this->get('dao.photos'))->getPhotos($yaAlbumId);
 		
 		return $this->render('default/photos.html.twig', [
+			'album' => $album,
 			'photos' => $photos,
-			'size' => ImageSizes::XXL_SIZE
+			'size' => ImageSizes::XL_SIZE
 		]);
 	}
 	
@@ -124,7 +126,7 @@ class DefaultController extends Controller
 	 */
 	private function __shortenTitle(array $albums)
 	{
-		$length = 255;
+		$length = 50;
 		/**
 		 * @var $album Album
 		 */
