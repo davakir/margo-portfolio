@@ -2340,6 +2340,7 @@
             "time": "2016-11-17 10:59:24"
         }
     ],
+    "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
