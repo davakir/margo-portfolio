@@ -15,6 +15,5 @@
 /vendor/
 /web/bundles/
 .idea/*
-composer.lock
 .DS_Store
 .sass-cache
