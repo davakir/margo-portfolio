@@ -2231,9 +2231,7 @@
                 "templating"
             ],
             "time": "2016-11-23 18:41:40"
-        }
-    ],
-    "packages-dev": [
+        },
         {
             "name": "sensio/generator-bundle",
             "version": "v3.1.1",
