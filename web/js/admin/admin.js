@@ -105,4 +105,36 @@ $(document).ready(function() {
     function getAlbumId(value) {
         return value.substring("album-".length, value.length - "-photos".length);
     }
+
+    function ArticleController() {
+    	var container = $('div#articles');
+		var toggler = $('a[data-toggle="tab"][href="#posts"]');
+
+		initHandlers();
+
+		function initHandlers() {
+			toggler.on('shown.bs.tab', function (e) {
+				var url = '/admin/articles/';
+				$.get(url)
+					.done(initArticleTable);
+			});
+
+			var buttonCreate = $('button#create-article-button');
+			buttonCreate.click(function() {
+				window.location.href = '/admin/article/create';
+			});
+		}
+
+		function initArticleTable(htmlData) {
+			container.html(htmlData);
+			container.find('button').click(redirectToEdit);
+		}
+
+		function redirectToEdit(clickEvent) {
+			var id = clickEvent.target.attributes['data-article-id'].value;
+			window.location.href = '/admin/article/' + id + '/edit';
+		}
+	}
+
+	var articleController = new ArticleController();
 });
