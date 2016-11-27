@@ -5,11 +5,10 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Модель фотографии для работы с БД
+ * Photo model
  *
  * @ORM\Entity
  * @ORM\Table(name="photos")
- *
  */
 class Photo
 {

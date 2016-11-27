@@ -4,24 +4,37 @@
 
 {% block body %}
 	<section class="gallery">
-		{% if albums %}
-			{% for album in albums %}
-				<article class="album">
-					<a class="album-icon" href="/gallery/album/{{ album.yaAlbumId }}">
-						<img src="{{ album.coverLink }}" alt="{{ album.title }}">
-					</a>
-					<div class="album-description">{{ album.description }}</div>
-				</article>
-			{% endfor %}
-		{% endif %}
+		<div class="title">
+			<h1>Альбомы</h1>
+		</div>
+		<ul class="album-grid cs-style-3">
+			{% if albums %}
+				{% for album in albums %}
+					<li>
+						<article class="album">
+							<figure>
+								<a class="album-icon" href="/gallery/album/{{ album.yaAlbumId }}"
+								   style="background-image: url('{{ album.imgHref }}{{ size }}'); background-position: center; background-size: cover; background-repeat: no-repeat;">
+								</a>
+								<figcaption>
+									<p>{{ album.title }}&hellip;</p>
+								</figcaption>
+							</figure>
+						</article>
+					</li>
+				{% endfor %}
+			{% endif %}
+		</ul>
 	</section>
 {% endblock %}
 
 {% block stylesheets %}
 	<link rel="stylesheet" href="{{ asset('css/gallery.css') }}">
 	<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/hover-effects.css') }}">
 {% endblock %}
 
 {% block javascripts %}
-
+	<script src="{{ asset('js/vendor/modernizr.custom.js') }}"></script>
+	<script src="{{ asset('js/vendor/toucheffects.js') }}"></script>
 {% endblock %}
