@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Модель альбома для работы с БД
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\AlbumRepository")
  * @ORM\Table(name="albums")
  */
 class Album
@@ -19,7 +19,7 @@ class Album
 	 */
 	private $albumId;
 	/**
-	 * @ORM\Column(type="integer", name="ya_album_id")
+	 * @ORM\Column(type="integer", name="ya_album_id", unique=true)
 	 */
 	private $yaAlbumId;
 	/**
@@ -39,35 +39,35 @@ class Album
 	 */
 	private $linkSelf;
 	/**
-	 * @ORM\Column(type="string", name="link_edit", length=3000)
+	 * @ORM\Column(type="string", name="link_edit", length=3000, nullable=true)
 	 */
 	private $linkEdit;
 	/**
-	 * @ORM\Column(type="string", name="link_photos", length=3000)
+	 * @ORM\Column(type="string", name="link_photos", length=3000, nullable=true)
 	 */
 	private $linkPhotos;
 	/**
-	 * @ORM\Column(type="string", name="link_cover", length=3000)
+	 * @ORM\Column(type="string", name="link_cover", length=3000, nullable=true)
 	 */
 	private $linkCover;
 	/**
-	 * @ORM\Column(type="string", name="link_ymapsml", length=3000)
+	 * @ORM\Column(type="string", name="link_ymapsml", length=3000, nullable=true)
 	 */
 	private $linkYmapsml;
 	/**
-	 * @ORM\Column(type="string", name="link_alternate", length=3000)
+	 * @ORM\Column(type="string", name="link_alternate", length=3000, nullable=true)
 	 */
 	private $linkAlternate;
 	/**
-	 * @ORM\Column(type="string", name="img_href", length=3000)
+	 * @ORM\Column(type="string", name="img_href", length=3000, nullable=true)
 	 */
 	private $imgHref;
 	/**
-	 * @ORM\Column(type="string", name="date_edited", length=255)
+	 * @ORM\Column(type="string", name="date_edited", length=255, nullable=true)
 	 */
 	private $dateEdited;
 	/**
-	 * @ORM\Column(type="string", name="date_updated", length=255)
+	 * @ORM\Column(type="string", name="date_updated", length=255, nullable=true)
 	 */
 	private $dateUpdated;
 	/**

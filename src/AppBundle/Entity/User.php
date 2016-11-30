@@ -3,80 +3,92 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User model
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @ORM\Table(name="users")
  */
-class User
+class User implements UserInterface, \Serializable
 {
 	/**
 	 * @ORM\Column(type="integer", name="user_id")
 	 * @ORM\Id
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
-	private $userId;
+	private $id;
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(name="login", type="string", length=255, unique=true)
 	 */
-	private $login;
+	private $username;
 	/**
 	 * @ORM\Column(type="string", length=255)
 	 */
 	private $password;
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $lastname;
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $firstname;
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $midname;
 	/**
-	 * @ORM\Column(type="smallint", name="is_admin")
+	 * @ORM\Column(type="smallint", name="is_admin", options={"default":0})
 	 */
 	private $isAdmin;
 	/**
-	 * @ORM\Column(type="smallint", name="is_default")
+	 * @ORM\Column(type="smallint", name="is_default", options={"default":0})
 	 */
 	private $isDefault;
-	
 	/**
-	 * @return mixed
+	 * @ORM\Column(type="smallint", name="is_active", options={"default":1})
 	 */
-	public function getUserId()
-	{
-		return $this->userId;
-	}
+	private $isActive;
 	
-	/**
-	 * @param mixed $userId
-	 */
-	public function setUserId($userId)
+	public function __construct()
 	{
-		$this->userId = $userId;
+		$this->setIsAdmin(0);
+		$this->setIsDefault(0);
+		$this->setIsActive(1);
 	}
 	
 	/**
 	 * @return mixed
 	 */
-	public function getLogin()
+	public function getId()
 	{
-		return $this->login;
+		return $this->id;
 	}
 	
 	/**
-	 * @param mixed $login
+	 * @param mixed $id
 	 */
-	public function setLogin($login)
+	public function setId($id)
 	{
-		$this->login = $login;
+		$this->id = $id;
+	}
+	
+	/**
+	 * @return mixed
+	 */
+	public function getUsername()
+	{
+		return $this->username;
+	}
+	
+	/**
+	 * @param mixed $username
+	 */
+	public function setUsername($username)
+	{
+		$this->username = $username;
 	}
 	
 	/**
@@ -173,5 +185,60 @@ class User
 	public function setIsDefault($isDefault)
 	{
 		$this->isDefault = $isDefault;
+	}
+	
+	/**
+	 * @return mixed
+	 */
+	public function getIsActive()
+	{
+		return $this->isActive;
+	}
+	
+	/**
+	 * @param mixed $isActive
+	 */
+	public function setIsActive($isActive)
+	{
+		$this->isActive = $isActive;
+	}
+	
+	public function eraseCredentials()
+	{
+		
+	}
+	
+	public function serialize()
+	{
+		return serialize(array(
+			$this->id,
+			$this->username,
+			$this->password,
+		));
+	}
+	
+	/**
+	 * @param $serialized
+	 * @see \Serializable::unserialize()
+	 */
+	public function unserialize($serialized)
+	{
+		list (
+			$this->id,
+			$this->username,
+			$this->password,
+		) = unserialize($serialized);
+	}
+	
+	public function getRoles()
+	{
+		return array('ROLE_USER', 'ROLE_ADMIN');
+	}
+	
+	public function getSalt()
+	{
+		// you *may* need a real salt depending on your encoder
+		// see section on salt below
+		return null;
 	}
 }

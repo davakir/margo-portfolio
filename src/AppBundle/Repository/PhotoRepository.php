@@ -1,35 +1,18 @@
 <?php
 
-namespace AppBundle\Service\Dao;
+namespace AppBundle\Repository;
 
 use Doctrine;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Photo;
 use Yandex\Fotki\Models\Photo as YandexPhoto;
 
-class Photos
+class PhotoRepository extends EntityRepository
 {
-	/**
-	 * @var EntityManager
-	 */
-	protected $_em;
 	/**
 	 * @var int
 	 */
 	protected $_batchSize = 50;
-	/**
-	 * @var string
-	 */
-	private $__entityBundle = 'AppBundle:Photo';
-	
-	/**
-	 * Photos constructor.
-	 * @param EntityManager $em
-	 */
-	public function __construct(EntityManager $em)
-	{
-		$this->_em = $em;
-	}
 	
 	/**
 	 * Возвращает фотографии для переданного альбома
@@ -46,8 +29,7 @@ class Photos
 		
 		try
 		{
-			$photos = $this->_em->getRepository($this->__entityBundle)
-				->findBy($conditions);
+			$photos = $this->findBy($conditions);
 		}
 		catch (\Exception $e)
 		{
@@ -69,8 +51,7 @@ class Photos
 		$ids = $this->__getYaPhotoIds($data);
 		try
 		{
-			$photos = $this->_em->getRepository($this->__entityBundle)
-				->findBy(['yaPhotoId' => $ids]);
+			$photos = $this->findBy(['yaPhotoId' => $ids]);
 		}
 		catch (\Exception $e)
 		{
@@ -121,7 +102,7 @@ class Photos
 	{
 		try
 		{
-			$photosData = $this->_em->getRepository($this->__entityBundle)->findAll();
+			$photosData = $this->findAll();
 			
 			/** @var $photo Photo */
 			foreach ($photosData as $photo)
@@ -129,10 +110,10 @@ class Photos
 				$value = in_array($photo->getPhotoId(), $photos) ? 0 : 1;
 				
 				$photo->setVisible($value);
-				$this->_em->merge($photo);
+				$this->getEntityManager()->merge($photo);
 			}
 			
-			$this->_em->flush();
+			$this->getEntityManager()->flush();
 		}
 		catch (\Exception $e)
 		{
@@ -172,10 +153,10 @@ class Photos
 				{
 					$album = $this->__createPhoto($yaPhoto, $albumId);
 					
-					$this->_em->persist($album);
+					$this->getEntityManager()->persist($album);
 				}
 				
-				$this->_em->flush();
+				$this->getEntityManager()->flush();
 			}
 			catch (\Exception $e)
 			{
@@ -206,13 +187,13 @@ class Photos
 						{
 							$this->__updatePhoto($photo, $yaPhoto);
 							
-							$this->_em->merge($photo);
+							$this->getEntityManager()->merge($photo);
 							
 							unset($dataToUpdate[$key]);
 							break;
 						}
 				
-				$this->_em->flush();
+				$this->getEntityManager()->flush();
 			}
 			catch (\Exception $e)
 			{

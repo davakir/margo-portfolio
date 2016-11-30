@@ -3,6 +3,9 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Album;
+use AppBundle\Repository\AlbumRepository;
+use AppBundle\Repository\PhotoRepository;
+use AppBundle\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,6 +14,10 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use AppBundle\Service\Mail\Mail;
 use Yandex\Fotki\ImageSizes;
 
+/**
+ * Class DefaultController
+ * @package AppBundle\Controller
+ */
 class DefaultController extends Controller
 {
     /**
@@ -30,8 +37,8 @@ class DefaultController extends Controller
 	 */
 	public function galleryAction(Request $request)
 	{
-		$albums = ($this->get('dao.albums'))->getAlbums(
-			($this->get('dao.users'))->getDefaultUser()
+		$albums = $this->_getAlbumRep()->getAlbums(
+			$this->_getUserRep()->getDefaultUser()->getUserName(), true
 		);
 		
 		return $this->render('default/gallery.html.twig', [
@@ -110,8 +117,8 @@ class DefaultController extends Controller
 	 */
 	public function getAlbumPhotosAction($yaAlbumId, Request $request)
 	{
-		$album = ($this->get('dao.albums'))->getAlbum($yaAlbumId);
-		$photos = ($this->get('dao.photos'))->getPhotos($yaAlbumId);
+		$album = $this->_getAlbumRep()->getAlbum($yaAlbumId);
+		$photos = $this->_getPhotoRep()->getPhotos($yaAlbumId);
 		
 		return $this->render('default/photos.html.twig', [
 			'album' => $album,
@@ -134,5 +141,29 @@ class DefaultController extends Controller
 			$album->setTitle(mb_substr($album->getTitle(), 0, $length, 'UTF-8'));
 		
 		return $albums;
+	}
+	
+	/**
+	 * @return AlbumRepository
+	 */
+	private function _getAlbumRep()
+	{
+		return $this->getDoctrine()->getRepository('AppBundle:Album');
+	}
+	
+	/**
+	 * @return PhotoRepository
+	 */
+	private function _getPhotoRep()
+	{
+		return $this->getDoctrine()->getRepository('AppBundle:Photo');
+	}
+	
+	/**
+	 * @return UserRepository
+	 */
+	private function _getUserRep()
+	{
+		return $this->getDoctrine()->getRepository('AppBundle:User');
 	}
 }

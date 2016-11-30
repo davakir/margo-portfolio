@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Photo model
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PhotoRepository")
  * @ORM\Table(name="photos")
  */
 class Photo
@@ -19,7 +19,7 @@ class Photo
 	 */
 	private $photoId;
 	/**
-	 * @ORM\Column(type="integer", name="ya_photo_id")
+	 * @ORM\Column(type="integer", name="ya_photo_id", unique=true)
 	 */
 	private $yaPhotoId;
 	/**

@@ -2,6 +2,10 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\User;
+use AppBundle\Repository\AlbumRepository;
+use AppBundle\Repository\PhotoRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,8 +14,15 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Yandex\Fotki\FotkiClient;
 use Yandex\Fotki\ImageSizes;
 use Yandex\Fotki\Models\Album as YandexAlbum;
-use AppBundle\Service\Dao\Albums;
 
+/**
+ * Class AdminController
+ * @package AppBundle\Controller
+ *
+ * TODO: нужно переделать так, чтобы авторизация означала, что логин,
+ * который будет использоваться в работе в админке, - это логин,
+ * под которым авторизовался пользователь.
+ */
 class AdminController extends Controller
 {
 	/**
@@ -54,7 +65,7 @@ class AdminController extends Controller
 			$albums = $client->getAlbums();
 			
 			/* Save albums into database */
-			($this->get('dao.albums'))->saveOrUpdateAlbums($albums);
+			$this->_getAlbumRep()->saveOrUpdateAlbums($albums);
 			
 			/**
 			 * Get albumIds
@@ -70,7 +81,7 @@ class AdminController extends Controller
 			foreach ($albumIds as $albumId)
 			{
 				$photos = $client->getAlbumPhotos($albumId);
-				($this->get('dao.photos')->saveOrUpdatePhotos($photos, $albumId));
+				$this->_getPhotoRep()->saveOrUpdatePhotos($photos, $albumId);
 			}
 			
 			/*
@@ -78,7 +89,7 @@ class AdminController extends Controller
 			 * This caused by situation when some data was deleted in Yandex,
 			 * but we still have it for showing to users.
 			 */
-			$albums = ($this->get('dao.albums'))->getAlbums(self::$_login);
+			$albums = $this->_getAlbumRep()->getAlbums(self::$_login);
 		}
 		catch (\Exception $e)
 		{
@@ -101,7 +112,7 @@ class AdminController extends Controller
      */
 	public function getPhotos($albumId, Request $request)
     {
-    	$albumId = ($this->get('dao.albums'))->getYaAlbumId($albumId);
+    	$albumId = $this->_getAlbumRep()->getYaAlbumId($albumId);
     	
     	$photos = [];
 	    try
@@ -114,13 +125,13 @@ class AdminController extends Controller
 		    /* Get data from Yandex.Fotki */
 		    $photos = (new FotkiClient(self::$_login))->getAlbumPhotos($albumId);
 		    /* Save data into database */
-		    ($this->get('dao.photos'))->saveOrUpdatePhotos($photos, $albumId);
+		    $this->_getPhotoRep()->saveOrUpdatePhotos($photos, $albumId);
 		    /*
 			 * Get data from database.
 			 * This caused by situation when some data was deleted in Yandex,
 			 * but we still have it for showing to users.
 			 */
-		    $photos = ($this->get('dao.photos'))->getPhotos($albumId);
+		    $photos = $this->_getPhotoRep()->getPhotos($albumId);
 	    }
 	    catch (\Exception $e)
 	    {
@@ -157,8 +168,8 @@ class AdminController extends Controller
 		    if (empty($unselectedPhotos))
 		    	$unselectedPhotos = [];
 		    
-		    ($this->get('dao.albums'))->setAlbumsVisibility($unselectedAlbums);
-		    ($this->get('dao.photos'))->setPhotosVisibility($unselectedPhotos);
+		    $this->_getAlbumRep()->setAlbumsVisibility($unselectedAlbums);
+		    $this->_getPhotoRep()->setPhotosVisibility($unselectedPhotos);
 		    
 		    $result = true;
 	    }
@@ -176,4 +187,20 @@ class AdminController extends Controller
 	    $encoder = new JsonEncoder();
 	    return new Response($encoder->encode($result, 'json'), 200, array('Content-Type' => 'application/json'));
     }
+    
+	/**
+	 * @return AlbumRepository
+	 */
+	private function _getAlbumRep()
+	{
+		return $this->getDoctrine()->getRepository('AppBundle:Album');
+	}
+	
+	/**
+	 * @return PhotoRepository
+	 */
+	private function _getPhotoRep()
+	{
+		return $this->getDoctrine()->getRepository('AppBundle:Photo');
+	}
 }
