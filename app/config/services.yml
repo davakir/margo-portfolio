@@ -1,12 +1,8 @@
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/book/service_container.html
-services:
-    dao.albums:
-        class: AppBundle\Service\Dao\Albums
-        arguments: ['@doctrine.orm.default_entity_manager']
-    dao.photos:
-        class: AppBundle\Service\Dao\Photos
-        arguments: ['@doctrine.orm.default_entity_manager']
-    dao.users:
-        class: AppBundle\Service\Dao\Users
-        arguments: ['@doctrine.orm.default_entity_manager']
+
+#services:
+#    default_controller:
+#        class: AppBundle\Controller\DefaultController
+#        arguments: ["@=service('doctrine.orm.entity_manager').getRepository('AppBundle:Album')", "@=service('doctrine.orm.entity_manager').getRepository('AppBundle:Photo')", "@=service('doctrine.orm.entity_manager').getRepository('AppBundle:User')"]
+#
