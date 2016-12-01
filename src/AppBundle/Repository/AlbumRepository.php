@@ -1,50 +1,31 @@
 <?php
 
-namespace AppBundle\Service\Dao;
+namespace AppBundle\Repository;
 
 use Doctrine;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Album;
 use Yandex\Fotki\Models\Album as YandexAlbum;
 
-class Albums
+class AlbumRepository extends EntityRepository
 {
-	/**
-	 * @var EntityManager
-	 */
-	protected $_em;
-	/**
-	 * @var string
-	 */
-	private $__entityBundle = 'AppBundle:Album';
-	
-	/**
-	 * Albums constructor.
-	 * @param EntityManager $em
-	 */
-	public function __construct(EntityManager $em)
-	{
-		$this->_em = $em;
-	}
-	
 	/**
 	 * Возвращает список всех доступных для отображения альбомов из базы.
 	 *
-	 * @param $user string
+	 * @param $userName string
 	 * @param $onlyVisible
-	 * @return array
+	 * @return array The Album objects
 	 * @throws \Exception
 	 */
-	public function getAlbums($user, $onlyVisible = false)
+	public function getAlbums($userName, $onlyVisible = false)
 	{
-		$conditions = ['author' => $user];
+		$conditions = ['author' => $userName];
 		if ($onlyVisible)
-			$conditions['visible'] = true;
+			$conditions['visible'] = 1;
 		
 		try
 		{
-			$albums = $this->_em->getRepository($this->__entityBundle)
-				->findBy($conditions);
+			$albums = $this->findBy($conditions);
 		}
 		catch (\Exception $e)
 		{
@@ -58,15 +39,14 @@ class Albums
 	 * Возвращает информацию об одном альбоме.
 	 *
 	 * @param $albumId
-	 * @return array
+	 * @return object The Album object
 	 * @throws \Exception
 	 */
 	public function getAlbum($albumId)
 	{
 		try
 		{
-			return $this->_em->getRepository($this->__entityBundle)
-				->findBy(['yaAlbumId' => $albumId]);
+			return $this->findOneBy(['yaAlbumId' => $albumId]);
 		}
 		catch (\Exception $e)
 		{
@@ -85,8 +65,7 @@ class Albums
 		$ids = $this->__getYaAlbumIds($data);
 		try
 		{
-			$albums = $this->_em->getRepository($this->__entityBundle)
-				->findBy(['yaAlbumId' => $ids]);
+			$albums = $this->findBy(['yaAlbumId' => $ids]);
 		}
 		catch (\Exception $e)
 		{
@@ -136,7 +115,7 @@ class Albums
 	{
 		try
 		{
-			$albums = $this->_em->getRepository($this->__entityBundle)->findAll();
+			$albums = $this->findAll();
 			
 			/** @var $album Album */
 			foreach ($albums as $album)
@@ -144,10 +123,10 @@ class Albums
 				$value = in_array($album->getAlbumId(), $albumIds) ? 0 : 1;
 				
 				$album->setVisible($value);
-				$this->_em->merge($album);
+				$this->getEntityManager()->merge($album);
 			}
 			
-			$this->_em->flush();
+			$this->getEntityManager()->flush();
 		}
 		catch (\Exception $e)
 		{
@@ -161,7 +140,7 @@ class Albums
 	 */
 	public function getYaAlbumId($albumId)
 	{
-		return $this->_em->getRepository($this->__entityBundle)
+		return $this
 			->findOneBy(['albumId' => $albumId])
 			->getYaAlbumId();
 	}
@@ -199,10 +178,10 @@ class Albums
 				{
 					$album = $this->__createAlbum($yaAlbum);
 					
-					$this->_em->persist($album);
+					$this->getEntityManager()->persist($album);
 				}
 				
-				$this->_em->flush();
+				$this->getEntityManager()->flush();
 			}
 			catch (\Exception $e)
 			{
@@ -233,13 +212,13 @@ class Albums
 						{
 							$this->__updateAlbum($album, $yaAlbum);
 							
-							$this->_em->merge($album);
+							$this->getEntityManager()->merge($album);
 							
 							unset($dataToUpdate[$key]);
 							break;
 						}
 				
-				$this->_em->flush();
+				$this->getEntityManager()->flush();
 			}
 			catch (\Exception $e)
 			{

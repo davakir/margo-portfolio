@@ -2,13 +2,22 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Album;
+use AppBundle\Repository\AlbumRepository;
+use AppBundle\Repository\PhotoRepository;
+use AppBundle\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use AppBundle\Service\Mail\Mail;
+use Yandex\Fotki\ImageSizes;
 
+/**
+ * Class DefaultController
+ * @package AppBundle\Controller
+ */
 class DefaultController extends Controller
 {
     /**
@@ -28,10 +37,13 @@ class DefaultController extends Controller
 	 */
 	public function galleryAction(Request $request)
 	{
-		$albums = ($this->get('dao.albums'))->getAlbums();
+		$albums = $this->_getAlbumRep()->getAlbums(
+			$this->_getUserRep()->getDefaultUser()->getUserName(), true
+		);
 		
 		return $this->render('default/gallery.html.twig', [
-			'albums' => !empty($albums) ? $albums : []
+			'albums' => !empty($albums) ? $this->__shortenTitle($albums) : [],
+			'size' => ImageSizes::L_SIZE
 		]);
 	}
 	
@@ -98,17 +110,60 @@ class DefaultController extends Controller
 	}
 	
 	/**
-	 * @Route("/gallery/album/{albumId}")
-	 * @param int $albumId
+	 * @Route("/gallery/album/{yaAlbumId}")
+	 * @param int $yaAlbumId
 	 * @param Request $request
 	 * @return Response
 	 */
-	public function getAlbumPhotosAction($albumId, Request $request)
+	public function getAlbumPhotosAction($yaAlbumId, Request $request)
 	{
-		$photos = ($this->get('dao.photos'))->getPhotos($albumId);
+		$album = $this->_getAlbumRep()->getAlbum($yaAlbumId);
+		$photos = $this->_getPhotoRep()->getPhotos($yaAlbumId);
 		
 		return $this->render('default/photos.html.twig', [
-			'photos' => $photos
+			'album' => $album,
+			'photos' => $photos,
+			'size' => ImageSizes::XL_SIZE
 		]);
+	}
+	
+	/**
+	 * @param array $albums
+	 * @return array
+	 */
+	private function __shortenTitle(array $albums)
+	{
+		$length = 50;
+		/**
+		 * @var $album Album
+		 */
+		foreach ($albums as $album)
+			$album->setTitle(mb_substr($album->getTitle(), 0, $length, 'UTF-8'));
+		
+		return $albums;
+	}
+	
+	/**
+	 * @return AlbumRepository
+	 */
+	private function _getAlbumRep()
+	{
+		return $this->getDoctrine()->getRepository('AppBundle:Album');
+	}
+	
+	/**
+	 * @return PhotoRepository
+	 */
+	private function _getPhotoRep()
+	{
+		return $this->getDoctrine()->getRepository('AppBundle:Photo');
+	}
+	
+	/**
+	 * @return UserRepository
+	 */
+	private function _getUserRep()
+	{
+		return $this->getDoctrine()->getRepository('AppBundle:User');
 	}
 }
