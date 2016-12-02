@@ -114,7 +114,7 @@ $(document).ready(function() {
 
 		function initHandlers() {
 			toggler.on('shown.bs.tab', function (e) {
-				var url = '/admin/articles/';
+				var url = '/admin/articles';
 				$.get(url)
 					.done(initArticleTable);
 			});

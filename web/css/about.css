@@ -1,6 +1,13 @@
 /*For big screens*/
 
 @media screen and (min-width: 1081px) {
+	.article {
+		width: 75%;
+		text-align: left;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
 	.more-link a {
 		color: inherit;
 	}
@@ -39,9 +46,10 @@
 
 	.post-description {
 		float: left;
-		width: 65%;
+		/*width: 65%;*/
+		width: 80%;
 		line-height: 1em;
-		margin-left: 5%;
+		/*margin-left: 5%;*/
 	}
 
 	.post-description h3 {

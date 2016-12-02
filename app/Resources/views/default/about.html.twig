@@ -11,7 +11,7 @@
 			<div class="photo">
 				<img src="{{ asset('img/margo2.jpg') }}" alt="My favorite photo">
 			</div>
-			<div class="photo-description">
+			<div class="photo-description">.
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab architecto at cumque cupiditate
 					dolorem dolores, doloribus eum harum ipsam modi nemo, nisi odit quod reiciendis repellat ut
 					vero!</p>
@@ -24,28 +24,20 @@
 			<div class="title">
 				<h1>События</h1>
 			</div>
-			<div class="post">
-				<div class="post-icon">
-					<img src="{{ asset('img/background.jpg') }}" alt="Свадебная фотосессия">
-				</div>
-				<div class="post-description">
-					<h3>Lorem ipsum dolor sit.</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias quo ratione reiciendis
-						molestias ex qui fuga repudiandae quisquam nisi voluptates? Eius cum sapiente voluptas
-						ratione voluptatibus repudiandae magnam incidunt commodi.</p>
-				</div>
-			</div>
-			<div class="post">
-				<div class="post-icon">
-					<img src="{{ asset('img/cat.jpg') }}" alt="Свадебная фотосессия">
-				</div>
-				<div class="post-description">
-					<h3>Lorem ipsum dolor sit.</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias quo ratione reiciendis
-						molestias ex qui fuga repudiandae quisquam nisi voluptates? Eius cum sapiente voluptas
-						ratione voluptatibus repudiandae magnam incidunt commodi.</p>
-				</div>
-			</div>
+			{% if articles %}
+				{% for article in articles %}
+					<div class="post">
+						{#<div class="post-icon">#}
+						{#<img src="{{ asset('img/background.jpg') }}" alt="Свадебная фотосессия">#}
+						{#</div>#}
+						<div class="post-description">
+							<h3><a href="/about/article/{{ article.id }}">{{ article.title }}</a></h3>
+							<p>{{ article.text }}&hellip;</p>
+						</div>
+					</div>
+				{% endfor %}
+			{% endif %}
+			
 			<div class="more-link">
 				<a href=""><h2>Больше событий &gt;</h2></a>
 			</div>

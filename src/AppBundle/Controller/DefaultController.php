@@ -3,7 +3,9 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Album;
+use AppBundle\Entity\Article;
 use AppBundle\Repository\AlbumRepository;
+use AppBundle\Repository\ArticleRepository;
 use AppBundle\Repository\PhotoRepository;
 use AppBundle\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -42,7 +44,7 @@ class DefaultController extends Controller
 		);
 		
 		return $this->render('default/gallery.html.twig', [
-			'albums' => !empty($albums) ? $this->__shortenTitle($albums) : [],
+			'albums' => !empty($albums) ? $this->__shortenAlbumTitle($albums) : [],
 			'size' => ImageSizes::L_SIZE
 		]);
 	}
@@ -54,7 +56,23 @@ class DefaultController extends Controller
 	 */
 	public function aboutAction(Request $request)
 	{
-		return $this->render('default/about.html.twig');
+		$articles = $this->_getArticleRep()->findLimitedOrderedByCreateDate();
+		
+		$articles = $this->__shortenArticleText($articles);
+		
+		return $this->render('default/about.html.twig', ['articles' => $articles]);
+	}
+	
+	/**
+	 * @Route("/about/article/{id}", name="show_article")
+	 * @param $id integer
+	 * @return Response
+	 */
+	public function showArticleAction($id)
+	{
+		$article = $this->_getArticleRep()->getArticle($id);
+		
+		return $this->render('default/article.html.twig', ['article' => $article]);
 	}
 	
 	/**
@@ -129,11 +147,11 @@ class DefaultController extends Controller
 	
 	/**
 	 * @param array $albums
+	 * @param $length
 	 * @return array
 	 */
-	private function __shortenTitle(array $albums)
+	private function __shortenAlbumTitle(array $albums, $length = 50)
 	{
-		$length = 50;
 		/**
 		 * @var $album Album
 		 */
@@ -141,6 +159,22 @@ class DefaultController extends Controller
 			$album->setTitle(mb_substr($album->getTitle(), 0, $length, 'UTF-8'));
 		
 		return $albums;
+	}
+	
+	/**
+	 * @param array $articles
+	 * @param int $length
+	 * @return array
+	 */
+	private function __shortenArticleText(array $articles, $length = 255)
+	{
+		/**
+		 * @var $article Article
+		 */
+		foreach ($articles as $article)
+			$article->setText(mb_substr($article->getText(), 0, $length, 'UTF-8'));
+		
+		return $articles;
 	}
 	
 	/**
@@ -165,5 +199,13 @@ class DefaultController extends Controller
 	private function _getUserRep()
 	{
 		return $this->getDoctrine()->getRepository('AppBundle:User');
+	}
+	
+	/**
+	 * @return ArticleRepository
+	 */
+	private function _getArticleRep()
+	{
+		return $this->getDoctrine()->getRepository('AppBundle:Article');
 	}
 }

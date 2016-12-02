@@ -1,15 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: maxk
- * Date: 15.11.16
- * Time: 20:46
- */
 
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 
 /**
  * Class Article
@@ -41,6 +34,11 @@ class Article
      * @ORM\Column(type="text")
      */
     private $text;
+	
+	/**
+	 * @ORM\Column(name="cover_link", type="string", length=3000, nullable=true)
+	 */
+	private $coverLink;
 
     /**
      * Article constructor.
@@ -49,7 +47,6 @@ class Article
     {
         $this->createDate = new \DateTime();
     }
-
 
     /**
      * Get id
@@ -132,4 +129,24 @@ class Article
     {
         return $this->createDate;
     }
+	
+	/**
+	 * Get link for cover image
+	 *
+	 * @return mixed
+	 */
+	public function getCoverLink()
+	{
+		return $this->coverLink;
+	}
+	
+	/**
+	 * Set link for cover image
+	 *
+	 * @param mixed $coverLink
+	 */
+	public function setCoverLink($coverLink)
+	{
+		$this->coverLink = $coverLink;
+	}
 }

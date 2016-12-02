@@ -1,0 +1,19 @@
+{% extends 'default/index.html.twig' %}
+
+{% block title %}Маргарита Евстюнина - Фотограф - Новости{% endblock %}
+
+{% block body %}
+	<section class="article">
+		<h3>{{ article.title }}</h3>
+		<p>{{ article.text }}</p>
+	</section>
+	<div class="clearfix"></div>
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/about.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
