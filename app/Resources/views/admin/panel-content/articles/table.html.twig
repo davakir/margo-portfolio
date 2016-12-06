@@ -1,0 +1,15 @@
+{% for article in articles %}
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{ article.title  }} {{ article.createDate|date }}</h2>
+            <p>{{ article.text }}</p>
+        </div>
+        <div class="col-md-4">
+            <button data-article-id="{{ article.id }}">Редактировать</button>
+        </div>
+    </div>
+{% else %}
+    <div class="row">
+        <p>Еще нет статей</p>
+    </div>
+{% endfor %}

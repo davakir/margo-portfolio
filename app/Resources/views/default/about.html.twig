@@ -16,39 +16,28 @@
 					dolorem dolores, doloribus eum harum ipsam modi nemo, nisi odit quod reiciendis repellat ut
 					vero!</p>
 			</div>
-			<div class="more-link">
-				<a href=""><h2>Читать далее &gt;</h2></a>
-			</div>
 		</article>
 		<article class="right-side">
 			<div class="title">
 				<h1>События</h1>
 			</div>
-			<div class="post">
-				<div class="post-icon">
-					<img src="{{ asset('img/background.jpg') }}" alt="Свадебная фотосессия">
+			{% if articles %}
+				{% for article in articles %}
+					<div class="post">
+						{#<div class="post-icon">#}
+						{#<img src="{{ asset('img/background.jpg') }}" alt="Свадебная фотосессия">#}
+						{#</div>#}
+						<div class="post-date">{{ article.createDate|date("d.m.Y") }}</div>
+						<div class="post-description">
+							<h3><a href="/about/article/{{ article.id }}">{{ article.title }}</a></h3>
+							<p>{{ article.text }}&hellip;</p>
+						</div>
+					</div>
+				{% endfor %}
+				<div class="more-link">
+					<a href="/about/articles"><h2>Больше событий &gt;</h2></a>
 				</div>
-				<div class="post-description">
-					<h3>Lorem ipsum dolor sit.</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias quo ratione reiciendis
-						molestias ex qui fuga repudiandae quisquam nisi voluptates? Eius cum sapiente voluptas
-						ratione voluptatibus repudiandae magnam incidunt commodi.</p>
-				</div>
-			</div>
-			<div class="post">
-				<div class="post-icon">
-					<img src="{{ asset('img/cat.jpg') }}" alt="Свадебная фотосессия">
-				</div>
-				<div class="post-description">
-					<h3>Lorem ipsum dolor sit.</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias quo ratione reiciendis
-						molestias ex qui fuga repudiandae quisquam nisi voluptates? Eius cum sapiente voluptas
-						ratione voluptatibus repudiandae magnam incidunt commodi.</p>
-				</div>
-			</div>
-			<div class="more-link">
-				<a href=""><h2>Больше событий &gt;</h2></a>
-			</div>
+			{% endif %}
 		</article>
 	</section>
 	<div class="clearfix"></div>

@@ -9,7 +9,7 @@ class UserRepository extends EntityRepository
 {
 	/**
 	 * Get default user whose albums should be used.
-	 * @return string
+	 * @return object
 	 */
 	public function getDefaultUser()
 	{
@@ -19,7 +19,7 @@ class UserRepository extends EntityRepository
 	/**
 	 * @param $user User
 	 */
-	public function createUser($user)
+	public function createUser(User $user)
 	{
 		$this->getEntityManager()->persist($user);
 		$this->getEntityManager()->flush();
