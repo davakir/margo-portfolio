@@ -1,10 +1,11 @@
 {% extends 'default/index.html.twig' %}
 
-{% block title %}Маргарита Евстюнина - Фотограф - Новости{% endblock %}
+{% block title %}Маргарита Евстюнина - Фотограф - {{ article.title }}{% endblock %}
 
 {% block body %}
 	<section class="article">
 		<h3>{{ article.title }}</h3>
+		<div class="post-date">{{ article.createDate|date("d.m.Y") }}</div>
 		<p>{{ article.text }}</p>
 	</section>
 	<div class="clearfix"></div>

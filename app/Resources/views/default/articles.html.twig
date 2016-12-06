@@ -1,0 +1,28 @@
+{% extends 'default/index.html.twig' %}
+
+{% block title %}Маргарита Евстюнина - Фотограф - Новости{% endblock %}
+
+{% block body %}
+	<section class="news">
+		{% if articles %}
+			{% for article in articles %}
+				<div class="post">
+					<div class="post-description">
+						<h3><a href="/about/article/{{ article.id }}">{{ article.title }}</a></h3>
+					</div>
+					<div class="post-date">{{ article.createDate|date("d.m.Y") }}</div>
+					<p>{{ article.text }}&hellip;</p>
+				</div>
+			{% endfor %}
+		{% endif %}
+	</section>
+	<div class="clearfix"></div>
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/about.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

@@ -24,20 +24,18 @@ class DefaultController extends Controller
 {
     /**
      * @Route("/", name="indexpage")
-     * @param Request $request
      * @return Response
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
         return $this->render('default/home.html.twig');
     }
 	
 	/**
 	 * @Route("/gallery", name="gallery")
-	 * @param Request $request
 	 * @return Response
 	 */
-	public function galleryAction(Request $request)
+	public function galleryAction()
 	{
 		$albums = $this->_getAlbumRep()->getAlbums(
 			$this->_getUserRep()->getDefaultUser()->getUserName(), true
@@ -51,16 +49,27 @@ class DefaultController extends Controller
 	
 	/**
 	 * @Route("/about", name="about")
-	 * @param Request $request
 	 * @return Response
 	 */
-	public function aboutAction(Request $request)
+	public function aboutAction()
 	{
-		$articles = $this->_getArticleRep()->findLimitedOrderedByCreateDate();
+		$articles = $this->_getArticleRep()->findLimitedOrderedByCreateDate(2);
 		
 		$articles = $this->__shortenArticleText($articles);
 		
 		return $this->render('default/about.html.twig', ['articles' => $articles]);
+	}
+	
+	/**
+	 * @Route("/about/articles", name="articles")
+	 * @return Response
+	 */
+	public function articlesAction()
+	{
+		$articles = $this->_getArticleRep()->findAllOrderedByCreateDate();
+		$articles = $this->__shortenArticleText($articles, 512);
+		
+		return $this->render('default/articles.html.twig', ['articles' => $articles]);
 	}
 	
 	/**
@@ -77,20 +86,18 @@ class DefaultController extends Controller
 	
 	/**
 	 * @Route("/service", name="service")
-	 * @param Request $request
 	 * @return Response
 	 */
-	public function serviceAction(Request $request)
+	public function serviceAction()
 	{
 		return $this->render('default/service.html.twig');
 	}
 	
 	/**
 	 * @Route("/contacts", name="contacts")
-	 * @param Request $request
 	 * @return Response
 	 */
-	public function contactsAction(Request $request)
+	public function contactsAction()
 	{
 		return $this->render('default/contacts.html.twig');
 	}
@@ -130,10 +137,9 @@ class DefaultController extends Controller
 	/**
 	 * @Route("/gallery/album/{yaAlbumId}")
 	 * @param int $yaAlbumId
-	 * @param Request $request
 	 * @return Response
 	 */
-	public function getAlbumPhotosAction($yaAlbumId, Request $request)
+	public function getAlbumPhotosAction($yaAlbumId)
 	{
 		$album = $this->_getAlbumRep()->getAlbum($yaAlbumId);
 		$photos = $this->_getPhotoRep()->getPhotos($yaAlbumId);
