@@ -1,0 +1,43 @@
+@import 'variables'
+@import 'mixins'
+
+.service
+	text-align: left
+	box-sizing: border-box
+	padding: 0 30px
+	.title
+		text-align: center
+	.photoset-type
+		width: 50%
+		box-sizing: border-box
+		float: left
+		padding: 15px 20px
+		text-align: left
+	.inside-list
+		padding-left: 30px
+		list-style-type: none
+		font-weight: 300
+		color: #fff
+		span
+			padding-right: 10px
+			color: $mid-green
+
+/* For desktop */
+@media screen and (max-width: 720px)
+	.service
+		padding-top: 10px
+		.photoset-type
+			float: none
+			width: 90%
+			@include center
+			h3
+				font-size: 16px
+	
+/* For mobile */
+@media screen and (max-width: 1080px) and (min-width: 360px)
+	.photoset-type
+		text-align: left
+		padding: 10px
+	
+	.photoset-type h2
+		font-size: 20px

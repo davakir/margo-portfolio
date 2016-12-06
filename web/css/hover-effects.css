@@ -1,5 +1,4 @@
 /* Colors */
-/* Colors */
 .album-grid {
   margin: 0 auto;
   list-style: none;
@@ -308,86 +307,4 @@
   transition: opacity 0.3s 0.2s;
   opacity: 1; }
 
-.photo-grid .photo {
-  position: relative;
-  overflow: hidden; }
-  .photo-grid .photo img {
-    position: absolute; }
-
-.gallery {
-  width: 85%;
-  text-align: center;
-  margin-left: auto !important;
-  margin-right: auto !important; }
-  .gallery .album, .gallery .photo-preview {
-    position: relative;
-    display: inline-block;
-    box-sizing: border-box;
-    margin-bottom: 5px;
-    background-color: #31333a; }
-  .gallery .album-icon, .gallery .photo-preview-icon {
-    display: block;
-    width: 100%;
-    margin: auto;
-    overflow: hidden; }
-    .gallery .album-icon:hover p, .gallery .photo-preview-icon:hover p {
-      display: block;
-      background: rgba(0, 0, 0, 0.5);
-      cursor: pointer;
-      transition: all 3s; }
-    .gallery .album-icon:before, .gallery .photo-preview-icon:before {
-      content: "";
-      padding-top: 100%;
-      float: left; }
-    .gallery .album-icon .album-title, .gallery .photo-preview-icon .album-title {
-      display: none;
-      font-weight: 700;
-      font-size: 16px; }
-  .gallery .album-description {
-    width: 90%;
-    text-align: left;
-    font-size: 18px;
-    margin-left: auto !important;
-    margin-right: auto !important; }
-  .gallery .photo-preview {
-    margin: 0; }
-  .gallery .photo-preview-icon {
-    margin: 0; }
-
-/* @media for big screens */
-@media screen and (min-width: 1081px) {
-  .album {
-    width: 300px;
-    height: auto;
-    margin-right: 10px; }
-    .album:last-child {
-      margin-right: 0; }
-
-  .photo-preview {
-    width: 150px; } }
-/* @media for tablets */
-@media screen and (min-width: 721px) and (max-width: 1080px) {
-  .gallery {
-    margin-top: 10px; }
-
-  .album {
-    width: 250px;
-    height: auto; }
-
-  .photo-preview {
-    width: 100px; } }
-/* @media for smartphones */
-@media screen and (max-width: 720px) {
-  .gallery {
-    margin-top: 10px; }
-
-  .album {
-    display: block;
-    width: 150px;
-    margin: 0 auto 10px auto; }
-
-  .photo-preview {
-    display: block;
-    width: 80px; } }
-
-/*# sourceMappingURL=gallery.css.map */
+/*# sourceMappingURL=hover-effects.css.map */

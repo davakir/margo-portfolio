@@ -19,7 +19,7 @@ h1, h2, h3, h4, h5, h6, a
 body 
 	background-color: #25272c !important
 	color: $text-color !important
-	font-family: "Roboto Condensed", Helvetica, Arial, sans-serif
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
 	font-size: 20px
 
 a 
@@ -38,8 +38,14 @@ section.about:after, section.contacts:after, .service article:after
 	@include clearfix
 
 article .title
-	color: #FC8F8D
+	color: $pink
 	margin-bottom: 20px
+	
+footer div
+	color: $light-green
+	.fa
+		&:hover
+			color: $dark-green
 
 /* For tablets */
 	
@@ -56,6 +62,9 @@ article .title
 /* For mobile */
 	
 @media screen and (max-width: 720px)
+	body
+		font-size: 16px
+	
 	section.about, section.contacts, section.service
 		width: 100%
 		

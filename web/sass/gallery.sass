@@ -1,7 +1,7 @@
 @import "variables"
 @import "mixins"
 
-@import "_hover-effects"
+@import "hover-effects"
 @import "_photo-grid"
 
 .gallery
@@ -58,7 +58,9 @@
 	
 /* @media for tablets */
 
-@media screen and (min-width: 721px) and (max-width: 1080px) 
+@media screen and (min-width: 721px) and (max-width: 1080px)
+	.gallery
+		margin-top: 10px
 	.album
 		width: 250px
 		height: auto
@@ -68,7 +70,9 @@
 
 /* @media for smartphones */
 
-@media screen and (max-width: 720px) 
+@media screen and (max-width: 720px)
+	.gallery
+		margin-top: 10px
 	.album
 		display: block
 		width: 150px
