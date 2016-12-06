@@ -1,4 +1,5 @@
 /* Colors */
+/* Colors */
 nav, .home, .menu {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -58,7 +59,7 @@ nav, .home, .menu {
     .menu-item a {
       color: #FBE3C9;
       display: block; }
-    .menu-item .glyphicon {
+    .menu-item span {
       display: block;
       font-size: 24px;
       color: inherit; } }
@@ -84,7 +85,7 @@ nav, .home, .menu {
     float: left;
     background-color: #3B756E;
     font-weight: 400;
-    font-size: 24px;
+    font-size: 22px;
     line-height: 20px; }
     .home a {
       display: block;
@@ -94,7 +95,7 @@ nav, .home, .menu {
     width: 60%;
     float: right;
     margin: 40px 0;
-    font-size: 1em; }
+    font-size: 0.8em; }
 
   .menu-item {
     display: inline-block;
@@ -103,9 +104,9 @@ nav, .home, .menu {
     .menu-item a {
       color: #FBE3C9;
       display: block; }
-    .menu-item .glyphicon {
+    .menu-item span {
       display: block;
-      font-size: 24px;
+      font-size: 16px;
       color: inherit; } }
 /*For smartphones */
 @media screen and (max-width: 720px) {
@@ -138,7 +139,7 @@ nav, .home, .menu {
       color: #FBE3C9;
       display: block;
       padding: 10px; }
-    .menu-item .glyphicon {
+    .menu-item .fa {
       display: none; } }
 html, body {
   height: 100%; }
@@ -183,6 +184,7 @@ footer {
     .social-btn.social-tw:hover {
       background-position: -882px -510px; }
 
+/* Colors */
 .fl-left {
   float: left; }
 
@@ -201,6 +203,12 @@ footer {
 .mb-20 {
   margin-bottom: 20px; }
 
+.clearfix {
+  display: block;
+  content: "";
+  clear: both;
+  visibility: hidden; }
+
 ::selection {
   color: #FBE3C9;
   background: #8D7E78; }
@@ -215,7 +223,7 @@ h1, h2, h3, h4, h5, h6, a {
 body {
   background-color: #25272c !important;
   color: #FBE3C9 !important;
-  font-family: "Roboto Condensed", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 20px; }
 
 a {
@@ -240,6 +248,11 @@ article .title {
   color: #FC8F8D;
   margin-bottom: 20px; }
 
+footer div {
+  color: #A1D8B1; }
+  footer div .fa:hover {
+    color: #3B756E; }
+
 /* For tablets */
 @media screen and (min-width: 721px) and (max-width: 1080px) {
   body {
@@ -252,6 +265,9 @@ article .title {
     font-size: 20px; } }
 /* For mobile */
 @media screen and (max-width: 720px) {
+  body {
+    font-size: 16px; }
+
   section.about, section.contacts, section.service {
     width: 100%; }
 

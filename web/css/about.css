@@ -1,118 +1,137 @@
-/*For big screens*/
+/* Colors */
+.post-date {
+  color: #A1D8B1; }
 
-@media screen and (min-width: 1081px) {
-	.more-link a {
-		color: inherit;
-	}
+.about .right-side {
+  width: 55%;
+  float: right;
+  text-align: left;
+  padding-left: 30px;
+  box-sizing: border-box; }
+  .about .right-side:after {
+    display: block;
+    content: "";
+    clear: both;
+    visibility: hidden; }
+.about .left-side {
+  width: 45%;
+  height: 100%;
+  float: left;
+  border-right: 2px dashed #31333a;
+  text-align: left;
+  padding-right: 30px;
+  box-sizing: border-box; }
+  .about .left-side .photo, .about .left-side .photo-description {
+    margin-bottom: 20px; }
+  .about .left-side img {
+    width: 95%;
+    height: auto; }
+.about .post {
+  margin-bottom: 20px; }
+  .about .post a {
+    color: inherit; }
+    .about .post a:hover {
+      color: #3B756E;
+      text-decoration: none; }
+  .about .post .post-description {
+    width: 80%;
+    font-size: smaller;
+    white-space: normal;
+    line-height: 1em; }
+    .about .post .post-description h3 a {
+      font-size: 20px;
+      margin: 0; }
+  .about .post .post-date {
+    font-size: smaller; }
+.about .more-link a {
+  color: #A1D8B1; }
+  .about .more-link a:hover {
+    color: #3B756E;
+    text-decoration: underline; }
 
-	.right-side {
-		width: 55%;
-		float: right;
-		text-align: left;
-		padding-left: 30px;
-		box-sizing: border-box;
-	}
+.news {
+  width: 60%;
+  text-align: left;
+  margin-left: auto !important;
+  margin-right: auto !important; }
+  .news .post {
+    margin-bottom: 20px; }
+    .news .post .post-description {
+      width: 70%; }
+      .news .post .post-description:hover {
+        text-decoration: underline; }
+      .news .post .post-description a {
+        color: #FBE3C9; }
+    .news .post .post-date {
+      color: #489E96;
+      font-size: smaller; }
+    .news .post p {
+      font-size: smaller; }
 
-	.left-side img{
-		width: 95%;
-		height: auto;
-	}
-	.post {
-		margin-bottom: 20px;
-	}
+.article {
+  width: 60%;
+  text-align: left;
+  margin-left: auto !important;
+  margin-right: auto !important; }
+  .article > h3 {
+    width: 80%;
+    margin: 0 0 20px 0; }
 
-	.post:after {
-		content: "";
-		clear: both;
-		display: table;
-	}
+/* For big tablets */
+@media screen and (max-width: 1080px) and (min-width: 900px) {
+  .about .left-side, .about .right-side {
+    padding: 10px; }
+  .about .post .post-description {
+    width: 90%; }
+    .about .post .post-description h3 {
+      font-size: 18px;
+      margin: 0; }
+    .about .post .post-description a {
+      font-size: 18px;
+      line-height: 18px; } }
+/* For tablets */
+@media screen and (max-width: 900px) {
+  .about .left-side, .about .right-side {
+    float: none;
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    box-sizing: border-box; }
+  .about .left-side {
+    border: none; }
+    .about .left-side .photo > img {
+      width: 95%;
+      height: auto;
+      margin-bottom: 15px; }
+  .about .post .post-icon {
+    float: left;
+    width: 30%;
+    margin-right: 10px;
+    margin-bottom: 10px; }
+    .about .post .post-icon img {
+      width: 100%;
+      height: auto; }
+  .about .post .post-description {
+    width: 100%;
+    line-height: 1em; }
+    .about .post .post-description h3 {
+      font-size: 18px;
+      margin: 0; }
+    .about .post .post-description a {
+      font-size: 18px;
+      line-height: 18px; }
+  .about .article h3 {
+    font-size: 18px; }
+  .about .more-link h2 {
+    font-size: 20px; }
+  .about .title h1 {
+    text-align: center; } }
+@media screen and (max-width: 720px) {
+  .article {
+    width: 80%;
+    margin-top: 10px;
+    font-size: 16px; }
+    .article > h3 {
+      font-size: 18px; } }
 
-	.post-icon {
-		float: left;
-		width: 30%;
-	}
-
-	.post-icon img {
-		width: 100%;
-		height: auto;
-	}
-
-	.post-description {
-		float: left;
-		width: 65%;
-		line-height: 1em;
-		margin-left: 5%;
-	}
-
-	.post-description h3 {
-		font-size: 22px;
-		margin: 0;
-	}
-
-	.left-side {
-		width: 45%;
-		height: 100%;
-		float: left;
-		border-right: 2px dashed #31333a;
-		text-align: left;
-		padding-right: 30px;
-		box-sizing: border-box;
-	}
-
-
-	.left-side .photo, .left-side .photo-description {
-		margin-bottom: 20px;
-	}
-}
-
-/*@media for smartphones*/
-
-@media screen and (max-width: 1080px) and (min-width: 360px) {
-	.left-side, .right-side {
-		float: none;
-		width: 100%;
-		text-align: left;
-		padding: 10px;
-		box-sizing: border-box;
-	}
-
-	.left-side .photo>img{
-		width: 95%;
-		height: auto;
-		margin-bottom: 15px;
-	}
-
-	.post {
-		margin-bottom: 20px;
-	}
-
-	.post-icon {
-		float: left;
-		width: 30%;
-		margin-right: 10px;
-		margin-bottom: 10px;
-	}
-
-	.post-icon img {
-		width: 100%;
-		height: auto;
-	}
-
-	.post-description {
-		width: 100%;
-		line-height: 1em;
-	}
-
-	.post-description h3 {
-		font-size: 18px;
-		margin: 0;
-	}
-
-	.more-link a {
-		color: inherit;
-	}
-
-	.more-link h2 {
-		font-size: 20px;
-	}
-}
+/*# sourceMappingURL=about.css.map */

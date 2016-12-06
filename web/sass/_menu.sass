@@ -1,4 +1,5 @@
-
+@import "variables"
+@import "mixins"
 
 nav, .home, .menu
 	@include border-box
@@ -11,10 +12,10 @@ nav, .home, .menu
 	a:hover
 		text-decoration: none
 	&:hover
-		background-color: #489E96
+		background-color: $mid-green
 
 .menu-item a:hover
-	color: #489E96 
+	color: $mid-green
 	text-decoration: none 
 
 /*For big screens (default styles)*/
@@ -56,7 +57,7 @@ nav, .home, .menu
 		a
 			color: $text-color
 			display: block
-		.glyphicon
+		span
 			display: block
 			font-size: 24px
 			color: inherit
@@ -81,7 +82,7 @@ nav, .home, .menu
 		float: left
 		background-color: $dark-green
 		font-weight: 400
-		font-size: 24px
+		font-size: 22px
 		line-height: 20px
 		a
 			display: block
@@ -91,7 +92,7 @@ nav, .home, .menu
 		width: 60%
 		float: right
 		margin: 40px 0
-		font-size: 1em
+		font-size: 0.8em
 	
 	.menu-item
 		display: inline-block
@@ -100,9 +101,9 @@ nav, .home, .menu
 		a
 			color: $text-color
 			display: block
-		.glyphicon
+		span
 			display: block
-			font-size: 24px
+			font-size: 16px
 			color: inherit
 
 /*For smartphones*/
@@ -136,6 +137,6 @@ nav, .home, .menu
 			color: $text-color
 			display: block
 			padding: 10px
-		.glyphicon
+		.fa
 			display: none
 	 

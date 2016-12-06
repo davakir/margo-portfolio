@@ -1,83 +1,70 @@
-/*.left-side, .right-side described in about.css*/
-
-table {
-	margin-bottom: 30px;
-}
-
-table tr {
-	text-align: center;
-}
-
-table .labels{
-	text-align: right;
-	color: #FBE3C9;
-	font-weight: 400;
-	margin-right: 15px;
-}
-
-table .fields{
-	text-align: left;
-	color: #424242;
-	padding: 10px 10px;
-}
-
-input, textarea {
-	border-radius: 0;
-	border: 2px solid #008080;
-}
-
-input:focus, textarea:focus {
-	border-color: #FE2045;
-}
-
-input[type="text"], 
-input[type="email"], 
-input[type="tel"],
-textarea{
-	padding: 5px 0 5px 5px;
-	width: 300px;
-	font-weight: bold;
-}
-
-textarea {
-	height: 150px;
-}
-
-input[type="submit"] {
-	border: none;
-	padding: 10px 20px;
-	margin: 10px 0;
-	background-color: #FC8F8D;
-	color: #424242;
-	font-weight: 700;
-	font-variant: small-caps;
-	letter-spacing: 2px;
-}
-
+/* Colors */
+.contacts table {
+  width: 100%;
+  margin-bottom: 30px; }
+  .contacts table .labels {
+    display: table-row;
+    width: 100%;
+    text-align: left;
+    color: #FBE3C9;
+    font-weight: 400; }
+  .contacts table .fields {
+    display: table-row;
+    width: 100%;
+    text-align: left;
+    color: #424242;
+    padding: 10px 10px; }
+.contacts input, .contacts textarea {
+  width: 100% !important;
+  padding: 5px 0 5px 5px;
+  font-weight: bold;
+  border-radius: 0;
+  border: 2px solid #3B756E; }
+  .contacts input:focus, .contacts textarea:focus {
+    border-color: #FE2045; }
+.contacts textarea {
+  height: 150px; }
+.contacts input[type="submit"] {
+  border: none;
+  padding: 10px 20px;
+  margin: 10px 0;
+  background-color: #FC8F8D;
+  color: #424242;
+  font-weight: 700;
+  font-variant: small-caps;
+  letter-spacing: 2px; }
+.contacts #form-success {
+  display: none; }
+.contacts #form-fail {
+  display: none; }
+.contacts .right-side {
+  width: 50%;
+  float: right;
+  text-align: left;
+  padding-left: 15px;
+  box-sizing: border-box; }
 .contacts .left-side {
-		border: none;
-}
+  width: 50%;
+  height: 100%;
+  float: left;
+  border: none;
+  text-align: left;
+  padding-right: 15px;
+  box-sizing: border-box; }
 
-#form-success {
-	display: none;
-}
+@media screen and (max-width: 1080px) and (min-width: 720px) {
+  td.labels, td.fields {
+    display: table-row; }
 
-#form-fail {
-	display: none;
-}
+  td.labels {
+    text-align: left; }
 
-@media screen and (max-width: 1080px) and (min-width: 360px)  {
-	td.labels, td.fields {
-		display: table-row;
-	}
+  table.feedback-form {
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto; } }
+@media screen and (max-width: 720px) and (min-width: 360px) {
+  .contacts .left-side, .contacts .rights-side {
+    float: none; } }
 
-	td.labels {
-		text-align: left;
-	}
-
-	table.feedback-form {
-		width: 90%;
-		margin-right: auto;
-		margin-left: auto;
-	}
-}
+/*# sourceMappingURL=contacts.css.map */

@@ -1,0 +1,79 @@
+@import "variables"
+@import "mixins"
+
+.contacts
+	table
+		width: 100%
+		margin-bottom: 30px
+		.labels
+			display: table-row
+			width: 100%
+			text-align: left
+			color: $text-color
+			font-weight: 400
+		.fields
+			display: table-row
+			width: 100%
+			text-align: left
+			color: $light-grey
+			padding: 10px 10px
+	
+	input, textarea
+		width: 100% !important
+		padding: 5px 0 5px 5px
+		font-weight: bold
+		border-radius: 0
+		border: 2px solid $dark-green
+		&:focus
+			border-color: $error-red
+	
+	textarea
+		height: 150px
+	
+	input[type="submit"]
+		border: none
+		padding: 10px 20px
+		margin: 10px 0
+		background-color: $pink
+		color: $light-grey
+		font-weight: 700
+		font-variant: small-caps
+		letter-spacing: 2px
+
+	#form-success
+		display: none
+	
+	#form-fail
+		display: none
+	
+	.right-side
+		width: 50%
+		float: right
+		text-align: left
+		padding-left: 15px
+		box-sizing: border-box
+	.left-side
+		width: 50%
+		height: 100%
+		float: left
+		border: none
+		text-align: left
+		padding-right: 15px
+		box-sizing: border-box
+
+@media screen and (max-width: 1080px) and (min-width: 720px)
+	td.labels, td.fields
+		display: table-row
+	
+	td.labels
+		text-align: left
+	
+	table.feedback-form
+		width: 90%
+		margin-right: auto
+		margin-left: auto
+	
+@media screen and (max-width: 720px) and (min-width: 360px)
+	.contacts
+		.left-side, .rights-side
+			float: none

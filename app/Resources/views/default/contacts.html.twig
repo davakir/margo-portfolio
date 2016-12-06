@@ -4,22 +4,20 @@
 
 {% block body %}
 	<section class="contacts">
-		<div class="left-side fl-left">
+		<div class="left-side">
 			<div class="title">
 				<h1>Контактная информация</h1>
 			</div>
 			<p>Для уточнения деталей Вы можете связаться со мной одним из следующих способов:</p>
 			<p>
-				<span class="glyphicon glyphicon-envelope"></span>&nbsp;&nbsp;
-				e-mail:
+				<span class="fa fa-envelope-open"></span>&nbsp;&nbsp;e-mail:
 				<samp>opportunities013@mail.ru</samp></p>
 			<p>
-				<span class="glyphicon glyphicon-phone-alt"></span>&nbsp;&nbsp;
-				Телефон:
+				<span class="fa fa-phone"></span>&nbsp;&nbsp;Телефон:
 				<samp>+7(964)599-42-21</samp>​
 			</p>
 		</div>
-		<div class="right-side fl-right">
+		<div class="right-side">
 			<div class="title">
 				<h1>Обратная связь</h1>
 			</div>
@@ -29,32 +27,24 @@
 			
 			<form action="/feedback/send" id="feedback" method="POST">
 				<table class="feedback-form">
-					<tr>
-						<td class="labels"><label for="name">Имя:</label></td>
-						<td class="fields">
+						<tr class="labels"><label for="name">Имя:</label></tr>
+						<tr class="fields">
 							<input type="text" id="name" name="name" placeholder="Ваше Имя"/>
-						</td>
-					</tr>
-					<tr>
-						<td class="labels"><label for="phone">Контактный телефон:</label></td>
-						<td class="fields">
+						</tr>
+						<tr class="labels"><label for="phone">Контактный телефон:</label></tr>
+						<tr class="fields">
 							<input type="tel" id="phone" name="phone"
 							       pattern="\+[7] [(]\d{3}[)] \d{3}-\d{2}-\d{2}"
 							       placeholder="+7 (495) 123-45-67"/>
-						</td>
-					</tr>
-					<tr>
-						<td class="labels"><label for="email">E-mail:</label></td>
-						<td class="fields">
+						</tr>
+						<tr class="labels"><label for="email">E-mail:</label></tr>
+						<tr class="fields">
 							<input type="email" id="email" name="email" placeholder="example@gmail.com">
-						</td>
-					</tr>
-					<tr>
-						<td class="labels"><label for="message">Ваши комментарии:</label></td>
-						<td class="fields">
+						</tr>
+						<tr class="labels"><label for="message">Ваши комментарии:</label></tr>
+						<tr class="fields">
 							<textarea id="message" name="message" placeholder="Оставьте свое сообщение здесь..."></textarea>
-						</td>
-					</tr>
+						</tr>
 					<tr>
 						<td colspan="2">
 							<input type="submit" value="Отправить"/>

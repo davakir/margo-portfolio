@@ -1,0 +1,148 @@
+@import "variables"
+@import "mixins"
+
+.post-date
+	color: $light-green
+
+.about
+	.right-side
+		width: 55%
+		float: right
+		text-align: left
+		padding-left: 30px
+		box-sizing: border-box
+		&:after
+			@include clearfix
+	.left-side
+		width: 45%
+		height: 100%
+		float: left
+		border-right: 2px dashed #31333a
+		text-align: left
+		padding-right: 30px
+		box-sizing: border-box
+		.photo, .photo-description
+			margin-bottom: 20px
+		img
+			width: 95%
+			height: auto
+			
+	.post
+		margin-bottom: 20px
+		a
+			color: inherit
+			&:hover
+				color: $dark-green
+				text-decoration: none
+		.post-description
+			width: 80%
+			font-size: smaller
+			white-space: normal
+			line-height: 1em
+			h3
+				a
+					font-size: 20px
+					margin: 0
+		.post-date
+			font-size: smaller
+			
+	.more-link a
+		color: $light-green
+		&:hover
+			color: $dark-green
+			text-decoration: underline
+		
+.news
+	width: 60%
+	text-align: left
+	@include center
+	.post
+		margin-bottom: 20px
+		.post-description
+			width: 70%
+			&:hover
+				text-decoration: underline
+			a
+				color: $text-color
+		.post-date
+			color: $mid-green
+			font-size: smaller
+		p
+			font-size: smaller
+
+.article
+	width: 60%
+	text-align: left
+	@include center
+	& > h3
+		width: 80%
+		margin: 0 0 20px 0
+
+/* For big tablets */
+@media screen and (max-width: 1080px) and (min-width: 900px)
+	.about
+		.left-side, .right-side
+			padding: 10px
+		.post
+			.post-description
+				width: 90%
+				h3
+					font-size: 18px
+					margin: 0
+				a
+					font-size: 18px
+					line-height: 18px
+	
+/* For tablets */
+@media screen and (max-width: 900px)
+	.about
+		.left-side, .right-side
+			float: none
+			width: 100%
+			text-align: left
+			padding: 10px
+			box-sizing: border-box
+		
+		.left-side
+			border: none
+			.photo>img
+				width: 95%
+				height: auto
+				margin-bottom: 15px
+		
+		.post
+			.post-icon
+				float: left
+				width: 30%
+				margin-right: 10px
+				margin-bottom: 10px
+				img
+					width: 100%
+					height: auto
+			.post-description
+				width: 100%
+				line-height: 1em
+				h3
+					font-size: 18px
+					margin: 0
+				a
+					font-size: 18px
+					line-height: 18px
+		.article
+			h3
+				font-size: 18px
+		
+		.more-link h2
+			font-size: 20px
+			
+		.title h1
+			text-align: center
+			
+@media screen and (max-width: 720px)
+	.article
+		width: 80%
+		margin-top: 10px
+		font-size: 16px
+		& > h3
+			font-size: 18px
+			
