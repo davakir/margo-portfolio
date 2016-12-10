@@ -1,0 +1,94 @@
+@import "variables"
+@import "mixins"
+
+/*Carousel on the main page*/
+*
+	margin: 0
+	padding: 0
+
+section.animation
+	width: 90%
+	@include center
+	.part
+		width: 320px
+		position: relative
+		display: inline-block
+		box-sizing: border-box
+		margin-bottom: 5px
+		background-color: $dark-grey
+		.img
+			display: block
+			position: absolute
+			top: 0
+			width: 100%
+			margin: auto
+			overflow: hidden
+			background: center no-repeat
+			background-size: cover
+			opacity: 0
+			&:before
+				content: ""
+				padding-top: 100%
+				float: left
+			&:first-child
+				position: relative
+		&:after
+			@include clearfix
+	
+	#part-1
+		.img-1
+			background-image: url('../img/nature.jpg')
+		.img-2
+			background-image: url('../img/wed1.jpg')
+		.img-3
+			background-image: url('../img/wed2.jpg')
+			
+	#part-2
+		.img-1
+			background-image: url('../img/fall.jpg')
+		.img-2
+			background-image: url('../img/hair.jpg')
+		.img-3
+			background-image: url('../img/wed3.jpg')
+			
+	#part-3
+		.img-1
+			background-image: url('../img/outgoing.jpg')
+		.img-2
+			background-image: url('../img/woman.jpg')
+		.img-3
+			background-image: url('../img/nature.jpg')
+			
+	#part-4
+		.img-1
+			background-image: url('../img/wed1.jpg')
+		.img-2
+			background-image: url('../img/wed2.jpg')
+		.img-3
+			background-image: url('../img/hair.jpg')
+			
+	#part-5
+		.img-1
+			background-image: url('../img/woman.jpg')
+		.img-2
+			background-image: url('../img/wed3.jpg')
+		.img-3
+			background-image: url('../img/fall.jpg')
+		
+	#part-6
+		.img-1
+			background-image: url('../img/hair.jpg')
+		.img-2
+			background-image: url('../img/fall.jpg')
+		.img-3
+			background-image: url('../img/wed1.jpg')
+		
+@media screen and (min-width: 721px) and (max-width: 1080px)
+	section.animation
+		.part
+			width: 240px
+	
+@media screen and (max-width: 720px)
+	section.animation
+		.part
+			width: 180px
