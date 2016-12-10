@@ -1,15 +1,13 @@
 @import "variables"
 @import "mixins"
 
-.post-date
-	color: $light-green
-
-.about
+section.about
+	width: 80%
 	.right-side
 		width: 55%
 		float: right
 		text-align: left
-		padding-left: 30px
+		padding-left: 15px
 		box-sizing: border-box
 		&:after
 			@include clearfix
@@ -19,23 +17,24 @@
 		float: left
 		border-right: 2px dashed #31333a
 		text-align: left
-		padding-right: 30px
+		padding-right: 15px
 		box-sizing: border-box
 		.photo, .photo-description
 			margin-bottom: 20px
-		img
-			width: 95%
-			height: auto
+			img
+				width: 100%
+				height: auto
+		.photo
+			text-align: center
 			
 	.post
 		margin-bottom: 20px
 		a
 			color: inherit
 			&:hover
-				color: $dark-green
-				text-decoration: none
+				//color: $dark-green
+				text-decoration: underline
 		.post-description
-			width: 80%
 			font-size: smaller
 			white-space: normal
 			line-height: 1em
@@ -45,6 +44,7 @@
 					margin: 0
 		.post-date
 			font-size: smaller
+			color: $light-green
 			
 	.more-link a
 		color: $light-green
@@ -52,7 +52,7 @@
 			color: $dark-green
 			text-decoration: underline
 		
-.news
+section.news
 	width: 60%
 	text-align: left
 	@include center
@@ -70,7 +70,7 @@
 		p
 			font-size: smaller
 
-.article
+section.article
 	width: 60%
 	text-align: left
 	@include center
@@ -79,30 +79,30 @@
 		margin: 0 0 20px 0
 
 /* For big tablets */
-@media screen and (max-width: 1080px) and (min-width: 900px)
-	.about
+@media screen and (max-width: 1080px) and (min-width: 720px)
+	section.about
 		.left-side, .right-side
 			padding: 10px
 		.post
 			.post-description
 				width: 90%
 				h3
-					font-size: 18px
-					margin: 0
-				a
-					font-size: 18px
-					line-height: 18px
+					a
+						font-size: 18px
+						line-height: 18px
+		.more-link a
+			font-size: 14px
 	
 /* For tablets */
-@media screen and (max-width: 900px)
-	.about
+@media screen and (max-width: 720px)
+	section.about
+		width: 95%
 		.left-side, .right-side
+			padding: 10px
 			float: none
 			width: 100%
 			text-align: left
-			padding: 10px
-			box-sizing: border-box
-		
+				
 		.left-side
 			border: none
 			.photo>img
@@ -134,15 +134,14 @@
 		
 		.more-link h2
 			font-size: 20px
-			
+		
 		.title h1
 			text-align: center
-			
-@media screen and (max-width: 720px)
-	.article
+									   
+	section.article
 		width: 80%
 		margin-top: 10px
 		font-size: 16px
 		& > h3
 			font-size: 18px
-			
+		

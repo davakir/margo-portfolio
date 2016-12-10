@@ -1,9 +1,9 @@
 @import "variables"
 @import "mixins"
 
-.contacts
+section.contacts
 	table
-		width: 100%
+		width: 90%
 		margin-bottom: 30px
 		.labels
 			display: table-row
@@ -14,14 +14,17 @@
 		.fields
 			display: table-row
 			width: 100%
-			text-align: left
+			text-align: center
 			color: $light-grey
 			padding: 10px 10px
 	
 	input, textarea
-		width: 100% !important
+		@include border-box
+		display: block
+		width: 100%
 		padding: 5px 0 5px 5px
-		font-weight: bold
+		font-weight: normal
+		font-size: 16px
 		border-radius: 0
 		border: 2px solid $dark-green
 		&:focus
@@ -39,41 +42,53 @@
 		font-weight: 700
 		font-variant: small-caps
 		letter-spacing: 2px
-
+	
+	.left-side, .right-side
+		width: 50%
+		text-align: left
+		@include border-box
+	.right-side
+		float: right
+	.left-side
+		height: 100%
+		float: left
+		border: none
+		div
+			margin: 5px 0
+		
 	#form-success
 		display: none
 	
 	#form-fail
 		display: none
-	
-	.right-side
-		width: 50%
-		float: right
-		text-align: left
-		padding-left: 15px
-		box-sizing: border-box
-	.left-side
-		width: 50%
-		height: 100%
-		float: left
-		border: none
-		text-align: left
-		padding-right: 15px
-		box-sizing: border-box
+		
+	.feedback-form
+		width: 100%
+		text-align: center
 
 @media screen and (max-width: 1080px) and (min-width: 720px)
-	td.labels, td.fields
-		display: table-row
-	
-	td.labels
-		text-align: left
-	
-	table.feedback-form
-		width: 90%
-		margin-right: auto
-		margin-left: auto
-	
-@media screen and (max-width: 720px) and (min-width: 360px)
-	.contacts
-		.left-side, .rights-side
+	section.contacts
+		td.labels, td.fields
+			display: table-row
+		
+		td.labels
+			text-align: left
+		
+		table.feedback-form
+			width: 90%
+			margin-right: auto
+			margin-left: auto
+															   
+/* for mobile */
+@media screen and (max-width: 720px)
+	section.contacts
+		width: 75%
+		margin: 0 auto
+		.left-side, .right-side
+			width: 100%
 			float: none
+			margin-top: 20px
+			.title
+				color: $pink
+			
+			
