@@ -1,43 +1,48 @@
 /* Colors */
-.service {
+section.service {
   text-align: left;
-  box-sizing: border-box;
-  padding: 0 30px; }
-  .service .title {
+  box-sizing: border-box; }
+  section.service .title {
     text-align: center; }
-  .service .photoset-type {
+  section.service .photoset-type {
     width: 50%;
     box-sizing: border-box;
-    float: left;
     padding: 15px 20px;
     text-align: left; }
-  .service .inside-list {
+  section.service .inside-list {
     padding-left: 30px;
     list-style-type: none;
     font-weight: 300;
     color: #fff; }
-    .service .inside-list span {
+    section.service .inside-list span {
       padding-right: 10px;
       color: #489E96; }
 
-/* For desktop */
+@media screen and (max-width: 1080px) and (min-width: 721px) {
+  section.service .title h1 {
+    font-size: 22px; } }
+/* For tablet */
+@media screen and (max-width: 960px) and (min-width: 800px) {
+  section.service {
+    width: 85%; }
+    section.service .photoset-type {
+      text-align: left;
+      padding: 10px; }
+    section.service .photoset-type h2 {
+      font-size: 20px; } }
+@media screen and (max-width: 800px) and (min-width: 720px) {
+  section.service {
+    width: 90%; } }
+/* For mobile */
 @media screen and (max-width: 720px) {
-  .service {
+  section.service {
     padding-top: 10px; }
-    .service .photoset-type {
+    section.service .photoset-type {
       float: none;
       width: 90%;
       margin-left: auto !important;
       margin-right: auto !important; }
-      .service .photoset-type h3 {
+      section.service .photoset-type h3 {
         font-size: 16px; } }
-/* For mobile */
-@media screen and (max-width: 1080px) and (min-width: 360px) {
-  .photoset-type {
-    text-align: left;
-    padding: 10px; }
-
-  .photoset-type h2 {
-    font-size: 20px; } }
 
 /*# sourceMappingURL=service.css.map */

@@ -53,7 +53,7 @@ class DefaultController extends Controller
 	 */
 	public function aboutAction()
 	{
-		$articles = $this->_getArticleRep()->findLimitedOrderedByCreateDate(2);
+		$articles = $this->_getArticleRep()->findLimitedOrderedByCreateDate(3);
 		
 		$articles = $this->__shortenArticleText($articles);
 		
