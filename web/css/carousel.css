@@ -1,89 +1,83 @@
-/*Carousel on the main page*/
-
+/* Colors */
+/*Carousel on the main page */
 * {
-    margin: 0;
-    padding: 0;
-}
+  margin: 0;
+  padding: 0; }
 
-.transform {
-    margin-right: 5px;
+section.animation {
+  width: 90%;
+  margin-left: auto !important;
+  margin-right: auto !important; }
+  section.animation .part {
+    width: 320px;
     position: relative;
-    z-index: 50;  
-}
-
-.transform:last-child {
-    margin-right: 0;
-}
-
-.transformice {
-    width: auto;
-    height: auto;
-    margin: auto;
-    display: block;
-    position: absolute;
-    z-index: 0;
-}
-
-.stop {
-    border: none; 
-    text-align: center; 
-    margin: auto;
     display: inline-block;
-}
-
-.main {
-    width: 100%;
-    line-height: 100%;
-}
-
-.carousel {
-    width: 90%;
     box-sizing: border-box;
-    margin: 0 auto;
-}
-
-.carousel img {
-    width: 100%;
-    height: auto;
-}
-
-@media screen and (max-width: 720px) {
-    .carousel {
-        width: 90%;
-        max-width: 540px;
-        text-align: center;
-        margin: 20px auto;
-        overflow: visible;
-    }
-    
-    .stop {
-        width: 180px;
-        height: 180px;
-    }
-}
+    margin-bottom: 5px;
+    background-color: #31333a; }
+    section.animation .part .img {
+      display: block;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      margin: auto;
+      overflow: hidden;
+      background: center no-repeat;
+      background-size: cover;
+      opacity: 0; }
+      section.animation .part .img:before {
+        content: "";
+        padding-top: 100%;
+        float: left; }
+      section.animation .part .img:first-child {
+        position: relative; }
+    section.animation .part:after {
+      display: block;
+      content: "";
+      clear: both;
+      visibility: hidden; }
+  section.animation #part-1 .img-1 {
+    background-image: url("../img/nature.jpg"); }
+  section.animation #part-1 .img-2 {
+    background-image: url("../img/wed1.jpg"); }
+  section.animation #part-1 .img-3 {
+    background-image: url("../img/wed2.jpg"); }
+  section.animation #part-2 .img-1 {
+    background-image: url("../img/fall.jpg"); }
+  section.animation #part-2 .img-2 {
+    background-image: url("../img/hair.jpg"); }
+  section.animation #part-2 .img-3 {
+    background-image: url("../img/wed3.jpg"); }
+  section.animation #part-3 .img-1 {
+    background-image: url("../img/outgoing.jpg"); }
+  section.animation #part-3 .img-2 {
+    background-image: url("../img/woman.jpg"); }
+  section.animation #part-3 .img-3 {
+    background-image: url("../img/nature.jpg"); }
+  section.animation #part-4 .img-1 {
+    background-image: url("../img/wed1.jpg"); }
+  section.animation #part-4 .img-2 {
+    background-image: url("../img/wed2.jpg"); }
+  section.animation #part-4 .img-3 {
+    background-image: url("../img/hair.jpg"); }
+  section.animation #part-5 .img-1 {
+    background-image: url("../img/woman.jpg"); }
+  section.animation #part-5 .img-2 {
+    background-image: url("../img/wed3.jpg"); }
+  section.animation #part-5 .img-3 {
+    background-image: url("../img/fall.jpg"); }
+  section.animation #part-6 .img-1 {
+    background-image: url("../img/hair.jpg"); }
+  section.animation #part-6 .img-2 {
+    background-image: url("../img/fall.jpg"); }
+  section.animation #part-6 .img-3 {
+    background-image: url("../img/wed1.jpg"); }
 
 @media screen and (min-width: 721px) and (max-width: 1080px) {
-    .carousel {
-        width: 90%;
-        text-align: center;
-        margin: 20px auto;
-    }
-    
-    .stop {
-        width: 240px;
-        height: 240px;
-    }
-}
+  section.animation .part {
+    width: 240px; } }
+@media screen and (max-width: 720px) {
+  section.animation .part {
+    width: 180px; } }
 
-@media screen and (min-width: 1081px) {
-    .carousel {
-        width: 90%;
-        text-align: center;
-        margin: 20px auto;
-    }
-    
-    .stop {
-        width: 320px;
-        height: 320px;
-    }
-}
+/*# sourceMappingURL=carousel.css.map */
